@@ -11,31 +11,31 @@ Installation
 ------------
 
 Physical Mapping:
-* openstack0, em1: switch stack, 2:01
-* openstack0, p5p1: switch stack, 2:11
-* openstack1, em1: switch stack, 2:10
-* openstack1, p5p1: switch stack, 2:13
-* openstack2, em1: switch stack, 2:19
-* openstack2, p5p1: switch stack, 2:21
+* `openstack0`, em1: switch stack, 2:01
+* `openstack0`, p5p1: switch stack, 2:11
+* `openstack1`, em1: switch stack, 2:10
+* `openstack1`, p5p1: switch stack, 2:13
+* `openstack2`, em1: switch stack, 2:19
+* `openstack2`, p5p1: switch stack, 2:21
 
 VLANs:
 - 001 (default VLAN): for remote control (SSH).
   - Addresses: 172.18.3.0/24 (http://wiki.sj.ifsc.edu.br/wiki/index.php/Faixa_172.18.3.0).
-    - openstack0, em1, untagged: .200.
-    - openstack1, em1, untagged: .201.
-    - openstack2, em1, untagged: .202.
+    - `openstack0`, em1, untagged: .200.
+    - `openstack1`, em1, untagged: .201.
+    - `openstack2`, em1, untagged: .202.
 - 450:
   - Services: control, centralized database, messages.
   - Addresses: 10.45.0.0/24.
-    - openstack0, em1, tagged: .200.
-    - openstack1, em1, tagged: .201.
-    - openstack2, em1, tagged: .202.
+    - `openstack0`, em1, tagged: .200.
+    - `openstack1`, em1, tagged: .201.
+    - `openstack2`, em1, tagged: .202.
 - 451:
   - Services: storage.
   - Addressess: 10.45.1.0/24.
-    - openstack0, em1, tagged: .200.
-    - openstack1, em1, tagged: .201.
-    - openstack2, em1, tagged: .202.
+    - `openstack0`, em1, tagged: .200.
+    - `openstack1`, em1, tagged: .201.
+    - `openstack2`, em1, tagged: .202.
 
 Operating System:
 - Distribution: Ubuntu Server 14.04 LTS.
@@ -45,15 +45,15 @@ Operating System:
   - Primary: LVM, remaining disk space.
     - LV, swap, 1 GB.
 
-Network and remote access: as the machines will stay out of physical access, the SSH server was installed with the operating system - DNs server was also installed in openstack0 to make things easier in the beginning. Some files were manually created to do so.
+Network and remote access: as the machines will stay out of physical access, the SSH server was installed with the operating system - DNs server was also installed in `openstack0` to make things easier in the beginning. Some files were manually created to do so.
 
 Initial files:
-- openstack0, `/etc/hostname`:
+- `openstack0`, `/etc/hostname`:
 ```
 openstack0
 ```
 
-- openstack0, `/etc/hosts`:
+- `openstack0`, `/etc/hosts`:
 ```
 127.0.0.1 localhost openstack0.openstack.sj.ifsc.edu.br openstack0
 
@@ -62,7 +62,7 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 ```
 
-- openstack0, `/etc/network/interfaces`:
+- `openstack0`, `/etc/network/interfaces`:
 ```
 auto lo
 iface lo inet loopback
@@ -88,12 +88,12 @@ iface vlan451 inet static
 	netmask 255.255.255.0
 ```
 
-- openstack1, `/etc/hostname`:
+- `openstack1`, `/etc/hostname`:
 ```
 openstack1
 ```
 
-- openstack1, `/etc/hosts`:
+- `openstack1`, `/etc/hosts`:
 ```
 127.0.0.1 localhost openstack1.openstack.sj.ifsc.edu.br openstack1
 
@@ -102,7 +102,7 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 ```
 
-- openstack1, `/etc/network/interfaces`:
+- `openstack1`, `/etc/network/interfaces`:
 ```
 auto lo
 iface lo inet loopback
@@ -128,12 +128,12 @@ iface vlan451 inet static
 	netmask 255.255.255.0
 ```
 
-- openstack2, `/etc/hostname`:
+- `openstack2`, `/etc/hostname`:
 ```
 openstack2
 ```
 
-- openstack2, `/etc/hosts`:
+- `openstack2`, `/etc/hosts`:
 ```
 127.0.0.1 localhost openstack2.openstack.sj.ifsc.edu.br openstack2
 
@@ -142,7 +142,7 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 ```
 
-- openstack2, `/etc/network/interfaces`:
+- `openstack2`, `/etc/network/interfaces`:
 ```
 auto lo
 iface lo inet loopback
@@ -185,11 +185,11 @@ blacklist nvidia
 and rebooted (I hate to do this, but it's safer to do).
 
 # Puppet
-Installed Puppet master in openstack0:
+Installed Puppet master in `openstack0`:
 ```
 aptitude install puppetmaster
 ```
-and agents in openstack1 and openstack2:
+and agents in `openstack1` and `openstack2`:
 ```
 aptitude install puppet
 ```
@@ -210,17 +210,17 @@ According to https://github.com/puppetlabs/puppet/commit/fc78774, there is a iss
 ```
 
 ### Putting all together
-- Put, in every agent, to wait for the master:
+- Put, in `openstack1` and `openstack2`, to wait for the master:
 ```
 puppet agent --waitforcert 60
 puppet agent --test
 ```
-- In the master:
+- In the master (`openstack0`):
 ```
 puppet cert sign openstack1.sj.ifsc.edu.br
 puppet cert sign openstack2.sj.ifsc.edu.br
 ```
-- And, finally, in each agent:
+- And, finally, in `openstack0`, `openstack1` and `openstack2`:
 ```
 puppet agent --enable
 puppet agent --test

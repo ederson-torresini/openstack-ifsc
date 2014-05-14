@@ -1,0 +1,39 @@
+# Based on http://wiki.sj.ifsc.edu.br/wiki/index.php/CTIC:Servidores#SSH
+
+Port 22
+Protocol 2
+
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_dsa_key
+
+UsePrivilegeSeparation yes
+StrictModes yes
+
+KeyRegenerationInterval 3600
+ServerKeyBits 768
+AcceptEnv LANG LC_*
+PrintLastLog yes
+
+TCPKeepAlive yes
+ClientAliveInterval 30
+ClientAliveCountMax 4
+
+SyslogFacility AUTH
+LogLevel INFO
+
+LoginGraceTime 120
+PermitRootLogin yes
+Allowusers root rturnes etorresini
+RSAAuthentication yes
+PubkeyAuthentication yes
+AuthorizedKeysFile   %h/.ssh/authorized_keys
+IgnoreRhosts yes
+RhostsRSAAuthentication no
+HostbasedAuthentication no
+PermitEmptyPasswords no
+ChallengeResponseAuthentication no
+PasswordAuthentication no
+
+UsePAM yes
+
+Subsystem sftp /usr/lib/openssh/sftp-server

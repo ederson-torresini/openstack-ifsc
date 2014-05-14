@@ -1,0 +1,16 @@
+acl openstack {
+	127.0.0.1/32;
+	172.18.3.200/32;
+	172.18.3.201/32;
+	172.18.3.202/32;
+};
+
+options {
+	directory "/var/cache/bind";
+    auth-nxdomain no;
+    listen-on { any; };
+    listen-on-v6 { any; };
+    allow-query { any; };
+    allow-query-cache { any; };
+	allow-recursion { openstack; };
+};

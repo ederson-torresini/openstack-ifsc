@@ -45,6 +45,8 @@ Operating System:
   - Primary: LVM, remaining disk space.
     - LV, swap, 1 GB.
 
+Local users: `boidacarapreta` and `turnes`, both with primary group `git` and default configuration.
+
 Network and remote access: as the machines will stay out of physical access, the SSH server was installed with the operating system - DNs server was also installed in `openstack0` to make things easier in the beginning. Some files were manually created to do so.
 
 Initial files:
@@ -232,13 +234,13 @@ Ok, now mast and agents can communicate. Now, it's time to combine Puppet and gi
 ```
 cd /etc
 git clone https://github.com/boidacarapreta/openstack-ifsc.git
-mv puppet/* openstack-ifsc/puppet/
-rmdir puppet
+mv puppet/* openstack-ifsc/
 ln -s openstack-ifsc/puppet puppet
 ```
 Because there are two editors, @turnes and me (@boidacarapreta), it was necessary to change file modes:
 ```
-chmod g+rwx /etc/openstack/puppet
+chgrp -R git /etc/openstack-ifsc/
+chmod -R g+w /etc/openstack-ifsc/
 ```
 
 ## Internal services

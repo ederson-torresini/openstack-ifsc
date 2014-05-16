@@ -1,5 +1,4 @@
 class ssh {
-
 	package { 'openssh-server':
 		ensure => installed,
 		before => File['sshd_config'],

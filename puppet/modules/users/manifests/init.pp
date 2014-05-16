@@ -1,5 +1,4 @@
 class users {
-
 	group { 'rturnes':
 		ensure => 'absent',
 		gid => '1000',

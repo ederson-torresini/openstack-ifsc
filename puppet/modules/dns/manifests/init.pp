@@ -1,5 +1,4 @@
 class dns {
-
 	package { 'bind9':
 		ensure => installed,
 		before => File['named.conf', 'named.conf.options', 'named.conf.local', 'openstack.sj.ifsc.edu.br'],

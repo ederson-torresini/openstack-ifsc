@@ -1,6 +1,5 @@
 class snmp {
-
-    package { 'snmpd':
+	package { 'snmpd':
         ensure => installed,
         before => File['snmpd.conf'],
     }

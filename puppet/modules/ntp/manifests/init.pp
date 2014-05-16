@@ -1,5 +1,4 @@
 class ntp {
-
 	package { 'ntp':
 		ensure => installed,
 		before => File['ntp.conf'],

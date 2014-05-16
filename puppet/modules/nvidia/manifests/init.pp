@@ -1,5 +1,4 @@
 class nvidia {
-
 	file { 'nvidia.conf':
 		path => '/etc/modprobe.d/nvidia.conf',
 		ensure => file,

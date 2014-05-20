@@ -1,4 +1,5 @@
 class snmp {
+
 	package { 'snmpd':
         ensure => installed,
         before => File['snmpd.conf'],
@@ -20,4 +21,6 @@ class snmp {
         group => root,
         mode => 0644,
     }
+
 }
+

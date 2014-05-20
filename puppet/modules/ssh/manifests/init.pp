@@ -1,4 +1,5 @@
 class ssh {
+
 	package { 'openssh-server':
 		ensure => installed,
 		before => File['sshd_config'],
@@ -20,4 +21,6 @@ class ssh {
 		group => root,
 		mode => 0640,
 	}
+
 }
+

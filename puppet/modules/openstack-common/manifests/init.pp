@@ -1,4 +1,5 @@
 class openstack-common {
+
 	package { 'python-setuptools':
 		ensure => installed,
 	}
@@ -10,4 +11,5 @@ class openstack-common {
 	package { 'python-keystoneclient':
 		ensure => installed,
 	}
+
 }

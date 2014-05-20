@@ -1,4 +1,5 @@
 class users {
+
 	group { 'rturnes':
 		ensure => 'absent',
 		gid => '1000',
@@ -57,4 +58,6 @@ class users {
 		owner => etorresini,
 		mode => 0400,
 	}
+
 }
+

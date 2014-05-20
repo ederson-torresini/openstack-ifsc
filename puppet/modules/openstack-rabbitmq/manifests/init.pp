@@ -1,4 +1,5 @@
 class openstack-rabbitmq {
+
 	package { 'rabbitmq-server':
 		ensure => installed,
 	}
@@ -7,4 +8,6 @@ class openstack-rabbitmq {
 		ensure => running,
 		enable => true,
 	}
+
 }
+

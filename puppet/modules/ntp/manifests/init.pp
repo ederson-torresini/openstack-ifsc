@@ -1,4 +1,5 @@
 class ntp {
+
 	package { 'ntp':
 		ensure => installed,
 		before => File['ntp.conf'],
@@ -20,4 +21,6 @@ class ntp {
 		group => root,
 		mode => 0644,
 	}
+
 }
+

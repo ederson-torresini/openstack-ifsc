@@ -1,4 +1,5 @@
 class environment {
+
 	package { 'bash-completion':
 		ensure => installed,
 		before => File['.bashrc'],
@@ -40,4 +41,6 @@ class environment {
 		owner	=> root,
 		mode	=> 0600,
 	}
+
 }
+

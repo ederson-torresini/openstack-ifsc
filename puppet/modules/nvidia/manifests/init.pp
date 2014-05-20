@@ -1,4 +1,5 @@
 class nvidia {
+
 	file { 'nvidia.conf':
 		path => '/etc/modprobe.d/nvidia.conf',
 		ensure => file,
@@ -7,4 +8,6 @@ class nvidia {
 		group => root,
 		mode => 0644,
 	}
+
 }
+

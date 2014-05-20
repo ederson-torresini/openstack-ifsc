@@ -1,10 +1,13 @@
 class mysql {
+
 	package { 'mysql-client':
 		ensure => installed,
 	}
+
 	package { 'python-mysqldb':
 		ensure => installed,
 	}
+
 	package { 'mysql-server':
 		ensure => installed,
 		before => File['my.cnf'],
@@ -25,4 +28,6 @@ class mysql {
 		group => root,
 		mode => 0644,
 	}
+
 }
+

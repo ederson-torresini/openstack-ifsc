@@ -1,11 +1,17 @@
 openstack-ifsc
 ==============
 
-The problem to solve: uiild a self-service IaaS for IFSC teachers (class activities) and students (remote labs), including template machines running open-source or proprietary software (with networked key).
+The problem to solve: buid a self-service IaaS for IFSC teachers (class activities) and students (remote labs), including template machines running open-source or proprietary software (with networked key).
 
 What we have:
 -  3 x HP Z220: 1 x Intel Xeon E3-1225v2, 4 x4 GB, 1 x SATA 1 TB @ 7.2K RPM, 2 x Gigabit Ethernet (Intel 82579LM, em1,  and Realtek RTL8169, p5p1).
 - 2 x D-Link DGS-3100-24 (stacked).
+
+What we'll do:
+- 1 x controller, which runs the following services: SQL database, message queue, identity and dashboard.
+- 2 x compute nodes running: image, object storage, block storage, compute, network .
+Note: as each machine has locally  1 TB (and no RAID!), will be used Gluster (http://www.gluster.org) to gain performance and availability.
+
 
 Installation
 ------------

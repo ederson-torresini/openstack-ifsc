@@ -1,6 +1,6 @@
 $TTL	86400
 @			IN	SOA		dns.openstack.sj.ifsc.edu.br. dnsadmin.openstack.sj.ifsc.edu.br. (
-		2014051402
+		2014052001
 			 86400
 			  3600
 			604800
@@ -11,10 +11,12 @@ dns			IN	A		10.45.0.200
 
 openstack0	IN	A		10.45.0.200
 puppet		IN	CNAME	openstack0
-ldap		IN	CNAME	openstack0
+controller	IN	CNAME	openstack0
 mysql		IN	CNAME	openstack0
+rabbitmq	IN	CNAME	openstack0
 keystone	IN	CNAME	openstack0
 
 openstack1	IN	A		10.45.0.201
 
 openstack2	IN	A		10.45.0.202
+

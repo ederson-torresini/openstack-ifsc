@@ -2,3 +2,4 @@ zone "openstack.sj.ifsc.edu.br" {
 	type master;
 	file "/etc/bind/openstack.sj.ifsc.edu.br";
 };
+

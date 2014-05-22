@@ -1,3 +1,13 @@
+# Puppet Agent
+package { 'puppet':
+	ensure => installed,
+}
+
+service { 'puppet':
+	ensure => running,
+	enable => true,
+}
+
 # Drivers
 include nvidia
 
@@ -8,6 +18,9 @@ include environment
 # Basic services
 include ntp
 include ssh
+
+# Ceph
+include ceph-common
 
 # OpenStack
 include openstack-common
@@ -35,15 +48,6 @@ node "openstack0" {
 }
 
 node "openstack1", "openstack2" {
-
-	package { 'puppet':
-		ensure => installed,
-	}
-
-	service { 'puppet':
-		ensure => running,
-		enable => true,
-	}
 
 }
 

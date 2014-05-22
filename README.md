@@ -9,7 +9,7 @@ What we have:
 
 What we'll do:
 - 1 x controller, which runs the following services: SQL database, message queue, identity and dashboard.
-- 2 x compute nodes running: image, object storage, block storage, compute, network .
+- 2 x compute nodes running: image, object storage, block storage, compute, network.
 Note: as each machine has locally  1 TB (and no RAID!), will be used Ceph (http://ceph.com) to gain performance, availability and, specially, a common backend for image, object and block storage without any SPOF.
 
 

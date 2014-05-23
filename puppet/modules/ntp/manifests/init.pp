@@ -6,7 +6,7 @@ class ntp {
 	}
 
 	service { 'ntp':
-		name => $service_name,
+		name => 'ntp',
 		ensure => running,
 		enable => true,
 		subscribe => File['ntp.conf'],

@@ -26,29 +26,28 @@ class users {
 	}
 	
 	file { "rturnes:home":
-                path => '/home/rturnes',
-                ensure => directory,
-                owner => rturnes,
-                mode => 0700,
-                before => File['rturnes:.ssh'],
-        }
+		path => '/home/rturnes',
+		ensure => directory,
+		owner => rturnes,
+		mode => 0700,
+		before => File['rturnes:.ssh'],
+	}
 
-        file { "rturnes:.ssh":
-                path => '/home/rturnes/.ssh',
-                ensure => directory,
-                owner => rturnes,
-                mode => 0700,
-                before => File['rturnes:authorized_keys'],
-        }
+	file { "rturnes:.ssh":
+		path => '/home/rturnes/.ssh',
+		ensure => directory,
+		owner => rturnes,
+		mode => 0700,
+		before => File['rturnes:authorized_keys'],
+	}
 
-        file { 'rturnes:authorized_keys':
-                path => '/home/rturnes/.ssh/authorized_keys',
-                ensure => file,
-                source => 'puppet:///modules/users/rturnes:authorized_keys',
-                owner => rturnes,
-                mode => 0400,
-        }
-
+	file { 'rturnes:authorized_keys':
+		path => '/home/rturnes/.ssh/authorized_keys',
+		ensure => file,
+		source => 'puppet:///modules/users/rturnes:authorized_keys',
+		owner => rturnes,
+		mode => 0400,
+	}
 
 	user { 'etorresini':
 		ensure => 'present',

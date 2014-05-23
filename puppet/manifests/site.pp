@@ -44,10 +44,19 @@ node "openstack0" {
 	include mysql
 	include openstack-rabbitmq
 	include openstack-keystone
+	include ceph-openstack0
 
 }
 
-node "openstack1", "openstack2" {
+node "openstack1" {
+
+	include ceph-openstack1
+
+}
+
+node "openstack2" {
+
+	include ceph-openstack2
 
 }
 

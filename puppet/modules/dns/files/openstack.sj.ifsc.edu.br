@@ -1,6 +1,6 @@
 $TTL	86400
 @			IN	SOA		dns.openstack.sj.ifsc.edu.br. dnsadmin.openstack.sj.ifsc.edu.br. (
-		2014052001
+		2014052600
 			 86400
 			  3600
 			604800
@@ -15,6 +15,7 @@ controller	IN	CNAME	openstack0
 mysql		IN	CNAME	openstack0
 rabbitmq	IN	CNAME	openstack0
 keystone	IN	CNAME	openstack0
+glance		IN	CNAME	openstack0
 
 openstack1	IN	A		10.45.0.201
 

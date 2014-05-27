@@ -45,6 +45,7 @@ node "openstack0" {
 	include openstack-rabbitmq
 	include openstack-keystone
 	include ceph-openstack0
+	include openstack-glance
 
 }
 

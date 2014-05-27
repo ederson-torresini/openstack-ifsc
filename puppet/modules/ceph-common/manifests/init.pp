@@ -70,9 +70,31 @@ class ceph-common {
 		],
 	}
 
+	file { 'osd-init.sh':
+		path => '/usr/local/sbin/osd-init.sh',
+		ensure => file,
+		source => 'puppet:///modules/ceph-common/osd-init.sh',
+		owner => root,
+		group => root,
+		mode => 0700,
+	}
+
+	file { 'osd-init.sh:link':
+		path => '/etc/ceph/osd-init.sh',
+		ensure => link,
+		target => '/usr/local/sbin/osd-init.sh',
+		require => File['osd-init.sh'],
+	}
+
+	exec { '/usr/local/sbin/osd-init.sh':
+		require => File['osd-init.sh'],
+		unless => '/bin/grep -q /dev/openstack/ceph /etc/fstab',
+	}
+
 	service { 'ceph-osd-all-starter':
 		enable => true,
 		ensure => running,
+		require => Exec['/usr/local/sbin/osd-init.sh'],
 	}
 
 }

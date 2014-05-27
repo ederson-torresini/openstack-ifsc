@@ -97,13 +97,25 @@ class openstack-glance {
 	}
 
 	exec { '/usr/local/sbin/glance-init.sh':
+		require => Exec['/usr/local/sbin/keystone-init.sh'],
 		subscribe => Exec['/usr/bin/glance-manage db_sync'],
 		refreshonly => true,
 	}
 
+	# Check http://ceph.com/docs/next/rbd/rbd-openstack/?highlight=glance how to create this file.
+	file { 'ceph.client.glance.keyring':
+		path => '/etc/ceph/ceph.client.glance.keyring',
+		ensure => file,
+		source => 'puppet:///modules/openstack-glance/ceph.client.glance.keyring',
+		owner => root,
+		group => glance,
+		mode => 0640,
+		require => Package['ceph'],
+	}
+
 	# Based on http://ceph.com/docs/next/rados/operations/pools/
-	exec { '/usr/bin/ceph osd pool create glance 150':
-		creates => '/etc/glance/ceph-pool.done',
+	exec { '/usr/bin/ceph osd pool create images 128':
+		require => Package['ceph'],
 		subscribe => Exec['/usr/local/sbin/glance-init.sh'],
 		refreshonly => true,
 	}

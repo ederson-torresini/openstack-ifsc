@@ -9,4 +9,4 @@ keystone user-create --name=glance --pass=glance --email=glance@openstack.sj.ifs
 keystone user-role-add --user=glance --tenant=service --role=admin
 
 keystone service-create --name=glance --type=image --description="OpenStack Image Service"
-keystone endpoint-create --service-id=$(keystone service-list | awk '/ image / {print $2}') --publicurl=http://keystone:9292 --internalurl=http://keystone:9292 --adminurl=http://keystone:9292
+keystone endpoint-create --region=IFSC-SJ --service-id=$(keystone service-list | awk '/ image / {print $2}') --publicurl=http://keystone:9292 --internalurl=http://keystone:9292 --adminurl=http://keystone:9292

@@ -25,26 +25,34 @@ class ceph-common {
 		mode => 0600,
 	}
 
+	# See http://ceph.com/docs/master/install/manual-deployment/ how to create this file.
+	file { 'mon.map':
+		path => '/etc/ceph/mon.map',
+		ensure => file,
+		require => Package['ceph'],
+		source => 'puppet:///modules/ceph-common/mon.map',
+		owner => root,
+		group => root,
+		mode => 0600,
+	}
+
 	package { 'lvm2':
 		ensure => installed,
 	}
 
-	exec { 'pvcreate /dev/sda3':
-		path => '/sbin',
+	exec { '/sbin/pvcreate /dev/sda3':
 		creates => '/dev/openstack/ceph',
 		require => Package['lvm2'],
 	}
 
-	exec { 'vgcreate openstack /dev/sda3':
-		path => '/sbin',
+	exec { '/sbin/vgcreate openstack /dev/sda3':
 		creates => '/dev/openstack/ceph',
-		require => Exec['pvcreate /dev/sda3'],
+		require => Exec['/sbin/pvcreate /dev/sda3'],
 	}
 
-	exec { 'lvcreate -n ceph -L 800G openstack':
-		path => '/sbin',
+	exec { '/sbin/lvcreate -n ceph -L 800G openstack':
 		creates => '/dev/openstack/ceph',
-		require => Exec['vgcreate openstack /dev/sda3'],
+		require => Exec['/sbin/vgcreate openstack /dev/sda3'],
 	}
 
 	package { 'xfsprogs':
@@ -52,6 +60,20 @@ class ceph-common {
 	}
 
 	# Check modules/ceph-{node}...
+
+	service { 'ceph-mon-all-starter':
+		enable => true,
+		ensure => running,
+		require => [
+			File['mon:done'],
+			File['mon:upstart'],
+		],
+	}
+
+	service { 'ceph-osd-all-starter':
+		enable => true,
+		ensure => running,
+	}
 
 }
 

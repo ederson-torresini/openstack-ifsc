@@ -10,8 +10,7 @@ What we have:
 What we'll do:
 - 1 controller, which runs the following services: SQL database, message queue, identity, image, object storage, block storage and dashboard.
 - 2 compute nodes running: compute and network.
-
-Note: as each machine has locally  1TB (and no RAID!), will be used 900GB of it for Ceph (http://ceph.com) to gain performance (to test later), availability (test too) and, specially, a common backend for image, object and block storage without any SPOF. It will be 2 replicas of data in the cluster, so we're saying 3 disks x 900 GB / 2 replicas = 1.350 GB.
+- As each machine has locally  1TB (and no RAID!), will be used 800GB of it for Ceph (http://ceph.com) to gain performance (to test later), availability (test too) and, specially, a common backend for image, object and block storage without any SPOF. It will be 2 replicas of data in the cluster, so we're saying 3 disks x 800 GB / 2 replicas = 1200 GB.
 
 Installation
 ------------

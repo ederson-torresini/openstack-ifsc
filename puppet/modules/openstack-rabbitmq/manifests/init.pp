@@ -9,6 +9,12 @@ class openstack-rabbitmq {
 		enable => true,
 	}
 
+	exec { 'guest:change_password':
+		command => '/usr/sbin/rabbitmqctl change_password guest rabbitmq',
+		require => Package['rabbitmq-server'],
+		creates => '/etc/rabbitmq/done',
+	}
+
 	exec { 'adduser':
 		command => '/usr/sbin/rabbitmqctl add_user rabbitmq rabbitmq',
 		require => Package['rabbitmq-server'],
@@ -28,6 +34,9 @@ class openstack-rabbitmq {
 			Exec['adduser'],
 			Exec['set_user_tags'],
 		],
+		owner => root,
+		group => rabbitmq,
+		mode => 0640,
 	}
 
 }

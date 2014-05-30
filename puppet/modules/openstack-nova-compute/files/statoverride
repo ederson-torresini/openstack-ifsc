@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# Copied from http://docs.openstack.org/icehouse/install-guide/install/apt/content/nova-compute.html
+
+PATH="/usr/bin:/usr/sbin:/usr/bin:/bin"
+version="$1"
+# passing the kernel version is required
+[ -z "${version}" ] && exit 0
+dpkg-statoverride --update --add root root 0644 /boot/vmlinuz-${version}
+

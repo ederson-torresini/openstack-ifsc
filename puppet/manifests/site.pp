@@ -46,18 +46,21 @@ node "openstack0" {
 	include openstack-keystone
 	include ceph-openstack0
 	include openstack-glance
+	include openstack-nova-controller
 
 }
 
 node "openstack1" {
 
 	include ceph-openstack1
+	include openstack-nova-compute
 
 }
 
 node "openstack2" {
 
 	include ceph-openstack2
+	include openstack-nova-compute
 
 }
 

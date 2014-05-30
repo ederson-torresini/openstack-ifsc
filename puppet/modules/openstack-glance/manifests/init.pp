@@ -6,7 +6,12 @@ class openstack-glance {
 
 	package { 'glance':
 		ensure => installed,
-		require => Class['mysql'],
+		require => [
+			Class['mysql'],
+			Class['ceph-common'],
+			Class['openstack-rabbitmq'],
+			Class['openstack-keystone'],
+		],
 	}
 
 	service { 'glance-api':

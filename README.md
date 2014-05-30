@@ -8,10 +8,10 @@ What we have:
 - 2 x D-Link DGS-3100-24 (stacked).
 
 What we'll do:
-- 1 x controller, which runs the following services: SQL database, message queue, identity and dashboard.
-- 2 x compute nodes running: image, object storage, block storage, compute, network.
-Note: as each machine has locally  1 TB (and no RAID!), will be used Ceph (http://ceph.com) to gain performance, availability and, specially, a common backend for image, object and block storage without any SPOF.
+- 1 controller, which runs the following services: SQL database, message queue, identity, image, object storage, block storage and dashboard.
+- 2 compute nodes running: compute and network.
 
+Note: as each machine has locally  1TB (and no RAID!), will be used 900GB of it for Ceph (http://ceph.com) to gain performance (to test later), availability (test too) and, specially, a common backend for image, object and block storage without any SPOF. It will be 2 replicas of data in the cluster, so we're saying 3 disks x 900 GB / 2 replicas = 1.350 GB.
 
 Installation
 ------------

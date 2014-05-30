@@ -8,9 +8,9 @@ What we have:
 - 2 x D-Link DGS-3100-24 (stacked).
 
 What we'll do:
-- 1 controller, which runs the following services: SQL database, message queue, identity, image, object storage, block storage and dashboard.
-- 2 compute nodes running: compute and network.
-- As each machine has locally  1TB (and no RAID!), will be used 800GB of it for Ceph (http://ceph.com) to gain performance (to test later), availability (test too) and, specially, a common backend for image, object and block storage without any SPOF. It will be 2 replicas of data in the cluster, so we're saying 3 disks x 800 GB / 2 replicas = 1200 GB.
+- 1 controller, which runs the following services: SQL database, message queue, identity, image, object storage, block storage, dashboard and all service controllers (for compute and networking).
+- 2 compute nodes running: compute and network nodes.
+- As each machine has locally  1 TB (and no RAID!), will be used 800 GB of it for Ceph (http://ceph.com) to gain performance (to test later), availability (test too) and, specially, a common backend for image, object and block storage without any SPOF. It will be 2 replicas of data in the cluster, so we're saying 3 disks x 800 GB / 2 replicas = 1200 GB.
 
 Installation
 ------------
@@ -24,11 +24,15 @@ Physical Mapping:
 * `openstack2`, p5p1: switch stack, 2:21
 
 VLANs:
-- 001 (default VLAN): for remote control (SSH).
+- 001 (default VLAN):
+  - Services: remote control (em1) and VMs networks (p5p1).
   - Addresses: 172.18.3.0/24 (http://wiki.sj.ifsc.edu.br/wiki/index.php/Faixa_172.18.3.0).
     - `openstack0`, em1, untagged: .200.
+    - `openstack0`, p5p1, untagged: no address.
     - `openstack1`, em1, untagged: .201.
+    - `openstack1`, p5p1, untagged: no address.
     - `openstack2`, em1, untagged: .202.
+    - `openstack2`, p5p1, untagged: no address.
 - 450:
   - Services: control, centralized database, messages.
   - Addresses: 10.45.0.0/24.
@@ -47,8 +51,10 @@ Operating System:
 - Partitioning:
   - Primary: /boot, ext4, 100MB.
   - Primary: /, ext4, 10 GB.
-  - Primary: LVM, remaining disk space.
-    - LV, swap, 1 GB.
+  - Primary: PV LVM, remaining disk space.
+    - VG `openstack`.
+      - LV `swap`, swap, 1 GB.
+      - LV `ceph`, xfs, 800 GB.
 
 Local users: `boidacarapreta` and `turnes`, both with primary group `git` and default configuration.
 
@@ -133,6 +139,9 @@ iface vlan451 inet static
 	vlan-raw-device em1
 	address 10.45.1.201
 	netmask 255.255.255.0
+
+auto p5p1
+iface p5p1 inet manual
 ```
 
 - `openstack2`, `/etc/hostname`:
@@ -173,6 +182,9 @@ iface vlan451 inet static
 	vlan-raw-device em1
 	address 10.45.1.202
 	netmask 255.255.255.0
+
+auto p5p1
+iface p5p1 inet manual
 ```
 
 And, to activate (repeated in all hosts):
@@ -181,8 +193,7 @@ ifdown em1
 ifup em1
 aptitude update
 aptitude install vlan
-ifup vlan450
-ifup vlan451
+ifup -a
 ```
 
 Uh-oh! Somehow, video card (nVidia) have some unknown issue when used with open-source drive [nouveau](http://nouveau.freedesktop.org/wiki/) (don't ask me why yet :-). Deactivated with file `/etc/modprobe.d/nvidia.conf`:

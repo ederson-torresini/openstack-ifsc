@@ -47,6 +47,7 @@ node "openstack0" {
 	include ceph-openstack0
 	include openstack-glance
 	include openstack-nova-controller
+	include openstack-neutron-controller
 
 }
 

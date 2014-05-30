@@ -7,10 +7,11 @@ class openstack-rabbitmq {
 	service { 'rabbitmq-server':
 		ensure => running,
 		enable => true,
+		subscribe => Exec['plugins'],
 	}
 
-	exec { 'guest:change_password':
-		command => '/usr/sbin/rabbitmqctl change_password guest rabbitmq',
+	exec { 'add_vhost':
+		command => '/usr/sbin/rabbitmqctl add_vhost openstack-ifsc',
 		require => Package['rabbitmq-server'],
 		creates => '/etc/rabbitmq/done',
 	}
@@ -27,12 +28,35 @@ class openstack-rabbitmq {
 		creates => '/etc/rabbitmq/done',
 	}
 
+	exec { 'set_permissions':
+		command => '/usr/sbin/rabbitmqctl set_permissions -p openstack-ifsc rabbitmq ".*" ".*" ".*"',
+		creates => '/etc/rabbitmq/done',
+	}
+
+	exec { 'plugins':
+		command => '/usr/sbin/rabbitmq-plugins enable rabbitmq_management',
+		creates => '/etc/rabbitmq/done',
+	}
+
+	file { 'rabbitmqadmin':
+		path => '/usr/local/sbin/rabbitmqadmin',
+		ensure => file,
+		source => 'puppet:///modules/openstack-rabbitmq/rabbitmqadmin',
+		owner => root,
+		group => rabbitmq,
+		mode => 0750,
+	}
+
 	file { 'rabbitmq:done':
 		path => '/etc/rabbitmq/done',
 		ensure => file,
 		require => [
+			Exec['add_vhost'],
 			Exec['adduser'],
 			Exec['set_user_tags'],
+			Exec['set_permissions'],
+			Exec['plugins'],
+			File['rabbitmqadmin']
 		],
 		owner => root,
 		group => rabbitmq,

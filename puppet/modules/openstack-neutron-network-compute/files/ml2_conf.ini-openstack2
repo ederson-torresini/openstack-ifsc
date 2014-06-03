@@ -12,6 +12,11 @@ tunnel_id_ranges = 1:1000
 
 [ml2_type_vxlan]
 
+[ovs]
+local_ip = 10.45.2.202
+tunnel_type = gre
+enable_tunneling = True
+
 [securitygroup]
 firewall_driver = neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver
 enable_security_group = True

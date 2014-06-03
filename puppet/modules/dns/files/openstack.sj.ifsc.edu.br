@@ -1,6 +1,6 @@
 $TTL	86400
 @					IN	SOA		dns.openstack.sj.ifsc.edu.br. dnsadmin.openstack.sj.ifsc.edu.br. (
-			2014053003
+			2014602000
 				 86400
 				  3600
 				604800
@@ -28,10 +28,10 @@ neutron-controller	IN	CNAME	openstack0
 openstack1			IN	A		10.45.0.201
 nova-compute0		IN	CNAME	openstack1
 neutron-network0	IN	CNAME	openstack1
-neutron-node0		IN	CNAME	openstack1
+neutron-compute0	IN	CNAME	openstack1
 
 openstack2			IN	A		10.45.0.202
 nova-compute1		IN	CNAME	openstack2
 neutron-network1	IN	CNAME	openstack2
-neutron-node1		IN	CNAME	openstack2
+neutron-compute1	IN	CNAME	openstack2
 

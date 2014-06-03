@@ -55,6 +55,7 @@ node "openstack1" {
 
 	include ceph-openstack1
 	include openstack-nova-compute
+	include openstack-neutron-network-compute
 
 }
 
@@ -62,6 +63,7 @@ node "openstack2" {
 
 	include ceph-openstack2
 	include openstack-nova-compute
+	include openstack-neutron-network-compute
 
 }
 

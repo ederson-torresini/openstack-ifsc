@@ -14,12 +14,6 @@ class openstack-neutron-controller {
 		ensure => installed,
 	}
 
-	service { 'neutron-server':
-		ensure => running,
-		enable => true,
-		subscribe => File['neutron.conf'],
-	}
-
 	file { 'neutron.conf':
 		path => '/etc/neutron/neutron.conf',
 		ensure => file,
@@ -28,6 +22,25 @@ class openstack-neutron-controller {
 		owner => root,
 		group => neutron,
 		mode => 0640,
+	}
+
+	file { 'ml2_conf.ini':
+		path => '/etc/neutron/plugins/ml2/ml2_conf.ini',
+		ensure => file,
+		source => 'puppet:///modules/openstack-neutron-controller/ml2_conf.ini',
+		owner => root,
+		group => neutron,
+		mode => 0640,
+		require => Package['neutron-plugin-ml2'],
+	}
+
+	service { 'neutron-server':
+		ensure => running,
+		enable => true,
+		subscribe => [
+			File['neutron.conf'],
+			File['ml2_conf.ini'],
+		],
 	}
 
 	file { '/var/lib/neutron/neutron.sqlite':

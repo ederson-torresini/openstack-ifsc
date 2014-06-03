@@ -48,6 +48,7 @@ node "openstack0" {
 	include openstack-glance
 	include openstack-nova-controller
 	include openstack-neutron-controller
+	include openstack-horizon
 
 }
 

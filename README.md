@@ -53,7 +53,6 @@ Operating System:
   - Primary: /, ext4, 10 GB.
   - Primary: PV LVM, remaining disk space.
     - VG `openstack`.
-      - LV `swap`, swap, 1 GB.
       - LV `ceph`, xfs, 800 GB.
 
 Local users: `boidacarapreta` and `turnes`, both with primary group `git` and default configuration.

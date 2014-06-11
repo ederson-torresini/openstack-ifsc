@@ -65,7 +65,7 @@ class openstack-horizon {
 
 	exec { 'conf-enable':
 		command => '/usr/sbin/a2enconf horizon',
-		creates => '/etc/apache2/conf-enabled/horizon',
+		creates => '/etc/apache2/conf-enabled/horizon.conf',
 		require => File['apache2.conf'],
 	}
 

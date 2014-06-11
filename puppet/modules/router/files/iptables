@@ -1,0 +1,23 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:   iptables
+# Required-Start:   $all
+# Required-Stop:
+# Default-Start:	 2 3 4 5
+# Default-Stop:
+# Short-Description: packet filter
+### END INIT INFO
+
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+
+case "$1" in
+	start|restart|reload|force-reload|stop)
+		/usr/local/sbin/iptables.sh
+		;;
+	*)
+		echo "Usage: $0 (start|restart|reload|force-reload|stop)" >&2
+		exit 1
+	;;
+esac
+

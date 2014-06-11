@@ -10,6 +10,11 @@ class users {
 		gid => '1001',
 	}
 
+	group { 'humbertos':
+		ensure => 'absent',
+		gid => '1002',
+	}
+
 	group { 'git':
 		ensure => 'present',
 		gid => '10000',
@@ -30,7 +35,6 @@ class users {
 		ensure => directory,
 		owner => rturnes,
 		mode => 0700,
-		before => File['rturnes:.ssh'],
 	}
 
 	file { "rturnes:.ssh":
@@ -38,7 +42,7 @@ class users {
 		ensure => directory,
 		owner => rturnes,
 		mode => 0700,
-		before => File['rturnes:authorized_keys'],
+		require => File['rturnes:home'],
 	}
 
 	file { 'rturnes:authorized_keys':
@@ -47,6 +51,7 @@ class users {
 		source => 'puppet:///modules/users/rturnes:authorized_keys',
 		owner => rturnes,
 		mode => 0400,
+		require => File['rturnes:.ssh'],
 	}
 
 	user { 'etorresini':
@@ -64,7 +69,6 @@ class users {
 		ensure => directory,
 		owner => etorresini,
 		mode => 0700,
-		before => File['etorresini:.ssh'],
 	}
 
 	file { "etorresini:.ssh":
@@ -72,7 +76,7 @@ class users {
 		ensure => directory,
 		owner => etorresini,
 		mode => 0700,
-		before => File['etorresini:authorized_keys'],
+		require => File['etorresini:home'],
 	}
 
 	file { 'etorresini:authorized_keys':
@@ -81,6 +85,41 @@ class users {
 		source => 'puppet:///modules/users/etorresini:authorized_keys',
 		owner => etorresini,
 		mode => 0400,
+		require => File['etorresini:.ssh'],
+	}
+
+	user { 'humbertos':
+		ensure => 'present',
+		comment => 'Humberto Jose de Souza',
+		gid => '10000',
+		groups => ['adm', 'sudo'],
+		home => '/home/humbertos',
+		shell => '/bin/bash',
+		uid => '1002',
+	}
+
+	file { "humbertos:home":
+		path => '/home/humbertos',
+		ensure => directory,
+		owner => humbertos,
+		mode => 0700,
+	}
+
+	file { "humbertos:.ssh":
+		path => '/home/humbertos/.ssh',
+		ensure => directory,
+		owner => humbertos,
+		mode => 0700,
+		require => File['humbertos:home'],
+	}
+
+	file { 'humbertos:authorized_keys':
+		path => '/home/humbertos/.ssh/authorized_keys',
+		ensure => file,
+		source => 'puppet:///modules/users/humbertos:authorized_keys',
+		owner => humbertos,
+		mode => 0400,
+		require => File['humbertos:.ssh'],
 	}
 
 }

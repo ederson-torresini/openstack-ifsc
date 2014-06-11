@@ -42,7 +42,7 @@ except ImportError:
 
 LOGIN_URL='/horizon/auth/login/'
 LOGOUT_URL='/horizon/auth/logout/'
-LOGIN_REDIRECT_URL='/horizon'
+LOGIN_REDIRECT_URL='https://dashboard.openstack.sj.ifsc.edu.br/horizon/admin/'
 COMPRESS_OFFLINE = True
 ALLOWED_HOSTS = '*'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

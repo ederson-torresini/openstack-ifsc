@@ -22,8 +22,8 @@ SyslogFacility AUTH
 LogLevel INFO
 
 LoginGraceTime 120
-PermitRootLogin yes
-Allowusers root rturnes etorresini
+PermitRootLogin no
+Allowusers rturnes etorresini humbertos
 RSAAuthentication yes
 PubkeyAuthentication yes
 AuthorizedKeysFile   %h/.ssh/authorized_keys
@@ -37,3 +37,4 @@ PasswordAuthentication no
 UsePAM yes
 
 Subsystem sftp /usr/lib/openssh/sftp-server
+

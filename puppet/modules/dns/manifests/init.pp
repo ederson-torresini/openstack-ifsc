@@ -2,54 +2,47 @@ class dns {
 
 	package { 'bind9':
 		ensure => installed,
-		before => File['named.conf', 'named.conf.options', 'named.conf.local', 'openstack.sj.ifsc.edu.br'],
 	}
 
 	service { 'bind9':
 		name => 'bind9',
 		ensure => running,
 		enable => true,
-		subscribe => File['named.conf', 'named.conf.options', 'named.conf.local', 'openstack.sj.ifsc.edu.br'],
+		subscribe => [
+			File['named.conf'],
+			File['openstack.sj.ifsc.edu.br-internal'],
+			File['openstack.sj.ifsc.edu.br-external'],
+		],
 	}
 
 	file { 'named.conf':
 		path => '/etc/bind/named.conf',
 		ensure => file,
-		require => Package['bind9'],
 		source => 'puppet:///modules/dns/named.conf',
 		owner => root,
 		group => bind,
 		mode => 0640,
+		require => Package['bind9'],
 	}
 
-	file { 'named.conf.options':
-		path => '/etc/bind/named.conf.options',
+	file { 'openstack.sj.ifsc.edu.br-internal':
+		path => '/etc/bind/openstack.sj.ifsc.edu.br-internal',
 		ensure => file,
-		require => Package['bind9'],
-		source => 'puppet:///modules/dns/named.conf.options',
+		source => 'puppet:///modules/dns/openstack.sj.ifsc.edu.br-internal',
 		owner => root,
 		group => bind,
 		mode => 0640,
+		require => Package['bind9'],
 	}
 
-	file { 'named.conf.local':
-		path => '/etc/bind/named.conf.local',
+	file { 'openstack.sj.ifsc.edu.br-external':
+		path => '/etc/bind/openstack.sj.ifsc.edu.br-external',
 		ensure => file,
-		require => Package['bind9'],
-		source => 'puppet:///modules/dns/named.conf.local',
+		source => 'puppet:///modules/dns/openstack.sj.ifsc.edu.br-external',
 		owner => root,
 		group => bind,
 		mode => 0640,
-	}
-
-	file { 'openstack.sj.ifsc.edu.br':
-		path => '/etc/bind/openstack.sj.ifsc.edu.br',
-		ensure => file,
 		require => Package['bind9'],
-		source => 'puppet:///modules/dns/openstack.sj.ifsc.edu.br',
-		owner => root,
-		group => bind,
-		mode => 0640,
 	}
 
 }

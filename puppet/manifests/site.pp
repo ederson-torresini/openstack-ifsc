@@ -11,12 +11,13 @@ include users
 include environment
 include ntp
 include ssh
-include snmp
+include snmp-agent
 
 node "roteador" {
 
 	include router
 	include nginx
+	include snmp-manager
 
 }
 
@@ -42,6 +43,8 @@ node "openstack0" {
 	include openstack-glance
 	include openstack-nova-controller
 	include openstack-neutron-controller
+	include openstack-cinder-common
+	include openstack-cinder-controller
 	include openstack-horizon
 
 }
@@ -54,6 +57,8 @@ node "openstack1" {
 	include openstack-common
 	include openstack-nova-compute
 	include openstack-neutron-network-compute
+	include openstack-cinder-common
+	include openstack-cinder-node
 
 }
 
@@ -65,6 +70,8 @@ node "openstack2" {
 	include openstack-common
 	include openstack-nova-compute
 	include openstack-neutron-network-compute
+	include openstack-cinder-common
+	include openstack-cinder-node
 
 }
 

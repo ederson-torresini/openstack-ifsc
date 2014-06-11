@@ -85,8 +85,7 @@ class openstack-neutron-network-compute {
 	}
 
 	service { 'neutron-dhcp-agent':
-		#ensure => running,
-		ensure => stopped,
+		ensure => running,
 		enable => true,
 		subscribe => [
 			File['neutron.conf'],

@@ -6,7 +6,6 @@ class openstack-neutron-controller {
 			Class['mysql'],
 			Class['openstack-rabbitmq'],
 			Class['openstack-keystone'],
-			
 		],
 	}
 

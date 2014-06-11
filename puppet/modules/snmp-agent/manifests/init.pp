@@ -1,4 +1,4 @@
-class snmp {
+class snmp-agent {
 
 	package { 'snmpd':
         ensure => installed,
@@ -16,7 +16,7 @@ class snmp {
         path => '/etc/snmp/snmpd.conf',
         ensure => file,
         require => Package['snmpd'],
-        source => 'puppet:///modules/snmp/snmpd.conf',
+        source => 'puppet:///modules/snmp-agent/snmpd.conf',
         owner => root,
         group => root,
         mode => 0644,

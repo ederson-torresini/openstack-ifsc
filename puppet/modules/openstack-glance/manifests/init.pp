@@ -114,7 +114,7 @@ class openstack-glance {
 		source => 'puppet:///modules/openstack-glance/ceph.client.glance.keyring',
 		owner => root,
 		group => glance,
-		mode => 0640,
+		mode => 0644,
 		require => Package['ceph'],
 	}
 

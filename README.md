@@ -85,6 +85,9 @@ roteador
 ```
 127.0.0.1	localhost
 200.135.233.253	roteador.openstack.sj.ifsc.edu.br	roteador
+200.135.233.200	openstack0.openstack.sj.ifsc.edu.br openstack0 puppet dashboard rabbitmq
+200.135.233.201	openstack1.openstack.sj.ifsc.edu.br openstack1
+200.135.233.202	openstack2.openstack.sj.ifsc.edu.br openstack2
 
 # The following lines are desirable for IPv6 capable hosts
 ::1     localhost ip6-localhost ip6-loopback
@@ -101,25 +104,23 @@ iface lo inet loopback
 # DMZ
 auto eth0
 iface eth0 inet static
-	address 200.135.233.253
-	netmask 255.255.255.252
-	gateway 200.135.233.254
+    address 200.135.233.253
+    netmask 255.255.255.252
+    gateway 200.135.233.254
 
 # OpenStack-IFSC: real
 auto eth1
 iface eth1 inet static
-	address 200.135.233.206
-	netmask 255.255.255.240
-	dns-search openstack.sj.ifsc.edu.br
-	dns-nameservers 200.135.233.200
-	post-up route add -net 10.45.0.192/28 gw 200.135.233.200
-	pre-down route del -net 10.45.0.192/28 gw 200.135.233.200
+    address 200.135.233.206
+    netmask 255.255.255.240
+    dns-search openstack.sj.ifsc.edu.br
+    dns-nameservers 200.135.233.200
 
 # OpenStack-IFSC: VMs
 auto eth2
 iface eth2 inet static
-	address 200.135.233.126
-	netmask 255.255.255.128
+    address 200.135.233.126
+    netmask 255.255.255.128
 ```
 
 - `openstack0`, `/etc/hostname`:
@@ -141,29 +142,34 @@ ff02::2 ip6-allrouters
 # Loopback
 auto lo
 iface lo inet loopback
-	dns-search openstack.sj.ifsc.edu.br
-	dns-nameservers 127.0.0.1
+    dns-search openstack.sj.ifsc.edu.br
+    dns-nameservers 127.0.0.1
+
+# Onboard interface
+auto em1
+iface em1 inet manual
 
 # Remote access
-auto em1
-iface em1 inet static
-	address 200.135.233.200
-	netmask 255.255.255.240
-	gateway 200.135.233.254
+auto vlan449
+iface vlan449 inet static
+    vlan-raw-device em1
+    address 200.135.233.200
+    netmask 255.255.255.240
+    gateway 200.135.233.206
 
 # Management
 auto vlan450
 iface vlan450 inet static
-	vlan-raw-device em1
-	address 10.45.0.200
-	netmask 255.255.255.0
+    vlan-raw-device em1
+    address 10.45.0.200
+    netmask 255.255.255.0
 
 # Storage
 auto vlan451
 iface vlan451 inet static
-	vlan-raw-device em1
-	address 10.45.1.200
-	netmask 255.255.255.0
+    vlan-raw-device em1
+    address 10.45.1.200
+    netmask 255.255.255.0
 ```
 
 - `openstack1`, `/etc/hostname`:
@@ -186,35 +192,40 @@ ff02::2 ip6-allrouters
 auto lo
 iface lo inet loopback
 
-# Remote access
+# Onboard interface
 auto em1
-iface em1 inet static
-	address 200.135.233.201
-	netmask 255.255.255.240
-	gateway 200.135.233.254
+iface em1 inet manual
+
+# Remote access
+auto vlan449
+iface vlan449 inet static
+    vlan-raw-device em1
+    address 200.135.233.201
+    netmask 255.255.255.240
+    gateway 200.135.233.206
 
 # Management
 auto vlan450
 iface vlan450 inet static
-	vlan-raw-device em1
-	address 10.45.0.201
-	netmask 255.255.255.0
-	dns-search openstack.sj.ifsc.edu.br
-	dns-nameservers 10.45.0.200
+    vlan-raw-device em1
+    address 10.45.0.201
+    netmask 255.255.255.0
+    dns-search openstack.sj.ifsc.edu.br
+    dns-nameservers 10.45.0.200
 
 # Storage
 auto vlan451
 iface vlan451 inet static
-	vlan-raw-device em1
-	address 10.45.1.201
-	netmask 255.255.255.0
+    vlan-raw-device em1
+    address 10.45.1.201
+    netmask 255.255.255.0
 
 # Tunnel interface
 auto vlan452
 iface vlan452 inet static
-	vlan-raw-device em1
-	address 10.45.2.201
-	netmask 255.255.255.0
+    vlan-raw-device em1
+    address 10.45.2.201
+    netmask 255.255.255.0
 
 # VMs
 auto p5p1
@@ -241,35 +252,40 @@ ff02::2 ip6-allrouters
 auto lo
 iface lo inet loopback
 
-# Remote access
+# nboard interface
 auto em1
-iface em1 inet static
-	address 200.135.233.202
-	netmask 255.255.255.240
-	gateway 200.135.233.254
+iface em1 inet manual
+
+# Remote access
+auto vlan449
+iface vlan449 inet static
+    vlan-raw-device em1
+    address 200.135.233.202
+    netmask 255.255.255.240
+    gateway 200.135.233.206
 
 # Management
 auto vlan450
 iface vlan450 inet static
-	vlan-raw-device em1
-	address 10.45.0.202
-	netmask 255.255.255.0
-	dns-search openstack.sj.ifsc.edu.br
-	dns-nameservers 10.45.0.200
+    vlan-raw-device em1
+    address 10.45.0.202
+    netmask 255.255.255.0
+    dns-search openstack.sj.ifsc.edu.br
+    dns-nameservers 10.45.0.200
 
 # Storage
 auto vlan451
 iface vlan451 inet static
-	vlan-raw-device em1
-	address 10.45.1.202
-	netmask 255.255.255.0
+    vlan-raw-device em1
+    address 10.45.1.202
+    netmask 255.255.255.0
 
 # Tunnel interface
 auto vlan452
 iface vlan452 inet static
-	vlan-raw-device em1
-	address 10.45.2.202
-	netmask 255.255.255.0
+    vlan-raw-device em1
+    address 10.45.2.202
+    netmask 255.255.255.0
 
 # VMs
 auto p5p1

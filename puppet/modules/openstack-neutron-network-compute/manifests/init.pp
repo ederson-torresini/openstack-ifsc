@@ -165,5 +165,9 @@ class openstack-neutron-network-compute {
 		],
 	}
 
+	exec { 'ethtool':
+		command => '/sbin/ethtool -K p5p1 gro off',
+	}
+
 }
 

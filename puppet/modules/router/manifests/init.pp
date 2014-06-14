@@ -23,6 +23,12 @@ class router {
 		mode => 0700,
 	}
 
+	exec { 'iptables.sh':
+		command => '/usr/local/sbin/iptables.sh',
+		subscribe => File['iptables.sh'],
+		refreshonly => true,
+	}
+
 	file { 'iptables':
 		path => '/etc/init.d/iptables',
 		ensure => file,

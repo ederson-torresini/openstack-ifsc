@@ -1,0 +1,18 @@
+# OpenStack
+openstack: root
+cinder: root
+neutron: root
+glance: root
+nova: root
+admin: root
+#
+# SMTP
+postmaster: root
+mailabuse: root
+#
+# DNS
+dnsadmin: root
+#
+# Send to:
+root: boidacarapreta@gmail.com
+

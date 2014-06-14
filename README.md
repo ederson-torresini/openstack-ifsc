@@ -85,7 +85,7 @@ roteador
 ```
 127.0.0.1	localhost
 200.135.233.253	roteador.openstack.sj.ifsc.edu.br	roteador
-200.135.233.200	openstack0.openstack.sj.ifsc.edu.br openstack0 puppet dashboard rabbitmq
+200.135.233.200	openstack0.openstack.sj.ifsc.edu.br openstack0 puppet dashboard rabbitmq nova-novncproxy
 200.135.233.201	openstack1.openstack.sj.ifsc.edu.br openstack1
 200.135.233.202	openstack2.openstack.sj.ifsc.edu.br openstack2
 

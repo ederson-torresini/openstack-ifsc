@@ -15,17 +15,6 @@ class nginx {
 		require => Package['nginx'],
 	}
 
-	# Made with: openssl passwd
-	file { 'senhas':
-		path => '/etc/nginx/senhas',
-		ensure => file,
-		source => 'puppet:///modules/nginx/senhas',
-		owner => root,
-		group => www-data,
-		mode => 0640,
-		require => Package['nginx'],
-	}
-
 	file { 'nginx.conf':
 		path => '/etc/nginx/nginx.conf',
 		ensure => file,
@@ -43,7 +32,10 @@ class nginx {
 	service { 'nginx':
 		ensure => running,
 		enable => true,
-		subscribe => File['nginx.conf'],
+		subscribe => [
+			File['nginx.pem'],
+			File['nginx.conf'],
+		],
 	}
 
 }

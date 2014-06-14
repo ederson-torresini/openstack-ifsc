@@ -20,8 +20,13 @@ rabbit_host = rabbitmq
 rabbit_userid = rabbitmq
 rabbit_password = rabbitmq
 rabbit_virtual_host = openstack-ifsc
+my_ip = 10.45.0.202
 vnc_enabled = True
-novncproxy_base_url = http://nova-controller:6080/vnc_auto.html
+vncserver_listen = 0.0.0.0
+vncserver_proxyclient_address = 10.45.0.202
+#
+# See modules/nginx/nginx.conf
+novncproxy_base_url = https://dashboard.openstack.sj.ifsc.edu.br/vnc/vnc_auto.html
 glance_host = glance
 #
 # http://docs.openstack.org/icehouse/install-guide/install/apt/content/neutron-ml2-compute-node.html

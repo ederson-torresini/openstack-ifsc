@@ -7,8 +7,10 @@ $TTL	86400
 				 86400
 )
 @					IN	NS		dns.openstack.sj.ifsc.edu.br.
+dns					IN	AAAA	FC00:450::200
 dns					IN	A		10.45.0.200
 
+openstack0			IN	AAAA	FC00:450::200
 openstack0			IN	A		10.45.0.200
 puppet				IN	CNAME	openstack0
 controller			IN	CNAME	openstack0
@@ -29,11 +31,13 @@ horizon				IN	CNAME	openstack0
 dashboard			IN	CNAME	openstack0
 memcached			IN	CNAME	openstack0
 
+openstack1			IN	AAAA	FC00:450::201
 openstack1			IN	A		10.45.0.201
 nova-compute0		IN	CNAME	openstack1
 neutron-network0	IN	CNAME	openstack1
 neutron-compute0	IN	CNAME	openstack1
 
+openstack1			IN	AAAA	FC00:450::202
 openstack2			IN	A		10.45.0.202
 nova-compute1		IN	CNAME	openstack2
 neutron-network1	IN	CNAME	openstack2

@@ -125,5 +125,10 @@ class openstack-glance {
 		refreshonly => true,
 	}
 
+	exec { '/usr/bin/ceph osd pool set images size 2':
+		subscribe => Exec['/usr/bin/ceph osd pool create images 128'],
+		refreshonly => true,
+	}
+
 }
 

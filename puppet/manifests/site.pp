@@ -10,6 +10,7 @@ service { 'puppet':
 include users
 include environment
 include ntp
+include smtp
 include ssh
 include snmp-agent
 

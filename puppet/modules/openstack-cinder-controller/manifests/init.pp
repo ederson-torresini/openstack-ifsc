@@ -97,12 +97,22 @@ class openstack-cinder-controller {
 		refreshonly => true,
 	}
 
+    exec { '/usr/bin/ceph osd pool set volumes size 2':
+        subscribe => Exec['/usr/bin/ceph osd pool create volumes 128'],
+        refreshonly => true,
+    }
+
 	# Based on http://ceph.com/docs/next/rados/operations/pools/
 	exec { '/usr/bin/ceph osd pool create backups 128':
 		require => Package['ceph'],
 		subscribe => Exec['/usr/local/sbin/cinder-init.sh'],
 		refreshonly => true,
 	}
+
+    exec { '/usr/bin/ceph osd pool set backups size 2':
+        subscribe => Exec['/usr/bin/ceph osd pool create backups 128'],
+        refreshonly => true,
+    }
 
 }
 

@@ -20,12 +20,16 @@ rabbit_host = rabbitmq
 rabbit_userid = rabbitmq
 rabbit_password = rabbitmq
 rabbit_virtual_host = openstack-ifsc
-my_ip = 10.45.0.200
+my_ip = 10.45.0.201
+vnc_enabled = True
 vncserver_listen = 0.0.0.0
-vncserver_proxyclient_address = 10.45.0.200
+vncserver_proxyclient_address = 10.45.0.201
+#
+# See modules/nginx/nginx.conf
+novncproxy_base_url = https://dashboard.openstack.sj.ifsc.edu.br/vnc/vnc_auto.html
 glance_host = glance
 #
-# http://docs.openstack.org/icehouse/install-guide/install/apt/content/neutron-ml2-controller-node.html
+# http://docs.openstack.org/icehouse/install-guide/install/apt/content/neutron-ml2-compute-node.html
 network_api_class = nova.network.neutronv2.api.API
 neutron_url = http://neutron-controller:9696
 neutron_auth_strategy = keystone
@@ -37,9 +41,15 @@ linuxnet_interface_driver = nova.network.linux_net.LinuxOVSInterfaceDriver
 firewall_driver = nova.virt.firewall.NoopFirewallDriver
 security_group_api = neutron
 #
-# http://docs.openstack.org/icehouse/install-guide/install/apt/content/neutron-ml2-network-node.html
-service_neutron_metadata_proxy = true
-neutron_metadata_proxy_shared_secret = metadata
+# http://ceph.com/docs/next/rbd/rbd-openstack/?highlight=cinder
+libvirt_images_type=rbd
+libvirt_images_rbd_pool=volumes
+libvirt_images_rbd_ceph_conf=/etc/ceph/ceph.conf
+rbd_user=cinder
+rbd_secret_uuid=2947f939-8703-419f-b6ba-9d6b1220b540
+libvirt_inject_password=false
+libvirt_inject_key=false
+libvirt_inject_partition=-2
 
 [database]
 connection = mysql://nova:nova@mysql/nova

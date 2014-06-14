@@ -10,6 +10,10 @@ class openstack-nova-compute {
 		ensure => installed,
 	}
 
+	package { 'libvirt-bin':
+		ensure => installed,
+	}
+
 	exec { 'dpkg-statoverride':
 		command => '/usr/bin/dpkg-statoverride --update --add root root 0644 /boot/vmlinuz-$(uname -r)',
 		creates => '/etc/kernel/postinst.d/statoverride',
@@ -30,11 +34,16 @@ class openstack-nova-compute {
 		subscribe => File['nova.conf'],
 	}
 
+	$source = $hostname ? {
+		'openstack1' => 'puppet:///modules/openstack-nova-compute/nova.conf-openstack1',
+		'openstack2' => 'puppet:///modules/openstack-nova-compute/nova.conf-openstack2',
+	}
+
 	file { 'nova.conf':
 		path => '/etc/nova/nova.conf',
 		ensure => file,
 		require => Package['nova-compute-kvm'],
-		source => 'puppet:///modules/openstack-nova-compute/nova.conf',
+		source => $source,
 		owner => root,
 		group => nova,
 		mode => 0640,
@@ -69,6 +78,12 @@ class openstack-nova-compute {
 		require => Exec['virsh secret-define'],
 		subscribe => File['secret.xml'],
 		refreshonly => true,
+	}
+
+	service { 'libvirt-bin':
+		ensure => running,
+		enable => true,
+		subscribe => File['nova.conf'],
 	}
 
 }

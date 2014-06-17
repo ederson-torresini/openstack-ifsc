@@ -38,6 +38,9 @@ node "openstack0" {
 	include mysql
 	include ceph-common
 	include ceph-openstack0
+	include ceph-osd-init
+	include ceph-mds
+	include ceph-fs
 	include openstack-common
 	include openstack-rabbitmq
 	include openstack-keystone
@@ -55,6 +58,7 @@ node "openstack1" {
 	include nvidia
 	include ceph-common
 	include ceph-openstack1
+	include ceph-fs
 	include openstack-common
 	include openstack-nova-compute
 	include openstack-neutron-network-compute
@@ -68,6 +72,7 @@ node "openstack2" {
 	include nvidia
 	include ceph-common
 	include ceph-openstack2
+	include ceph-fs
 	include openstack-common
 	include openstack-nova-compute
 	include openstack-neutron-network-compute

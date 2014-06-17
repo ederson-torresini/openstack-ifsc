@@ -1,5 +1,9 @@
 class ceph-common {
 
+	package { 'ceph-fs-common':
+		ensure => installed,
+	}
+
 	package { 'ceph':
 		ensure => installed,
 	}

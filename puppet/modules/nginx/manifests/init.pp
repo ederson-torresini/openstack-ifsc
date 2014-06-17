@@ -25,7 +25,6 @@ class nginx {
 		require => [
 			Package['nginx'],
 			File['nginx.pem'],
-			File['senhas'],
 		],
 	}
 

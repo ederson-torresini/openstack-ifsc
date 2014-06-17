@@ -2,6 +2,10 @@
 
 class openstack-nova-compute {
 
+	package { 'nova-compute':
+		ensure => installed,
+	}
+
 	package { 'nova-compute-kvm':
 		ensure => installed,
 	}
@@ -42,7 +46,7 @@ class openstack-nova-compute {
 	file { 'nova.conf':
 		path => '/etc/nova/nova.conf',
 		ensure => file,
-		require => Package['nova-compute-kvm'],
+		require => Package['nova-compute'],
 		source => $source,
 		owner => root,
 		group => nova,

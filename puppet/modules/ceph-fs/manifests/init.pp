@@ -9,6 +9,7 @@ class ceph-fs {
 		owner => root,
 		group => root,
 		mode => 0600,
+		require => Package['ceph'],
 	}
 
 	file { 'client.cephfs.secret':
@@ -18,17 +19,31 @@ class ceph-fs {
 		owner => root,
 		group => root,
 		mode => 0600,
+		require => Package['ceph'],
 	}
 
-	$source = $hostname ? {
-		'openstack0' => '10.45.0.200',
-		'openstack1' => '10.45.0.201',
-		'openstack2' => '10.45.0.202',
+	exec { 'client.cephfs':
+		command => '/usr/bin/ceph auth caps client.cephfs  msd "allow" mon "allow r" osd "allow class-read object_prefix rbd_children, allow rwx pool=compute"',
+		subscribe => File['client.cephfs.keyring'],
+		refreshonly => true,
+		require => Package['ceph'],
 	}
 
 	exec { 'fstab:ceph':
-		command => "/bin/echo $source:6789:/ /var/lib/nova/instances ceph name=cephfs,secretfile=/etc/ceph/client.cephfs.secret,noatime 0 0 >> /etc/fstab",
+		command => "/bin/echo openstack0,openstack1,openstack2:/ /var/lib/nova/instances ceph name=cephfs,secretfile=/etc/ceph/client.cephfs.secret,noatime 0 0 >> /etc/fstab",
 		unless => '/bin/grep -q /var/lib/nova/instances /etc/fstab',
+	}
+
+	exec { 'mount':
+		command => '/bin/mount -a -t ceph',
+		subscribe => Exec['fstab:ceph'],
+		refreshonly => true,
+		require => Package['ceph'],
+	}
+
+	exec { 'set_layout':
+		command => '/usr/bin/cephfs /var/lib/nova/instances/ set_layout -p $(ceph osd dump|grep compute|cut -d \  -f 2)',
+		require => Package['ceph'],
 	}
 
 }

@@ -1,2 +1,5 @@
 [client.cephfs]
 	key = AQB3rp9TUMRoABAAKfsS88D44pAp5pcWBkZs3w==
+	caps mds = "allow"
+	caps mon = "allow r"
+	caps osd = "allow class-read object_prefix rbd_children, allow rwx pool=compute"

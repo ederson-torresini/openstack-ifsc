@@ -1,3 +1,5 @@
 [mds.0]
 	key = AQClm59T0NW4KBAA1cU0otF9uuBlUkosVKfrEg==
-
+	caps mds = "allow"
+	caps mon = "allow rwx"
+	caps osd = "allow *"

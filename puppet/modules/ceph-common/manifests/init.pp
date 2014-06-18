@@ -29,6 +29,12 @@ class ceph-common {
 		mode => 0600,
 	}
 
+	exec { 'ceph auth caps client.admin':
+		command => '/usr/bin/ceph auth caps client.admin mon \'allow *\' osd \'allow *\' mds \'allow *\'',
+		subscribe => File['ceph.client.admin.keyring'],
+		refreshonly => true,
+	}
+
 	# See http://ceph.com/docs/master/install/manual-deployment/ how to create this file.
 	file { 'mon.map':
 		path => '/etc/ceph/mon.map',

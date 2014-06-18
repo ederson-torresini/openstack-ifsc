@@ -18,6 +18,12 @@ class openstack-cinder-common {
 		],
 	}
 
+	exec { 'ceph auth caps client.cinder':
+		command => '/usr/bin/ceph auth caps client.cinder mon \'allow r\' osd \'allow class-read object_prefix rbd_children, allow rwx pool=volumes, allow rx pool=images\'',
+		subscribe => File['ceph.client.cinder.keyring'],
+		refreshonly => true,
+	}
+
 	# Check http://ceph.com/docs/next/rbd/rbd-openstack/?highlight=cinder how to create this file.
 	file { 'ceph.client.cinder-backup.keyring':
 		path => '/etc/ceph/ceph.client.cinder-backup.keyring',
@@ -30,6 +36,12 @@ class openstack-cinder-common {
 			Package['ceph'],
 			Package['cinder-common'],
 		],
+	}
+
+	exec { 'ceph auth caps client.cinder-backup':
+		command => '/usr/bin/ceph auth caps client.cinder-backup mon \'allow r\' osd \'allow class-read object_prefix rbd_children, allow rwx pool=backups\'',
+		subscribe => File['ceph.client.cinder-backup.keyring'],
+		refreshonly => true,
 	}
 
 	file { 'cinder.conf':

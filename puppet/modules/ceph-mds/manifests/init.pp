@@ -16,6 +16,12 @@ class ceph-mds {
 		require => Package['ceph'],
 	}
 
+	exec { 'ceph auth caps mds':
+		command => '/usr/bin/ceph auth caps mds.0 mds \'allow\' mon \'allow rwx\' osd \'allow *\'',
+		subscribe => File['ceph.mds.keyring'],
+		refreshonly => true,
+	}
+
 	file { 'ceph-0':
 		path => '/var/lib/ceph/mds/ceph-0',
 		ensure => directory,

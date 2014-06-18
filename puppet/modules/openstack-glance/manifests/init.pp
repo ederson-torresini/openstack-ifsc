@@ -118,6 +118,12 @@ class openstack-glance {
 		require => Package['ceph'],
 	}
 
+	exec { 'ceph auth caps client.glance':
+		command => '/usr/bin/ceph auth caps client.glance mon \'allow r\' osd \'allow class-read object_prefix rbd_children, allow rwx pool=images\'',
+		subscribe => File['ceph.client.glance.keyring'],
+		refreshonly => true,
+	}
+
 	# Based on http://ceph.com/docs/next/rados/operations/pools/
 	exec { '/usr/bin/ceph osd pool create images 128':
 		require => Package['ceph'],

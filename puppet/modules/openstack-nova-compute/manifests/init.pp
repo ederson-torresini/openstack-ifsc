@@ -84,10 +84,91 @@ class openstack-nova-compute {
 		refreshonly => true,
 	}
 
+	# From here to the end: http://docs.openstack.org/trunk/config-reference/content/section_configuring-compute-migrations.html
+	file { 'libvirtd.conf':
+		path => '/etc/libvirt/libvirtd.conf',
+		ensure => file,
+		source => 'puppet:///modules/openstack-nova-compute/libvirtd.conf',
+		owner => root,
+		group => libvirtd,
+		mode => 0640,
+		require => Package['libvirt-bin'],
+	}
+
+	file { 'libvirt-bin':
+		path => '/etc/default/libvirt-bin',
+		ensure => file,
+		source => 'puppet:///modules/openstack-nova-compute/libvirt-bin',
+		owner => root,
+		group => libvirtd,
+		mode => 0640,
+		require => Package['libvirt-bin'],
+	}
+
+	file { 'qemu.conf':
+		path => '/etc/libvirt/qemu.conf',
+		ensure => file,
+		source => 'puppet:///modules/openstack-nova-compute/qemu.conf',
+		owner => root,
+		group => libvirtd,
+		mode => 0640,
+		require => Package['libvirt-bin'],
+	}
+
 	service { 'libvirt-bin':
 		ensure => running,
 		enable => true,
-		subscribe => File['nova.conf'],
+		subscribe => [
+			File['nova.conf'],
+			File['libvirtd.conf'],
+			File['libvirt-bin'],
+			File['qemu.conf'],
+		],
+	}
+
+	file { '.ssh':
+		path => '/var/lib/nova/.ssh',
+		ensure => directory,
+		owner => nova,
+		group => nova,
+		mode => 0700,
+		require => Package['openssh-server'],
+	}
+
+	file { 'id_rsa':
+		path => '/var/lib/nova/.ssh/id_rsa',
+		ensure => file,
+		source => 'puppet:///modules/openstack-nova-compute/id_rsa',
+		owner => nova,
+		group => nova,
+		mode => 0400,
+		require => File['.ssh'],
+	}
+
+	file { 'id_rsa.pub':
+		path => '/var/lib/nova/.ssh/id_rsa.pub',
+		ensure => file,
+		source => 'puppet:///modules/openstack-nova-compute/id_rsa.pub',
+		owner => nova,
+		group => nova,
+		mode => 0400,
+		require => File['.ssh'],
+	}
+
+	file { 'authorized_keys':
+		path => '/var/lib/nova/.ssh/authorized_keys',
+		ensure => file,
+		source => 'puppet:///modules/openstack-nova-compute/id_rsa.pub',
+		owner => nova,
+		group => nova,
+		mode => 0400,
+		require => File['id_rsa.pub'],
+	}
+
+	exec { 'nova:shell':
+		command => '/usr/bin/chsh -s /bin/sh nova',
+		subscribe => File['authorized_keys'],
+		refreshonly => true,
 	}
 
 }

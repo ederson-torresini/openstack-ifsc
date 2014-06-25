@@ -84,12 +84,23 @@ class openstack-neutron-network-compute {
 		require => Package['neutron-dhcp-agent'],
 	}
 
+	file { 'dnsmasq-neutron.conf':
+		path => '/etc/neutron/dnsmasq-neutron.conf',
+		ensure => file,
+		source => 'puppet:///modules/openstack-neutron-network-compute/dnsmasq-neutron.conf',
+		owner => root,
+		group => neutron,
+		mode => 0640,
+		require => File['dhcp_agent.ini'],
+	}
+
 	service { 'neutron-dhcp-agent':
 		ensure => running,
 		enable => true,
 		subscribe => [
 			File['neutron.conf'],
 			File['dhcp_agent.ini'],
+			File['dnsmasq-neutron.conf'],
 		],
 	}
 

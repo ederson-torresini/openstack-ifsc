@@ -84,6 +84,18 @@ class openstack-nova-compute {
 		refreshonly => true,
 	}
 
+	# Check http://www.sebastien-han.fr/blog/2012/06/10/introducing-ceph-to-openstack/ (section "EDIT: 11/07/2012") why to introduce this line to file.
+	exec { 'apparmor:libvirt-qemu':
+        command => "/bin/echo '/etc/ceph/ceph.client.cinder.keyring r,\n/tmp/ r,\n/var/tmp/ r,' >> /etc/apparmor.d/abstractions/libvirt-qemu",
+        unless => '/bin/grep -q keyring /etc/apparmor.d/abstractions/libvirt-qemu',
+    }
+
+	service { 'apparmor':
+		ensure => running,
+		enable => true,
+		subscribe => Exec['apparmor:libvirt-qemu'],
+	}
+
 	# From here to the end: http://docs.openstack.org/trunk/config-reference/content/section_configuring-compute-migrations.html
 	file { 'libvirtd.conf':
 		path => '/etc/libvirt/libvirtd.conf',
@@ -123,6 +135,7 @@ class openstack-nova-compute {
 			File['libvirtd.conf'],
 			File['libvirt-bin'],
 			File['qemu.conf'],
+			Exec['apparmor:libvirt-qemu'],
 		],
 	}
 

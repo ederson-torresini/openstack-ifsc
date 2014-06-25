@@ -18,6 +18,14 @@ class openstack-cinder-controller {
 		],
 	}
 
+	package { 'cinder-backup':
+		ensure => installed,
+		require => [
+			Package['cinder-api'],
+			Package['cinder-scheduler'],
+		],
+	}
+
 	service { 'cinder-api':
 		ensure => running,
 		enable => true,
@@ -25,6 +33,12 @@ class openstack-cinder-controller {
 	}
 
 	service { 'cinder-scheduler':
+		ensure => running,
+		enable => true,
+		subscribe => File['cinder.conf'],
+	}
+
+	service { 'cinder-backup':
 		ensure => running,
 		enable => true,
 		subscribe => File['cinder.conf'],

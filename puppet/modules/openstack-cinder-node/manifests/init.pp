@@ -4,5 +4,12 @@ class openstack-cinder-node {
 		ensure => installed,
 	}
 
+	service { 'cinder-volume':
+		ensure => running,
+		enable => true,
+		require => Package['cinder-volume'],
+		subscribe => File['cinder.conf'],
+	}
+
 }
 

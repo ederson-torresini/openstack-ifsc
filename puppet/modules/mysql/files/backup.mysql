@@ -1,0 +1,11 @@
+#!/bin/bash
+
+PATH="/sbin:/bin:/usr/sbin:/usr/bin"
+DIR="/var/backups/"
+FILE="${DIR}/$(date +%F).sql"
+DAYS="14"
+
+mysqldump --add-drop-database --add-drop-table --all-databases --flush-logs --flush-privileges --events --routines --result-file=${FILE}
+chmod 0400 ${FILE}
+find ${DIR} -type f -name \*.sql -mtime +${DAYS} -exec rm -f {} \;
+

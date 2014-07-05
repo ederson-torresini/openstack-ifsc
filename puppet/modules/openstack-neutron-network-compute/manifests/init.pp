@@ -176,8 +176,9 @@ class openstack-neutron-network-compute {
 		],
 	}
 
-	exec { 'ethtool':
-		command => '/sbin/ethtool -K p5p1 gro off',
+	# http://openstack.redhat.com/Using_GRE_tenant_networks
+	exec { 'ethtool:p5p1':
+		command => '/sbin/ethtool -K p5p1 tso off lro off gro off gso off',
 	}
 
 }

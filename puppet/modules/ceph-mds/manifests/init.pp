@@ -61,25 +61,23 @@ class ceph-mds {
 	# Check https://ceph.com/docs/master/rados/operations/control/ how to create a pool and parameters.
 	exec { 'pool compute':
 		command => '/usr/bin/ceph osd pool create compute 128',
-		unless => '/usr/bin/ceph osd lspools | /bin/grep -q compute',
-		require => [
-			package['ceph'],
-		],
+		unless => '/usr/bin/rados lspools | /bin/grep -q compute',
+		require => Package['ceph'],
 	}
 
-	exec { 'size':
+	exec { 'size compute':
 		command => '/usr/bin/ceph osd pool set compute size 3',
 		subscribe => Exec['pool compute'],
 		refreshonly => true,
 	}
 
-	exec { 'pg_num':
+	exec { 'pg_num compute':
 		command => '/usr/bin/ceph osd pool set compute pg_num 128',
 		subscribe => Exec['pool compute'],
 		refreshonly => true,
 	}
 
-	exec { 'pgp_num':
+	exec { 'pgp_num compute':
 		command => '/usr/bin/ceph osd pool set compute pgp_num 128',
 		subscribe => Exec['pool compute'],
 		refreshonly => true,

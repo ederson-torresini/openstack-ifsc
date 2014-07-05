@@ -105,28 +105,54 @@ class openstack-cinder-controller {
 	}
 
 	# Based on http://ceph.com/docs/next/rados/operations/pools/
-	exec { '/usr/bin/ceph osd pool create volumes 128':
+	exec { 'pool volumes':
+		command => '/usr/bin/ceph osd pool create volumes 128',
+		unless => '/usr/bin/rados lspools | /bin/grep -q volumes',
 		require => Package['ceph'],
-		subscribe => Exec['/usr/local/sbin/cinder-init.sh'],
+	}
+
+    exec { 'size volumes':
+		command => '/usr/bin/ceph osd pool set volumes size 3',
+        subscribe => Exec['pool volumes'],
+        refreshonly => true,
+    }
+
+	exec { 'pg_num volumes':
+		command => '/usr/bin/ceph osd pool set volumes pg_num 128',
+		subscribe => Exec['pool volumes'],
 		refreshonly => true,
 	}
 
-    exec { '/usr/bin/ceph osd pool set volumes size 2':
-        subscribe => Exec['/usr/bin/ceph osd pool create volumes 128'],
-        refreshonly => true,
-    }
+	exec { 'pgp_num volumes':
+		command => '/usr/bin/ceph osd pool set volumes pgp_num 128',
+		subscribe => Exec['pool volumes'],
+		refreshonly => true,
+	}
 
 	# Based on http://ceph.com/docs/next/rados/operations/pools/
-	exec { '/usr/bin/ceph osd pool create backups 128':
+	exec { 'pool backups':
+		command => '/usr/bin/ceph osd pool create backups 128',
+		unless => '/usr/bin/rados lspools | /bin/grep -q backups',
 		require => Package['ceph'],
-		subscribe => Exec['/usr/local/sbin/cinder-init.sh'],
+	}
+
+    exec { 'size backups':
+		command => '/usr/bin/ceph osd pool set backups size 3',
+        subscribe => Exec['pool backups'],
+        refreshonly => true,
+    }
+
+	exec { 'pg_num backups':
+		command => '/usr/bin/ceph osd pool set backups pg_num 128',
+		subscribe => Exec['pool backups'],
 		refreshonly => true,
 	}
 
-    exec { '/usr/bin/ceph osd pool set backups size 2':
-        subscribe => Exec['/usr/bin/ceph osd pool create backups 128'],
-        refreshonly => true,
-    }
+	exec { 'pgp_num backups':
+		command => '/usr/bin/ceph osd pool set backups pgp_num 128',
+		subscribe => Exec['pool backups'],
+		refreshonly => true,
+	}
 
 }
 

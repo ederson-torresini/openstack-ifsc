@@ -13,6 +13,9 @@ mailabuse: root
 # DNS
 dnsadmin: root
 #
+# WWW
+webmaster: root
+#
 # Send to:
 root: boidacarapreta@gmail.com
 

@@ -125,14 +125,27 @@ class openstack-glance {
 	}
 
 	# Based on http://ceph.com/docs/next/rados/operations/pools/
-	exec { '/usr/bin/ceph osd pool create images 128':
+	exec { 'pool images':
+		command => '/usr/bin/ceph osd pool create images 128',
+		unless => '/usr/bin/rados lspools | /bin/grep -q images',
 		require => Package['ceph'],
-		subscribe => Exec['/usr/local/sbin/glance-init.sh'],
+	}
+
+	exec { 'size images':
+		command => '/usr/bin/ceph osd pool set images size 3',
+		subscribe => Exec['pool images'],
 		refreshonly => true,
 	}
 
-	exec { '/usr/bin/ceph osd pool set images size 2':
-		subscribe => Exec['/usr/bin/ceph osd pool create images 128'],
+	exec { 'pg_num images':
+		command => '/usr/bin/ceph osd pool set images pg_num 128',
+		subscribe => Exec['pool images'],
+		refreshonly => true,
+	}
+
+	exec { 'pgp_num images':
+		command => '/usr/bin/ceph osd pool set images pgp_num 128',
+		subscribe => Exec['pool images'],
 		refreshonly => true,
 	}
 

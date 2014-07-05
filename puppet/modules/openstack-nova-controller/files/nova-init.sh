@@ -9,4 +9,4 @@ keystone user-create --name=nova --pass=nova --email=nova@openstack.sj.ifsc.edu.
 keystone user-role-add --user=nova --tenant=service --role=admin
 
 keystone service-create --name=nova --type=compute --description="OpenStack Compute"
-keystone endpoint-create --region=IFSC-SJ --service-id=$(keystone service-list | awk '/ compute / {print $2}') --publicurl=http://nova-controller:8774/v2/%\(tenant_id\)s --internalurl=http://nova-controller:8774/v2/%\(tenant_id\)s --adminurl=http://nova-controller:8774/v2/%\(tenant_id\)s
+keystone endpoint-create --region=ifsc-sj --service-id=$(keystone service-list | awk '/ compute / {print $2}') --publicurl=http://nova-controller:8774/v2/%\(tenant_id\)s --internalurl=http://nova-controller:8774/v2/%\(tenant_id\)s --adminurl=http://nova-controller:8774/v2/%\(tenant_id\)s

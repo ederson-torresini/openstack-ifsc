@@ -44,4 +44,12 @@ class openstack-common {
 		ensure => installed,
 	}
 
+	exec { 'ethtool:em1-common':
+		command => '/sbin/ethtool -K em1 rx on tx on txvlan on rxvlan on',
+	}
+
+	exec { 'ethtool:p5p1-common':
+		command => '/sbin/ethtool -K p5p1 rx on tx on txvlan on rxvlan on',
+	}
+
 }

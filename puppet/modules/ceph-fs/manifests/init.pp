@@ -30,7 +30,7 @@ class ceph-fs {
 	}
 
 	exec { 'fstab:ceph':
-		command => "/bin/echo openstack0,openstack1,openstack2:/ /var/lib/nova/instances ceph name=cephfs,secretfile=/etc/ceph/client.cephfs.secret,noatime 0 0 >> /etc/fstab",
+		command => "/bin/echo openstack0,openstack1,openstack2:/ /var/lib/nova/instances ceph name=cephfs,secretfile=/etc/ceph/client.cephfs.secret,noatime,noauto 0 0 >> /etc/fstab",
 		unless => '/bin/grep -q /var/lib/nova/instances /etc/fstab',
 	}
 

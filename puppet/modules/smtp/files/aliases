@@ -4,6 +4,7 @@ cinder: root
 neutron: root
 glance: root
 nova: root
+swift: root
 admin: root
 #
 # SMTP

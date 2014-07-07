@@ -41,6 +41,7 @@ node "openstack0" {
 	include ceph-osd-init
 	include ceph-mds
 	include ceph-fs
+	include ceph-radosgw
 	include openstack-common
 	include openstack-rabbitmq
 	include openstack-keystone

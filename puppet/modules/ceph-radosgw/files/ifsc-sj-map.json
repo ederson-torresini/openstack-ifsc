@@ -1,0 +1,40 @@
+{
+	"regions": [
+		{
+			"key": "ifsc-sj",
+			"val": {
+				"name": "ifsc-sj",
+				"api_name": "",
+				"is_master": "true",
+				"endpoints": [],
+				"master_zone": "ifsc-sj-0",
+				"zones": [
+					{
+						"name": "ifsc-sj-0",
+						"endpoints": [],
+						"log_meta": "false",
+						"log_data": "false"
+					}
+				],
+				"placement_targets": [
+					{
+						"name": "default-placement",
+						"tags": []
+					}
+				],
+				"default_placement": "default-placement"
+			}
+		}
+	],
+	"master_region": "ifsc-sj",
+	"bucket_quota": {
+		"enabled": false,
+		"max_size_kb": -1,
+		"max_objects": -1
+	},
+	"user_quota": {
+		"enabled": false,
+		"max_size_kb": -1,
+		"max_objects": -1
+	}
+}

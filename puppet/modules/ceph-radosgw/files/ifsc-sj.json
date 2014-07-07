@@ -1,0 +1,22 @@
+{
+	"name": "ifsc-sj",
+	"api_name": "",
+	"is_master": "true",
+	"endpoints": [],
+	"master_zone": "ifsc-sj-0",
+	"zones": [
+		{
+			"name": "ifsc-sj-0",
+			"endpoints": [],
+			"log_meta": "false",
+			"log_data": "false"
+		}
+	],
+	"placement_targets": [
+		{
+			"name": "default-placement",
+			"tags": []
+		}
+	],
+	"default_placement": "default-placement"
+}

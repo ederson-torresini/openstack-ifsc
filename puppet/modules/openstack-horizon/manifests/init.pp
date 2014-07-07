@@ -54,7 +54,7 @@ class openstack-horizon {
 	}
 
 	file { 'apache2.conf':
-		path => '/etc/apache2/conf-available/horizon.conf',
+		path => '/etc/apache2/sites-available/horizon.conf',
 		ensure => file,
 		source => 'puppet:///modules/openstack-horizon/apache2.conf',
 		owner => root,
@@ -63,10 +63,16 @@ class openstack-horizon {
 		require => Package['apache2'],
 	}
 
-	exec { 'conf-enable':
-		command => '/usr/sbin/a2enconf horizon',
-		creates => '/etc/apache2/conf-enabled/horizon.conf',
+	exec { 'a2ensite horizon':
+		command => '/usr/sbin/a2ensite horizon',
+		creates => '/etc/apache2/sites-enabled/horizon.conf',
 		require => File['apache2.conf'],
+	}
+
+	exec { 'a2dissite 000-default':
+		command => '/usr/sbin/a2dissite 000-default',
+		subscribe => Exec['a2ensite horizon'],
+		refreshonly => true,
 	}
 
 	service { 'apache2':
@@ -76,6 +82,11 @@ class openstack-horizon {
 			File['local_settings.py'],
 			File['memcached.conf'],
 			File['apache2.conf'],
+			Exec['a2dissite 000-default'],
+			Exec['a2ensite horizon'],
+			#
+			# Based on https://ceph.com/docs/master/radosgw/config/#create-a-gateway-configuration
+			Exec['a2ensite radosgw'],
 		],
 	}
 

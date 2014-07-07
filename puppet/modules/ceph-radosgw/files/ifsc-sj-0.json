@@ -1,0 +1,26 @@
+{
+	"domain_root": "ifsc-sj-0.rgw",
+	"control_pool": ".ifsc-sj-0.rgw.control",
+	"gc_pool": ".ifsc-sj-0.rgw.gc",
+	"log_pool": ".ifsc-sj-0.log",
+	"intent_log_pool": ".ifsc-sj-0.intent-log",
+	"usage_log_pool": ".ifsc-sj-0.usage",
+	"user_keys_pool": ".ifsc-sj-0.users",
+	"user_email_pool": ".ifsc-sj-0.users.email",
+	"user_swift_pool": ".ifsc-sj-0.users.swift",
+	"user_uid_pool": ".ifsc-sj-0.users.uid",
+	"system_key": {
+		"access_key": "",
+		"secret_key": ""
+	},
+	"placement_pools": [
+		{
+			"key": "default-placement",
+			"val": {
+				"index_pool": ".ifsc-sj-0.rgw.buckets.index",
+				"data_pool": ".ifsc-sj-0.rgw.buckets",
+				"data_extra_pool": ""
+			}
+		}
+	]
+}

@@ -88,11 +88,10 @@ roteador
 ```
 127.0.0.1	localhost
 200.135.233.253	roteador.openstack.sj.ifsc.edu.br	roteador
-200.135.233.200	openstack0.openstack.sj.ifsc.edu.br openstack0 puppet dashboard rabbitmq nova-novncproxy
+200.135.233.200	openstack0.openstack.sj.ifsc.edu.br openstack0 puppet dashboard rabbitmq nova-novncproxy swift radosgw snmp-manager
 200.135.233.201	openstack1.openstack.sj.ifsc.edu.br openstack1
 200.135.233.202	openstack2.openstack.sj.ifsc.edu.br openstack2
 
-# The following lines are desirable for IPv6 capable hosts
 ::1     localhost ip6-localhost ip6-loopback
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
@@ -134,6 +133,10 @@ openstack0
 - `openstack0`, `/etc/hosts`:
 ```
 127.0.0.1 localhost openstack0.openstack.sj.ifsc.edu.br openstack0
+10.45.0.200 openstack0
+10.45.0.201 openstack1
+10.45.0.202 openstack2
+200.135.233.206 roteador
 
 ::1     localhost ip6-localhost ip6-loopback openstack0.openstack.sj.ifsc.edu.br openstack0
 ff02::1 ip6-allnodes

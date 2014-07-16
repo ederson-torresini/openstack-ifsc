@@ -15,6 +15,7 @@ iptables -t filter -A INPUT -i lo -j ACCEPT
 #
 # De externo para roteador: apenas ping (echo), SSH e HTTPS
 iptables -t filter -A INPUT -i eth0 -p tcp --dport 22 -j ACCEPT
+iptables -t filter -A INPUT -i eth0 -p tcp --dport 80 -j ACCEPT
 iptables -t filter -A INPUT -i eth0 -p tcp --dport 443 -j ACCEPT
 iptables -t filter -A INPUT -i eth0 -p icmp --icmp-type echo-request -j ACCEPT
 #
@@ -28,4 +29,7 @@ iptables -t filter -A FORWARD -o eth2 -j ACCEPT
 #
 # De virtualizadores e VMs para externo: tudo
 iptables -t filter -A FORWARD -o eth0 -j ACCEPT
+#
+# De virtualizadores para roteador: SNMP
+iptables -t filter -A INPUT -i eth1 -p udp --dport 161 -j ACCEPT
 

@@ -14,6 +14,9 @@ What we'll do:
 - 2 compute nodes (`openstack1` and `openstack2`) running: compute and network nodes.
 - As each machine has locally  1 TB (and no RAID!), will be used 800 GB of it for Ceph (http://ceph.com) to gain performance (to test later), availability (test too) and, specially, a common backend for image, object and block storage without any SPOF. It will be 2 replicas of data in the cluster, so we're saying 3 disks x 800 GB / 2 replicas = 1200 GB.
 
+So... why not just use some ready deploy application, like ceph-ceploy, Juju or even puppetlabs-openstack?
+- Well, because this is for learning purposes, and maybe one (of more) of these applications will be used in another place, but for now (we think) we need some pain to gain :-)
+
 Installation
 ------------
 
@@ -317,7 +320,7 @@ and agents:
 aptitude install puppet
 ```
 
-According to https://github.com/puppetlabs/puppet/commit/fc78774, there is a issue running `puppet resource service`. Fixed with:
+According to https://github.com/puppetlabs/puppet/commit/fc78774, there is an issue running `puppet resource service`. Fixed with:
 ```
 --- /usr/lib/ruby/vendor_ruby/puppet/provider/service/init.rb-original	2014-05-09 11:44:36.553910572 -0300
 +++ /usr/lib/ruby/vendor_ruby/puppet/provider/service/init.rb	2014-05-09 00:54:09.275581934 -0300

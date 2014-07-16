@@ -1,6 +1,6 @@
 $TTL	86400
 @					IN	SOA		dns.openstack.sj.ifsc.edu.br. dnsadmin.openstack.sj.ifsc.edu.br. (
-			2014062501
+			2014070703
 				 86400
 				  3600
 				604800
@@ -18,8 +18,6 @@ openstack1			IN	A		200.135.233.201
 openstack2			IN	A		200.135.233.202
 
 roteador			IN	A		200.135.233.253
-dashboard			IN	CNAME	roteador
 
 ; https://ceph.com/docs/master/install/install-ceph-gateway/
-*					IN	CNAME	@
-
+*					IN	CNAME	roteador

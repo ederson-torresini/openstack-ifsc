@@ -20,6 +20,10 @@ class openstack-common {
 		ensure => installed,
 	}
 
+	package { 'qemu-utils':
+		ensure => installed,
+	}
+
 	package { 'python-neutronclient':
 		ensure => installed,
 	}

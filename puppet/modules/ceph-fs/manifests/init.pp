@@ -41,9 +41,18 @@ class ceph-fs {
 		require => Package['ceph'],
 	}
 
+	exec { 'mount /var/lib/nova/instances':
+		command => '/bin/mount /var/lib/nova/instances',
+		require => Package['ceph'],
+		unless => '/bin/mount | /bin/grep -q instances',
+	}
+
 	exec { 'set_layout':
 		command => '/usr/bin/cephfs /var/lib/nova/instances/ set_layout -p $(ceph osd dump|grep compute|cut -d \  -f 2)',
-		require => Package['ceph'],
+		require => [
+			Package['ceph'],
+			Exec['mount /var/lib/nova/instances'],
+		],
 	}
 
 }

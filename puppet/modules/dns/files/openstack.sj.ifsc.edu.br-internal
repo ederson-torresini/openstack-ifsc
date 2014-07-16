@@ -1,6 +1,6 @@
 $TTL	86400
 @					IN	SOA		dns.openstack.sj.ifsc.edu.br. dnsadmin.openstack.sj.ifsc.edu.br. (
-			2014062701
+			2014070701
 				 86400
 				  3600
 				604800
@@ -31,6 +31,8 @@ cinder-controller	IN	CNAME	openstack0
 horizon				IN	CNAME	openstack0
 dashboard			IN	CNAME	openstack0
 memcached			IN	CNAME	openstack0
+snmp-manager		IN	CNAME	openstack0
+munin				IN	CNAME	openstack0
 
 openstack1			IN	AAAA	FC00:450::201
 openstack1			IN	A		10.45.0.201
@@ -43,6 +45,8 @@ openstack2			IN	A		10.45.0.202
 nova-compute1		IN	CNAME	openstack2
 neutron-network1	IN	CNAME	openstack2
 neutron-compute1	IN	CNAME	openstack2
+
+roteador			IN	A		200.135.233.206
 
 ; https://ceph.com/docs/master/install/install-ceph-gateway/
 *					IN	CNAME	@

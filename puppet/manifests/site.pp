@@ -18,7 +18,6 @@ node "roteador" {
 
 	include router
 	include nginx
-	include snmp-manager
 
 }
 
@@ -51,6 +50,7 @@ node "openstack0" {
 	include openstack-cinder-common
 	include openstack-cinder-controller
 	include openstack-horizon
+	include snmp-manager
 
 }
 

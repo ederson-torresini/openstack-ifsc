@@ -1,0 +1,32 @@
+--- /usr/lib/python2.7/dist-packages/cinder/image/glance.py-original	2014-06-25 10:28:01.413551974 -0300
++++ /usr/lib/python2.7/dist-packages/cinder/image/glance.py	2014-06-05 18:35:19.000000000 -0300
+@@ -431,7 +431,7 @@
+         elif attr == 'checksum' and output['status'] != 'active':
+             output[attr] = None
+         else:
+-			output[attr] = getattr(image, attr)
++            output[attr] = getattr(image, attr, None)
+ 
+     output['properties'] = getattr(image, 'properties', {})
+ 
+--- /usr/lib/python2.7/dist-packages/nova/virt/libvirt/imagebackend.py-original	2014-07-16 00:12:29.483437226 -0300
++++ /usr/lib/python2.7/dist-packages/nova/virt/libvirt/imagebackend.py	2014-07-16 00:07:47.916452518 -0300
+@@ -655,7 +655,7 @@
+         return False
+ 
+     def _resize(self, volume_name, size):
+-        size = int(size) * units.Ki
++        size = int(size)
+ 
+         with RBDVolumeProxy(self, volume_name) as vol:
+             vol.resize(size)
+--- /usr/share/openstack-dashboard/openstack_dashboard/api/swift.py-original	2014-07-16 00:10:58.605182849 -0300
++++ /usr/share/openstack-dashboard/openstack_dashboard/api/swift.py	2014-07-16 00:07:05.963411805 -0300
+@@ -280,6 +280,7 @@
+     size = 0
+     if object_file:
+         headers['X-Object-Meta-Orig-Filename'] = object_file.name
++        headers['Content-Length'] = object_file.size
+         size = object_file.size
+ 
+     etag = swift_api(request).put_object(container_name,

@@ -109,14 +109,15 @@ iface eth0 inet static
     address 200.135.233.253
     netmask 255.255.255.252
     gateway 200.135.233.254
+    dns-search openstack.sj.ifsc.edu.br
+    dns-nameservers 200.135.37.72
+    dns-nameservers 200.135.37.65
 
 # OpenStack-IFSC: real
 auto eth1
 iface eth1 inet static
     address 200.135.233.206
     netmask 255.255.255.240
-    dns-search openstack.sj.ifsc.edu.br
-    dns-nameservers 200.135.233.200
 
 # OpenStack-IFSC: VMs
 auto eth2

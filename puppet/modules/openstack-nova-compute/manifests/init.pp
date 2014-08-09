@@ -18,6 +18,10 @@ class openstack-nova-compute {
 		ensure => installed,
 	}
 
+	package { 'qemu-kvm':
+		ensure => installed,
+	}
+
 	exec { 'dpkg-statoverride':
 		command => '/usr/bin/dpkg-statoverride --update --add root root 0644 /boot/vmlinuz-$(uname -r)',
 		creates => '/etc/kernel/postinst.d/statoverride',

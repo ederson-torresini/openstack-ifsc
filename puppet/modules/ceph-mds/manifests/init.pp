@@ -66,7 +66,7 @@ class ceph-mds {
 	}
 
 	exec { 'size compute':
-		command => '/usr/bin/ceph osd pool set compute size 3',
+		command => '/usr/bin/ceph osd pool set compute size 2',
 		subscribe => Exec['pool compute'],
 		refreshonly => true,
 	}

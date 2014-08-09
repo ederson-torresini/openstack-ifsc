@@ -112,7 +112,7 @@ class openstack-cinder-controller {
 	}
 
     exec { 'size volumes':
-		command => '/usr/bin/ceph osd pool set volumes size 3',
+		command => '/usr/bin/ceph osd pool set volumes size 2',
         subscribe => Exec['pool volumes'],
         refreshonly => true,
     }

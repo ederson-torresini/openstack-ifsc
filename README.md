@@ -357,7 +357,7 @@ puppet agent --test
 ```
 
 ## Puppet and git.
-Ok, now mast and agents can communicate. Now, it's time to combine Puppet and git (this project):
+Ok, from this time master and agents can communicate. Now, it's time to combine Puppet and git (this project):
 - In master:
 ```
 cd /etc
@@ -365,7 +365,7 @@ git clone https://github.com/boidacarapreta/openstack-ifsc.git
 mv puppet/* openstack-ifsc/
 ln -s openstack-ifsc/puppet puppet
 ```
-Because there are two editors, @turnes and me (@boidacarapreta), it was necessary to change file modes:
+Because there are two editors, @turnes and me (@boidacarapreta), some file have been modified in its modes:
 ```
 chgrp -R git /etc/openstack-ifsc/
 chmod -R g+w /etc/openstack-ifsc/

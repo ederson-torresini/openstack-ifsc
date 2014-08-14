@@ -34,6 +34,7 @@ node "openstack0" {
 
 	include nvidia
 	include dns
+	include syslog-server
 	include mysql
 	include ceph-common
 	include ceph-openstack0
@@ -57,6 +58,7 @@ node "openstack0" {
 node "openstack1" {
 
 	include nvidia
+	include syslog-client
 	include ceph-common
 	include ceph-openstack1
 	include ceph-fs
@@ -71,6 +73,7 @@ node "openstack1" {
 node "openstack2" {
 
 	include nvidia
+	include syslog-client
 	include ceph-common
 	include ceph-openstack2
 	include ceph-fs

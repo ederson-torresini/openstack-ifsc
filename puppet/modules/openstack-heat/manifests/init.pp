@@ -69,7 +69,7 @@ class openstack-heat {
 	}
 
 	exec { '/usr/bin/heat-manage db_sync':
-		creates => '/var/lib/mysql/heat/tasks.frm',
+		creates => '/var/lib/mysql/heat/stack.frm',
 		user => 'heat',
 		require => [
 			Package['heat-api'],

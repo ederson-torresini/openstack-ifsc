@@ -51,6 +51,7 @@ node "openstack0" {
 	include openstack-cinder-common
 	include openstack-cinder-controller
 	include openstack-horizon
+	include openstack-heat
 	include snmp-manager
 
 }

@@ -1,18 +1,23 @@
 class users {
 
 	group { 'rturnes':
-		ensure => 'absent',
+		ensure => absent,
 		gid => '1000',
 	}
 
 	group { 'etorresini':
-		ensure => 'absent',
+		ensure => absent,
 		gid => '1001',
 	}
 
 	group { 'humbertos':
-		ensure => 'absent',
+		ensure => absent,
 		gid => '1002',
+	}
+
+	group { 'mftutui':
+		ensure => absent,
+		gid => '1003',
 	}
 
 	group { 'git':
@@ -120,6 +125,40 @@ class users {
 		owner => humbertos,
 		mode => 0400,
 		require => File['humbertos:.ssh'],
+	}
+
+	user { 'mftutui':
+		ensure => 'present',
+		comment => 'Maria Fernanda Tutui',
+		gid => '10000',
+		groups => ['adm', 'sudo'],
+		home => '/home/mftutui',
+		shell => '/bin/bash',
+		uid => '1003',
+	}
+
+	file { "mftutui:home":
+		path => '/home/mftutui',
+		ensure => directory,
+		owner => mftutui,
+		mode => 0700,
+	}
+
+	file { "mftutui:.ssh":
+		path => '/home/mftutui/.ssh',
+		ensure => directory,
+		owner => mftutui,
+		mode => 0700,
+		require => File['mftutui:home'],
+	}
+
+	file { 'mftutui:authorized_keys':
+		path => '/home/mftutui/.ssh/authorized_keys',
+		ensure => file,
+		source => 'puppet:///modules/users/mftutui:authorized_keys',
+		owner => mftutui,
+		mode => 0400,
+		require => File['mftutui:.ssh'],
 	}
 
 }

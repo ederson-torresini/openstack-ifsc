@@ -50,8 +50,9 @@ node "openstack0" {
 	include openstack-neutron-controller
 	include openstack-cinder-common
 	include openstack-cinder-controller
-	include openstack-horizon
+	include openstack-trove
 	include openstack-heat
+	include openstack-horizon
 	include snmp-manager
 
 }

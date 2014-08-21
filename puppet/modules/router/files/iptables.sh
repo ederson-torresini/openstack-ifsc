@@ -23,8 +23,8 @@ iptables -t filter -A INPUT -i eth0 -p tcp --dport 22 -j ACCEPT
 iptables -t filter -A INPUT -i eth0 -p udp --dport 500 -j ACCEPT
 iptables -t filter -A INPUT -i eth0 -p udp --dport 4500 -j ACCEPT
 iptables -t nat -A POSTROUTING -o eth0 -s 200.135.233.184/29 -j MASQUERADE
-iptables -t filter -A INPUT -i eth0 -s 172.18.0.0/16 -p tcp --dport 80 -j ACCEPT
-iptables -t filter -A INPUT -i eth0 -s 172.18.0.0/16 -p tcp --dport 443 -j ACCEPT
+iptables -t filter -A INPUT -i eth0 -p tcp --dport 80 -j ACCEPT
+iptables -t filter -A INPUT -i eth0 -p tcp --dport 443 -j ACCEPT
 iptables -t filter -A INPUT -i eth0 -p icmp --icmp-type echo-request -j ACCEPT
 #
 # De externo para virtualizadores: DNS (53/UDP), ping.

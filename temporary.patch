@@ -30,3 +30,14 @@
          size = object_file.size
  
      etag = swift_api(request).put_object(container_name,
+--- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/admin/dashboard.py-original   2014-08-21 16:40:48.087791735 -0300
++++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/admin/dashboard.py    2014-08-21 16:21:15.021310343 -0300
+@@ -38,7 +38,7 @@
+     slug = "admin"
+     panels = (SystemPanels, IdentityPanels)
+     default_panel = 'overview'
+-    permissions = ('openstack.roles.admin',)
++    permissions = ('openstack.roles.superadmin',)
+ 
+ 
+ horizon.register(Admin)

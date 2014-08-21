@@ -29,10 +29,10 @@ class mysql {
 		subscribe => File['my.cnf'],
 	}
 
-	file { 'backup.mysql':
-		path => '/etc/cron.daily/backup.mysql',
+	file { 'backup-mysql':
+		path => '/etc/cron.daily/backup-mysql',
 		ensure => file,
-		source => 'puppet:///modules/mysql/backup.mysql',
+		source => 'puppet:///modules/mysql/backup-mysql',
 		owner => root,
 		group => mysql,
 		mode => 0750,

@@ -12,28 +12,39 @@ class openstack-cinder-node {
 	}
 
 	# Issue #1: Create space, to allow conversion between glance and cinder, for large files.
-	exec { 'lvcreate conversion':
-		command => '/sbin/lvcreate -L 100G -n conversion openstack',
-		unless => '/sbin/lvdisplay | /bin/grep -q conversion',
+	exec { 'lvcreate cinder':
+		command => '/sbin/lvcreate -L 100G -n cinder openstack',
+		unless => '/sbin/lvdisplay | /bin/grep -q cinder',
 		require => Exec['/sbin/vgcreate openstack /dev/sda3'],
 	}
 
-	exec { 'mkfs conversion':
-		command => '/sbin/mkfs.ext4 /dev/openstack/conversion',
-		subscribe => Exec['lvcreate conversion'],
+	exec { 'mkfs cinder':
+		command => '/sbin/mkfs.ext4 /dev/openstack/cinder',
+		subscribe => Exec['lvcreate cinder'],
 		refreshonly => true,
 	}
 
-	exec { 'fstab conversion':
-		command => "/bin/echo /dev/openstack/conversion /var/lib/cinder/conversion ext4 rw,nodev,noexec,nosuid 0 2 >> /etc/fstab",
-		unless => '/bin/grep -q /var/lib/cinder/conversion /etc/fstab',
-		require => Exec['mkfs conversion'],
+	exec { 'fstab cinder':
+		command => "/bin/echo /dev/openstack/cinder /var/lib/cinder ext4 rw,nodev,noexec,nosuid 0 2 >> /etc/fstab",
+		unless => '/bin/grep -q /var/lib/cinder /etc/fstab',
+		require => Exec['mkfs cinder'],
 	}
 
-	exec { 'mount conversion':
-		command => '/bin/mount /var/lib/cinder/conversion',
-		unless => '/bin/mount | /bin/grep -q conversion',
-		require => Exec['fstab conversion'],
+	exec { 'mount cinder':
+		command => '/bin/mount /var/lib/cinder',
+		unless => '/bin/mount | /bin/grep -q cinder',
+		require => Exec['fstab cinder'],
+	}
+
+	file { [
+			'/var/lib/cinder',
+			'/var/lib/cinder/conversion',
+			'/var/lib/cinder/volumes',
+		]:
+		ensure => directory,
+		owner => cinder,
+		group => cinder,
+		mode => 0770,
 	}
 
 }

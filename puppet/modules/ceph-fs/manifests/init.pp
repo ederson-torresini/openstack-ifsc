@@ -34,8 +34,8 @@ class ceph-fs {
 		unless => '/bin/grep -q /var/lib/nova/instances /etc/fstab',
 	}
 
-	exec { 'mount -a -t ceph':
-		command => '/bin/mount -a -t ceph',
+	exec { 'mount /var/lib/nova/instances':
+		command => '/bin/mount /var/lib/nova/instances',
 		unless => '/bin/mount | /bin/grep -q instances',
 		subscribe => Exec['fstab:ceph'],
 		require => Package['ceph'],
@@ -45,7 +45,7 @@ class ceph-fs {
 		command => '/usr/bin/cephfs /var/lib/nova/instances/ set_layout -p $(ceph osd dump|grep compute|cut -d \  -f 2)',
 		require => [
 			Package['ceph'],
-			Exec['mount -a -t ceph'],
+			Exec['mount /var/lib/nova/instances'],
 		],
 	}
 

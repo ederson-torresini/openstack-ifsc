@@ -3,7 +3,7 @@
 PATH="/sbin:/bin:/usr/sbin:/usr/bin"
 DIR="/var/backups/"
 FILE="${DIR}/$(date +%F).sql"
-DAYS="14"
+DAYS="7"
 
 mysqldump --defaults-extra-file=/etc/mysql/debian.cnf --all-databases --routines --events --add-drop-database --add-drop-table > ${FILE}
 chmod 0400 ${FILE}

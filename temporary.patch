@@ -1,25 +1,3 @@
---- /usr/lib/python2.7/dist-packages/cinder/image/glance.py-original	2014-06-25 10:28:01.413551974 -0300
-+++ /usr/lib/python2.7/dist-packages/cinder/image/glance.py	2014-06-05 18:35:19.000000000 -0300
-@@ -431,7 +431,7 @@
-         elif attr == 'checksum' and output['status'] != 'active':
-             output[attr] = None
-         else:
--			output[attr] = getattr(image, attr)
-+            output[attr] = getattr(image, attr, None)
- 
-     output['properties'] = getattr(image, 'properties', {})
- 
---- /usr/lib/python2.7/dist-packages/nova/virt/libvirt/imagebackend.py-original	2014-07-16 00:12:29.483437226 -0300
-+++ /usr/lib/python2.7/dist-packages/nova/virt/libvirt/imagebackend.py	2014-07-16 00:07:47.916452518 -0300
-@@ -655,7 +655,7 @@
-         return False
- 
-     def _resize(self, volume_name, size):
--        size = int(size) * units.Ki
-+        size = int(size)
- 
-         with RBDVolumeProxy(self, volume_name) as vol:
-             vol.resize(size)
 --- /usr/share/openstack-dashboard/openstack_dashboard/api/swift.py-original	2014-07-16 00:10:58.605182849 -0300
 +++ /usr/share/openstack-dashboard/openstack_dashboard/api/swift.py	2014-07-16 00:07:05.963411805 -0300
 @@ -280,6 +280,7 @@
@@ -30,14 +8,45 @@
          size = object_file.size
  
      etag = swift_api(request).put_object(container_name,
---- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/admin/dashboard.py-original   2014-08-21 16:40:48.087791735 -0300
-+++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/admin/dashboard.py    2014-08-21 16:21:15.021310343 -0300
+--- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/admin/dashboard.py-original	2014-08-21 16:40:48.087791735 -0300
++++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/admin/dashboard.py	2014-09-01 20:51:39.363474146 -0300
 @@ -38,7 +38,7 @@
      slug = "admin"
      panels = (SystemPanels, IdentityPanels)
      default_panel = 'overview'
 -    permissions = ('openstack.roles.admin',)
-+    permissions = ('openstack.roles.superadmin',)
++    permissions = ('openstack.roles.horizon_dashboard','openstack.roles.admin',)
  
  
  horizon.register(Admin)
+--- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/project/dashboard.py-original	2014-08-07 16:53:02.000000000 -0300
++++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/project/dashboard.py	2014-09-01 20:42:41.397505840 -0300
+@@ -70,6 +70,7 @@
+         DatabasePanels,)
+     default_panel = 'overview'
+     supports_tenants = True
++    permissions = ('openstack.roles.horizon_dashboard',)
+ 
+ 
+ horizon.register(Project)
+--- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/router/dashboard.py-original	2014-08-07 16:53:02.000000000 -0300
++++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/router/dashboard.py	2014-09-01 20:51:49.219730039 -0300
+@@ -26,7 +26,7 @@
+     slug = "router"
+     panels = ('nexus1000v',)
+     default_panel = 'nexus1000v'
+-    permissions = ('openstack.roles.admin',)
++    permissions = ('openstack.roles.horizon_dashboard','openstack.roles.admin',)
+ 
+ 
+ if neutron.is_port_profiles_supported():
+--- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/settings/dashboard.py-original	2014-08-07 16:53:02.000000000 -0300
++++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/settings/dashboard.py	2014-09-01 20:41:38.851881670 -0300
+@@ -25,6 +25,7 @@
+     slug = "settings"
+     panels = ('user', 'password', )
+     default_panel = 'user'
++    permissions = ('openstack.roles.horizon_dashboard',)
+ 
+     def nav(self, context):
+         dash = context['request'].horizon.get('dashboard', None)

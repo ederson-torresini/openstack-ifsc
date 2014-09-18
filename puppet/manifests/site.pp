@@ -87,3 +87,18 @@ node "openstack2" {
 
 }
 
+node "openstack3" {
+
+	include nvidia
+	include syslog-client
+	include ceph-common
+	include ceph-openstack3
+	include ceph-fs
+	include openstack-common
+	include openstack-nova-compute
+	include openstack-neutron-network-compute
+	include openstack-cinder-common
+	include openstack-cinder-node
+
+}
+

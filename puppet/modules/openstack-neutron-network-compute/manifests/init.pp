@@ -126,6 +126,7 @@ class openstack-neutron-network-compute {
 	$source = $hostname ? {
 		'openstack1' => 'puppet:///modules/openstack-neutron-network-compute/ml2_conf.ini-openstack1',
 		'openstack2' => 'puppet:///modules/openstack-neutron-network-compute/ml2_conf.ini-openstack2',
+		'openstack3' => 'puppet:///modules/openstack-neutron-network-compute/ml2_conf.ini-openstack3',
 	}
 
 	file  { 'ml2_conf.ini':
@@ -150,17 +151,25 @@ class openstack-neutron-network-compute {
 	exec { 'br-int':
 		command => '/usr/bin/ovs-vsctl add-br br-int',
 		creates => '/etc/neutron/done',
+		require => Package['neutron-plugin-openvswitch-agent'],
+		unless => '/usr/bin/ovs-vsctl list-br | /bin/grep -q br-int',
 	}
 
 	exec { 'br-ex':
 		command => '/usr/bin/ovs-vsctl add-br br-ex',
-		before => Exec['add-port'],
 		creates => '/etc/neutron/done',
+		require => Package['neutron-plugin-openvswitch-agent'],
+		unless => '/usr/bin/ovs-vsctl list-br | /bin/grep -q br-ex',
 	}
 
 	exec { 'add-port':
 		command => '/usr/bin/ovs-vsctl add-port br-ex p5p1',
 		creates => '/etc/neutron/done',
+		unless => '/usr/bin/ovs-vsctl list-ports br-ex | /bin/grep -q p5p1',
+		require => [
+			Package['neutron-plugin-openvswitch-agent'],
+			Exec['br-ex'],
+		],
 	}
 
 	file { 'done':

@@ -17,6 +17,7 @@ class ceph-openstack1 {
 		owner => root,
 		group => root,
 		mode => 0600,
+		require => Package['ceph'],
 	}
 
 	exec { 'mon:fs':

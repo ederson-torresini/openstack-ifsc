@@ -16,7 +16,7 @@ iptables -t filter -P OUTPUT  ACCEPT
 iptables -t filter -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 iptables -t filter -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
 iptables -t filter -A INPUT -i lo -j ACCEPT
-iptables -t filter -A INPUT -s 200.135.233.183/29 -j ACCEPT
+iptables -t filter -A INPUT -s 200.135.233.184/29 -j ACCEPT
 #
 # De externo para roteador: SSH (22/TCP), VPN (500/UDP, 4500/UDP, MASQUERADING), Web (80/TCP, 443/TCP), ping.
 iptables -t filter -A INPUT -i eth0 -p tcp --dport 22 -j ACCEPT

@@ -1,4 +1,33 @@
+# Based on http://docs.openstack.org/icehouse/install-guide/install/apt/content/nova-compute.html
 class openstack-nova-controller {
+
+	# Based on https://www.mirantis.com/blog/tutorial-openstack-live-migration-with-kvm-hypervisor-and-nfs-shared-storage/
+	group { 'nova':
+		gid => '10000',
+	}
+
+	# Based on https://www.mirantis.com/blog/tutorial-openstack-live-migration-with-kvm-hypervisor-and-nfs-shared-storage/
+	group { 'kvm':
+		gid => '10001',
+	}
+
+	# Based on https://www.mirantis.com/blog/tutorial-openstack-live-migration-with-kvm-hypervisor-and-nfs-shared-storage/
+	user { 'nova':
+		uid => '10000',
+		gid  => '10000',
+		home => '/var/lib/nova',
+		shell => '/bin/sh',
+		require => Group['nova'],
+	}
+
+	# Based on https://www.mirantis.com/blog/tutorial-openstack-live-migration-with-kvm-hypervisor-and-nfs-shared-storage/
+	user { 'libvirt-qemu':
+		uid => '10001',
+		gid => '10001',
+		home => '/var/lib/libvirt',
+		shell => '/bin/false',
+		require => Group['kvm'],
+	}
 
 	package { 'nova-common':
 		ensure => installed,
@@ -6,7 +35,9 @@ class openstack-nova-controller {
 			Class['mysql'],
 			Class['openstack-rabbitmq'],
 			Class['openstack-keystone'],
-			
+			Group['kvm'],
+			User['nova'],
+			User['libvirt-qemu'],
 		],
 	}
 
@@ -43,37 +74,49 @@ class openstack-nova-controller {
 	service { 'nova-api':
 		ensure => running,
 		enable => true,
-		subscribe => File['nova.conf'],
+		subscribe => [
+			File['nova.conf'],
+		],
 	}
 
 	service { 'nova-cert':
 		ensure => running,
 		enable => true,
-		subscribe => File['nova.conf'],
+		subscribe => [
+			File['nova.conf'],
+		],
 	}
 
 	service { 'nova-conductor':
 		ensure => running,
 		enable => true,
-		subscribe => File['nova.conf'],
+		subscribe => [
+			File['nova.conf'],
+		],
 	}
 
 	service { 'nova-consoleauth':
 		ensure => running,
 		enable => true,
-		subscribe => File['nova.conf'],
+		subscribe => [
+			File['nova.conf'],
+		],
 	}
 
 	service { 'nova-novncproxy':
 		ensure => running,
 		enable => true,
-		subscribe => File['nova.conf'],
+		subscribe => [
+			File['nova.conf'],
+		],
 	}
 
 	service { 'nova-scheduler':
 		ensure => running,
 		enable => true,
-		subscribe => File['nova.conf'],
+		subscribe => [
+			File['nova.conf'],
+		],
 	}
 
 	file { 'nova.conf':

@@ -1,13 +1,49 @@
 # Based on http://docs.openstack.org/icehouse/install-guide/install/apt/content/nova-compute.html
-
 class openstack-nova-compute {
+
+	# Based on https://www.mirantis.com/blog/tutorial-openstack-live-migration-with-kvm-hypervisor-and-nfs-shared-storage/
+	group { 'nova':
+		gid => '10000',
+	}
+
+	# Based on https://www.mirantis.com/blog/tutorial-openstack-live-migration-with-kvm-hypervisor-and-nfs-shared-storage/
+	group { 'kvm':
+		gid => '10001',
+	}
+
+	group { 'libvirtd':
+		gid => '10002',
+	}
+
+	# Based on https://www.mirantis.com/blog/tutorial-openstack-live-migration-with-kvm-hypervisor-and-nfs-shared-storage/
+	user { 'nova':
+		uid => '10000',
+		gid  => '10000',
+		home => '/var/lib/nova',
+		shell => '/bin/sh',
+		require => [
+			Group['nova'],
+			Group['libvirtd'],
+		],
+	}
+
+	# Based on https://www.mirantis.com/blog/tutorial-openstack-live-migration-with-kvm-hypervisor-and-nfs-shared-storage/
+	user { 'libvirt-qemu':
+		uid => '10001',
+		gid => '10001',
+		home => '/var/lib/libvirt',
+		shell => '/bin/false',
+		require => Group['kvm'],
+	}
 
 	package { 'nova-compute':
 		ensure => installed,
+		require => User['nova'],
 	}
 
 	package { 'nova-compute-kvm':
 		ensure => installed,
+		require => User['nova'],
 	}
 
 	package { 'python-guestfs':
@@ -16,6 +52,7 @@ class openstack-nova-compute {
 
 	package { 'libvirt-bin':
 		ensure => installed,
+		require => User['libvirt-qemu'],
 	}
 
 	package { 'qemu-kvm':
@@ -39,12 +76,17 @@ class openstack-nova-compute {
 	service { 'nova-compute':
 		ensure => running,
 		enable => true,
-		subscribe => File['nova.conf'],
+		subscribe => [
+			User['nova'],
+			File['nova.conf'],
+			File['nova-compute.conf'],
+		],
 	}
 
 	$source = $hostname ? {
 		'openstack1' => 'puppet:///modules/openstack-nova-compute/nova.conf-openstack1',
 		'openstack2' => 'puppet:///modules/openstack-nova-compute/nova.conf-openstack2',
+		'openstack3' => 'puppet:///modules/openstack-nova-compute/nova.conf-openstack3',
 	}
 
 	file { 'nova.conf':
@@ -55,6 +97,16 @@ class openstack-nova-compute {
 		owner => root,
 		group => nova,
 		mode => 0640,
+	}
+
+	file { 'nova-compute.conf':
+		path => '/etc/nova/nova-compute.conf',
+		ensure => file,
+		source => 'puppet:///modules/openstack-nova-compute/nova-compute.conf',
+		owner => root,
+		group => nova,
+		mode => 0644,
+		require => Package['nova-compute'],
 	}
 
 	file { '/var/lib/nova/nova.sqlite':
@@ -135,6 +187,8 @@ class openstack-nova-compute {
 		ensure => running,
 		enable => true,
 		subscribe => [
+			User['libvirt-qemu'],
+			Group['kvm'],
 			File['nova.conf'],
 			File['libvirtd.conf'],
 			File['libvirt-bin'],

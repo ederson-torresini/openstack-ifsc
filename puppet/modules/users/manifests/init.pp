@@ -22,13 +22,13 @@ class users {
 
 	group { 'git':
 		ensure => 'present',
-		gid => '10000',
+		gid => '9999',
 	}
 
 	user { 'rturnes':
 		ensure => 'present',
 		comment => 'Rafael Turnes Silveira',
-		gid => '10000',
+		gid => '9999',
 		groups => ['adm', 'sudo'],
 		home => '/home/rturnes',
 		shell => '/bin/bash',
@@ -62,7 +62,7 @@ class users {
 	user { 'etorresini':
 		ensure => 'present',
 		comment => 'Ederson Torresini',
-		gid => '10000',
+		gid => '9999',
 		groups => ['adm', 'sudo'],
 		home => '/home/etorresini',
 		shell => '/bin/bash',
@@ -96,7 +96,7 @@ class users {
 	user { 'humbertos':
 		ensure => 'present',
 		comment => 'Humberto Jose de Souza',
-		gid => '10000',
+		gid => '9999',
 		groups => ['adm', 'sudo'],
 		home => '/home/humbertos',
 		shell => '/bin/bash',
@@ -130,7 +130,7 @@ class users {
 	user { 'mftutui':
 		ensure => 'present',
 		comment => 'Maria Fernanda Tutui',
-		gid => '10000',
+		gid => '9999',
 		groups => ['adm', 'sudo'],
 		home => '/home/mftutui',
 		shell => '/bin/bash',

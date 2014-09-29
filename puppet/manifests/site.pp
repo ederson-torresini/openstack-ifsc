@@ -47,7 +47,9 @@ node "openstack0" {
 	include openstack-keystone
 	include openstack-glance
 	include openstack-nova-controller
+	include openstack-nova-compute::docker
 	include openstack-neutron-controller
+	include openstack-neutron-agent::compute
 	include openstack-cinder-common
 	include openstack-cinder-controller
 	include openstack-trove
@@ -65,8 +67,9 @@ node "openstack1" {
 	include ceph-openstack1
 	include ceph-fs
 	include openstack-common
-	include openstack-nova-compute
-	include openstack-neutron-network-compute
+	include openstack-nova-compute::kvm
+	include openstack-neutron-agent::compute
+	include openstack-neutron-agent::network
 	include openstack-cinder-common
 	include openstack-cinder-node
 
@@ -80,8 +83,9 @@ node "openstack2" {
 	include ceph-openstack2
 	include ceph-fs
 	include openstack-common
-	include openstack-nova-compute
-	include openstack-neutron-network-compute
+	include openstack-nova-compute::kvm
+	include openstack-neutron-agent::compute
+	include openstack-neutron-agent::network
 	include openstack-cinder-common
 	include openstack-cinder-node
 
@@ -95,8 +99,9 @@ node "openstack3" {
 	include ceph-openstack3
 	include ceph-fs
 	include openstack-common
-	include openstack-nova-compute
-	include openstack-neutron-network-compute
+	include openstack-nova-compute::kvm
+	include openstack-neutron-agent::compute
+	include openstack-neutron-agent::network
 	include openstack-cinder-common
 	include openstack-cinder-node
 

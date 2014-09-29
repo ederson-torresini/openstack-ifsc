@@ -1,4 +1,4 @@
-class openstack-neutron-controller {
+class openstack-neutron-controller inherits openstack-neutron::common{
 
 	package { 'neutron-server':
 		ensure => installed,
@@ -9,28 +9,8 @@ class openstack-neutron-controller {
 		],
 	}
 
-	package { 'neutron-plugin-ml2':
-		ensure => installed,
-	}
-
-	file { 'neutron.conf':
-		path => '/etc/neutron/neutron.conf',
-		ensure => file,
+	File <| title == 'neutron.conf' |> {
 		require => Package['neutron-server'],
-		source => 'puppet:///modules/openstack-neutron-controller/neutron.conf',
-		owner => root,
-		group => neutron,
-		mode => 0640,
-	}
-
-	file { 'ml2_conf.ini':
-		path => '/etc/neutron/plugins/ml2/ml2_conf.ini',
-		ensure => file,
-		source => 'puppet:///modules/openstack-neutron-controller/ml2_conf.ini',
-		owner => root,
-		group => neutron,
-		mode => 0640,
-		require => Package['neutron-plugin-ml2'],
 	}
 
 	service { 'neutron-server':
@@ -93,4 +73,3 @@ class openstack-neutron-controller {
 	}
 
 }
-

@@ -36,38 +36,39 @@ VLANs:
 - 448:
   - Services: VMs' external network.
   - Addresses: 200.135.233.0/25.
-    - `roteador`, eth2, untagged: .126.
+    - `roteador`, eth2, untagged: ending with 126.
     - `openstack1`, p5p1, untagged: no address.
     - `openstack2`, p5p1, untagged: no address.
     - `openstack3`, p5p1, untagged: no address.
 - 449:
   - Services: hypervisors' remote control.
   - Addresses: 200.135.233.192/28.
-    - `roteador`, eth1, untagged: .206.
-	- `openstack0`, em1, untagged: .200.
-    - `openstack1`, em1, untagged: .201.
-    - `openstack2`, em1, untagged: .202.
-    - `openstack3`, em1, untagged: .203.
+    - `roteador`, eth1, untagged: 206.
+	- `openstack0`, em1, untagged: 200.
+    - `openstack1`, em1, untagged: 201.
+    - `openstack2`, em1, untagged: 202.
+    - `openstack3`, em1, untagged: 203.
 - 450:
   - Services: control, centralized database, messages.
-  - Addresses: 10.45.0.0/24.
-    - `openstack0`, em1, tagged: .200.
-    - `openstack1`, em1, tagged: .201.
-    - `openstack2`, em1, tagged: .202.
-    - `openstack3`, em1, tagged: .203.
+  - Addresses: 10.45.0.0/24, FC00:450::/64.
+    - `openstack0`, em1, tagged: 200.
+    - `openstack1`, em1, tagged: 201.
+    - `openstack2`, em1, tagged: 202.
+    - `openstack3`, em1, tagged: 203.
 - 451:
   - Services: storage.
-  - Addressess: 10.45.1.0/24.
-    - `openstack0`, em1, tagged: .200.
-    - `openstack1`, em1, tagged: .201.
-    - `openstack2`, em1, tagged: .202.
-    - `openstack3`, em1, tagged: .203.
+  - Addressess: 10.45.1.0/24, FC00:451::/64.
+    - `openstack0`, em1, tagged: 200.
+    - `openstack1`, em1, tagged: 201.
+    - `openstack2`, em1, tagged: 202.
+    - `openstack3`, em1, tagged: 203.
 - 452:
   - Services: tunnel interface for networking service.
-  - Addressess: 10.45.2.0/24.
-    - `openstack1`, em1, tagged: .201.
-    - `openstack2`, em1, tagged: .202.
-    - `openstack3`, em1, tagged: .203.
+  - Addressess: 10.45.2.0/24, FC00:452::/64.
+    - `openstack0`, em1, tagged: 200.
+    - `openstack1`, em1, tagged: 201.
+    - `openstack2`, em1, tagged: 202.
+    - `openstack3`, em1, tagged: 203.
 
 Operating System:
 - Distribution: Ubuntu Server 14.04 LTS.
@@ -195,6 +196,19 @@ iface vlan451 inet static
 	netmask 255.255.255.0
 iface vlan451 inet6 static
     address FC00:0451::200
+    netmask 64
+    accept_ra 0
+    autconf 0
+    scope site
+
+# Tunnel interface
+auto vlan452
+iface vlan452 inet static
+    vlan-raw-device em1
+    address 10.45.2.200
+    netmask 255.255.255.0
+iface vlan452 inet6 static
+    address FC00:0452::200
     netmask 64
     accept_ra 0
     autconf 0

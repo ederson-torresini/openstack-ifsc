@@ -1,6 +1,6 @@
 $TTL	86400
 @					IN	SOA		dns.openstack.sj.ifsc.edu.br. dnsadmin.openstack.sj.ifsc.edu.br. (
-			2014160900
+			2014100700
 				 86400
 				  3600
 				604800
@@ -23,9 +23,3 @@ roteador			IN	A		200.135.233.253
 
 ; https://ceph.com/docs/master/install/install-ceph-gateway/
 *					IN	CNAME	roteador
-
-; http://docs.openstack.org/icehouse/install-guide/install/apt/content/trove-install.html
-keystone			IN	CNAME	openstack0
-rabbitmq			IN	CNAME	openstack0
-swift				IN	CNAME	openstack0
-radosgw				IN	CNAME	openstack0

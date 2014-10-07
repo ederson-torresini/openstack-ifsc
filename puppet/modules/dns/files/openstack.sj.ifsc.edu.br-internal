@@ -1,6 +1,6 @@
 $TTL	86400
 @					IN	SOA		dns.openstack.sj.ifsc.edu.br. dnsadmin.openstack.sj.ifsc.edu.br. (
-			2014160900
+			2014091600
 				 86400
 				  3600
 				604800

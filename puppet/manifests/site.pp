@@ -55,6 +55,8 @@ node "openstack0" {
 	include openstack-trove
 	include openstack-heat
 	include openstack-horizon
+	include openstack-ceilometer::controller
+	include openstack-ceilometer::compute	
 	include snmp-manager
 
 }
@@ -72,6 +74,7 @@ node "openstack1" {
 	include openstack-neutron-agent::network
 	include openstack-cinder-common
 	include openstack-cinder-node
+	include openstack-ceilometer::compute
 
 }
 
@@ -88,6 +91,7 @@ node "openstack2" {
 	include openstack-neutron-agent::network
 	include openstack-cinder-common
 	include openstack-cinder-node
+	include openstack-ceilometer::compute
 
 }
 
@@ -104,6 +108,7 @@ node "openstack3" {
 	include openstack-neutron-agent::network
 	include openstack-cinder-common
 	include openstack-cinder-node
+	include openstack-ceilometer::compute
 
 }
 

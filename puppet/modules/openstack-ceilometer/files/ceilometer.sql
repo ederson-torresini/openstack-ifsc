@@ -1,0 +1,3 @@
+CREATE DATABASE IF NOT EXISTS ceilometer;
+GRANT ALL PRIVILEGES ON ceilometer.* TO 'ceilometer'@'%' IDENTIFIED BY 'ceilometer';
+FLUSH PRIVILEGES;

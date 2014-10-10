@@ -1,6 +1,6 @@
 $TTL	86400
 @					IN	SOA		dns.openstack.sj.ifsc.edu.br. dnsadmin.openstack.sj.ifsc.edu.br. (
-			2014091600
+			2014100700
 				 86400
 				  3600
 				604800
@@ -33,6 +33,8 @@ dashboard			IN	CNAME	openstack0
 memcached			IN	CNAME	openstack0
 heat				IN	CNAME	openstack0
 orchestration		IN	CNAME	openstack0
+ceilometer			IN	CNAME	openstack0
+telemetry			IN	CNAME	openstack0
 snmp-manager		IN	CNAME	openstack0
 munin				IN	CNAME	openstack0
 syslog				IN	CNAME	openstack0

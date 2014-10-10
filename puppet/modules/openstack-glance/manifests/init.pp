@@ -103,7 +103,7 @@ class openstack-glance {
 
 	exec { '/usr/local/sbin/glance-init.sh':
 		require => Exec['/usr/local/sbin/keystone-init.sh'],
-		subscribe => Exec['/usr/bin/glance-manage db_sync'],
+		subscribe => File['glance-init.sh'],
 		refreshonly => true,
 	}
 

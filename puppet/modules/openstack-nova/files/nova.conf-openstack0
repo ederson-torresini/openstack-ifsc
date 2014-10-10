@@ -62,6 +62,13 @@ live_migration_flag=VIR_MIGRATE_UNDEFINE_SOURCE,VIR_MIGRATE_PEER2PEER,VIR_MIGRAT
 verbose=True
 use_syslog=True
 syslog_log_facility=LOG_LOCAL2
+#
+# Based on http://docs.openstack.org/icehouse/install-guide/install/apt/content/ceilometer-install-nova.html
+instance_usage_audit = True
+instance_usage_audit_period = hour
+notify_on_state_change = vm_and_task_state
+notification_driver = nova.openstack.common.notifier.rpc_notifier
+notification_driver = ceilometer.compute.nova_notifier
 
 [database]
 connection = mysql://nova:nova@mysql/nova

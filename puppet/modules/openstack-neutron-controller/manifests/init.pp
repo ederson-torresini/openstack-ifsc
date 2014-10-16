@@ -1,4 +1,4 @@
-class openstack-neutron-controller inherits openstack-neutron::common{
+class openstack-neutron-controller inherits openstack-neutron::common {
 
 	package { 'neutron-server':
 		ensure => installed,

@@ -73,6 +73,7 @@ class openstack-neutron-agent::network inherits openstack-neutron-agent::common 
 			Package['neutron-plugin-ml2'],
 			Package['neutron-plugin-openvswitch-agent'],
 			Package['neutron-l3-agent'],
+			Package['neutron-metering-agent'],
 			Package['neutron-dhcp-agent'],
 		],
 	}
@@ -97,6 +98,30 @@ class openstack-neutron-agent::network inherits openstack-neutron-agent::common 
 		subscribe => [
 			File['neutron.conf'],
 			File['l3_agent.ini'],
+		],
+	}
+
+	# Based on http://docs.openstack.org/admin-guide-cloud/content/install_neutron-metering-agent.html
+	package { 'neutron-metering-agent':
+		ensure => installed,
+	}
+
+	file { 'metering_agent.ini':
+		path => '/etc/neutron/metering_agent.ini',
+		ensure => file,
+		source => 'puppet:///modules/openstack-neutron-agent/metering_agent.ini',
+		owner => root,
+		group => neutron,
+		mode => 0640,
+		require => Package['neutron-metering-agent'],
+	}
+
+	service { 'neutron-metering-agent':
+		ensure => running,
+		enable => true,
+		subscribe => [
+			File['neutron.conf'],
+			File['metering_agent.ini'],
 		],
 	}
 

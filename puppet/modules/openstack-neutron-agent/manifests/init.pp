@@ -75,6 +75,7 @@ class openstack-neutron-agent::network inherits openstack-neutron-agent::common 
 			Package['neutron-l3-agent'],
 			Package['neutron-metering-agent'],
 			Package['neutron-dhcp-agent'],
+			Package['neutron-lbaas-agent'],
 		],
 	}
 
@@ -179,6 +180,30 @@ class openstack-neutron-agent::network inherits openstack-neutron-agent::common 
 		subscribe => [
 			File['neutron.conf'],
 			File['metadata_agent.ini'],
+		],
+	}
+
+	# Based on http://docs.openstack.org/admin-guide-cloud/content/install_neutron-lbaas-agent.html
+	package { 'neutron-lbaas-agent':
+		ensure => installed,
+	}
+
+	file { 'lbaas_agent.ini':
+		path => '/etc/neutron/lbaas_agent.ini',
+		ensure => file,
+		source => 'puppet:///modules/openstack-neutron-agent/lbaas_agent.ini',
+		owner => root,
+		group => neutron,
+		mode => 0640,
+		require => Package['neutron-lbaas-agent'],
+	}
+
+	service { 'neutron-lbaas-agent':
+		ensure => running,
+		enable => true,
+		subscribe => [
+			File['neutron.conf'],
+			File['lbaas_agent.ini'],
 		],
 	}
 

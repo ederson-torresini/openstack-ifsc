@@ -65,7 +65,7 @@ OPENSTACK_HYPERVISOR_FEATURES = {
 }
 
 OPENSTACK_NEUTRON_NETWORK = {
-    'enable_lb': False,
+    'enable_lb': True,
     'enable_firewall': False,
     'enable_quotas': True,
     'enable_vpn': False,

@@ -1,12 +1,11 @@
 FROM debian:testing
 MAINTAINER Ederson Torresini <boidacarapreta@gmail.com>
 
-ENV LANG C
-ENV LANGUAGE C
-ENV LC_ALL C
-ENV DEBIAN_FRONTEND noninteractive
-
-RUN apt-get update && \
+RUN	export LANG=C && \
+	export LANGUAGE=C && \
+	export LC_ALL=C && \
+	export DEBIAN_FRONTEND=noninteractive && \
+	apt-get update && \
     apt-get install -y sudo bash openssh-server curl supervisor && \
     groupadd debian && \
     useradd -g debian -G sudo -d /home/debian -m -s /bin/bash debian && \
@@ -22,4 +21,4 @@ ADD curl.conf /etc/supervisor/conf.d/
 ADD sshd.conf /etc/supervisor/conf.d/
 
 EXPOSE 22
-CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+ENTRYPOINT ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]

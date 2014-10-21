@@ -73,14 +73,28 @@ class openstack-neutron-agent::network inherits openstack-neutron-agent::common 
 			Package['neutron-plugin-ml2'],
 			Package['neutron-plugin-openvswitch-agent'],
 			Package['neutron-l3-agent'],
+			Package['neutron-vpn-agent'],
 			Package['neutron-metering-agent'],
 			Package['neutron-dhcp-agent'],
 			Package['neutron-lbaas-agent'],
 		],
 	}
 
+	# Based on https://gist.github.com/cloudnull/8851787
 	package { 'neutron-l3-agent':
+		ensure => absent,
+	}
+
+	package { 'openswan':
 		ensure => installed,
+	}
+
+	package { 'neutron-vpn-agent':
+		ensure => installed,
+		require => [
+			Package['openswan'],
+			Package['neutron-l3-agent'],
+		],
 	}
 
 	file { 'l3_agent.ini':
@@ -90,15 +104,41 @@ class openstack-neutron-agent::network inherits openstack-neutron-agent::common 
 		owner => root,
 		group => neutron,
 		mode => 0640,
-		require => Package['neutron-l3-agent'],
+		require => Package['neutron-vpn-agent'],
+	}
+
+	file { 'vpn_agent.ini':
+		path => '/etc/neutron/vpn_agent.ini',
+		ensure => file,
+		source => 'puppet:///modules/openstack-neutron-agent/vpn_agent.ini',
+		owner => root,
+		group => neutron,
+		mode => 0640,
+		require => Package['neutron-vpn-agent'],
 	}
 
 	service { 'neutron-l3-agent':
+		ensure => stopped,
+		enable => false,
+	}
+
+	service { 'ipsec':
 		ensure => running,
 		enable => true,
+		require => Package['openswan'],
+		subscribe => [
+			File['vpn_agent.ini'],
+		],
+	}
+
+	service { 'neutron-vpn-agent':
+		ensure => running,
+		enable => true,
+		require => Service['neutron-l3-agent'],
 		subscribe => [
 			File['neutron.conf'],
 			File['l3_agent.ini'],
+			File['vpn_agent.ini'],
 		],
 	}
 

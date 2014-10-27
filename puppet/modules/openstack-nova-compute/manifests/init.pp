@@ -276,6 +276,48 @@ class openstack-nova-compute::docker inherits openstack-nova-compute::common {
 		],
 	}
 
+	# Issue #8: More space to Docker runtime files.
+	exec { 'lvcreate docker':
+		command => '/sbin/lvcreate -L 20G -n docker openstack',
+		unless => '/sbin/lvdisplay | /bin/grep -q docker',
+		require => Exec['/sbin/vgcreate openstack /dev/sda3'],
+	}
+
+	exec { 'mkfs docker':
+		command => '/sbin/mkfs.ext4 /dev/openstack/docker',
+		subscribe => Exec['lvcreate docker'],
+		refreshonly => true,
+	}
+
+	file { 'docker':
+		path => '/var/lib/docker',
+		ensure => directory,
+		owner => root,
+		group => docker,
+		mode => 0770,
+	}
+
+	exec { 'fstab docker':
+		command => "/bin/echo /dev/openstack/docker /var/lib/docker ext4 defaults 0 2 >> /etc/fstab",
+		unless => '/bin/grep -q /var/lib/docker /etc/fstab',
+		require => [
+			Exec['mkfs docker'],
+			File['docker'],
+		],
+	}
+
+	exec { 'mount docker':
+		command => '/bin/mount /var/lib/docker',
+		unless => '/bin/mount | /bin/grep -q docker',
+		require => Exec['fstab docker'],
+	}
+
+	exec { 'make rprivate docker':
+		command => '/bin/mount --make-rprivate /var/lib/docker',
+		subscribe => Exec['mount docker'],
+		refreshonly => true,
+	}
+
 	Service['nova-compute'] {
 		subscribe => [
 			User['nova'],
@@ -288,7 +330,11 @@ class openstack-nova-compute::docker inherits openstack-nova-compute::common {
 	service { 'docker':
 		ensure => running,
 		enable => true,
-		subscribe => File['docker.filters'],
+		subscribe => [
+			File['docker.filters'],
+			File['docker'],
+			Exec['make rprivate docker'],
+		],
 	}
 
 }

@@ -10,8 +10,8 @@ What we have:
 
 What we'll do:
 - 1 router (`roteador`) to control access to hypervisors and make things easier to VMs.
-- 1 controller (`openstack0`), which runs the following services: SQL database, message queue, identity, image, object storage, block storage, dashboard and all service controllers (for compute and networking).
-- 3 compute nodes (`openstack1`, `openstack2` and `openstack3`) running compute and network nodes.
+- 1 controller (`openstack0`), which runs the following services: SQL database, message queue, identity, image, object storage, block storage, dashboard, all service controllers (for compute and networking) and compute node (Docker).
+- 3 compute nodes (`openstack1`, `openstack2` and `openstack3`) running compute (KVM) and network nodes.
 - As each machine has locally 1 TB (and no RAID!), will be used 800 GB of it for Ceph (http://ceph.com) to gain performance (to test later), availability (test too) and, specially, a common backend for image, object and block storage without any SPOF. It will be 2 replicas of data in the cluster, so we're saying 4 disks x 800 GB / 2 replicas = 1600 GB.
 
 So... why not just use some ready deploy application, like ceph-ceploy, Juju or even puppetlabs-openstack?

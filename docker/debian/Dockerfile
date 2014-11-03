@@ -21,4 +21,4 @@ ADD curl.conf /etc/supervisor/conf.d/
 ADD sshd.conf /etc/supervisor/conf.d/
 
 EXPOSE 22
-ENTRYPOINT ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]

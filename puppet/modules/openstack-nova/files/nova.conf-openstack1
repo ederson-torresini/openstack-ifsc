@@ -72,6 +72,13 @@ notification_driver = ceilometer.compute.nova_notifier
 #
 # Based on http://docs.openstack.org/trunk/config-reference/content/ch_configuring-openstack-orchestration.html
 instance_user = ""
+#
+# Based on https://coreos.com/docs/running-coreos/platforms/openstack/
+# and http://docs.openstack.org/user-guide/content/requirements.html
+force_config_drive=true
+config_drive_format=iso9660
+config_drive_cdrom=true
+config_drive_format=vfat
 
 [database]
 connection = mysql://nova:nova@mysql/nova

@@ -95,6 +95,12 @@ class openstack-nova-compute::kvm inherits openstack-nova-compute::common {
 		ensure => installed,
 	}
 
+	# Based on https://coreos.com/docs/running-coreos/platforms/openstack/
+	# and http://docs.openstack.org/user-guide/content/requirements.html
+	package { 'genisoimage':
+		ensure => installed,
+	}
+
 	# Based on http://ceph.com/docs/next/rbd/rbd-openstack/?highlight=cinder
 	file { 'secret.xml':
 		path => '/etc/libvirt/secret.xml',

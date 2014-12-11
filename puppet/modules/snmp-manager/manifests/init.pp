@@ -1190,6 +1190,377 @@ class snmp-manager {
 		require => Package['munin'],
 	}
 
+	file { '/etc/munin/plugins/snmp_openstack3_cpuload':
+		path => '/etc/munin/plugins/snmp_openstack3_cpuload',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__cpuload',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_df':
+		path => '/etc/munin/plugins/snmp_openstack3_df',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__df',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_df_ram':
+		path => '/etc/munin/plugins/snmp_openstack3_df_ram',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__df_ram',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_1':
+		path => '/etc/munin/plugins/snmp_openstack3_if_1',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_2':
+		path => '/etc/munin/plugins/snmp_openstack3_if_2',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_3':
+		path => '/etc/munin/plugins/snmp_openstack3_if_3',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_4':
+		path => '/etc/munin/plugins/snmp_openstack3_if_4',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_5':
+		path => '/etc/munin/plugins/snmp_openstack3_if_5',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_6':
+		path => '/etc/munin/plugins/snmp_openstack3_if_6',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_7':
+		path => '/etc/munin/plugins/snmp_openstack3_if_7',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_8':
+		path => '/etc/munin/plugins/snmp_openstack3_if_8',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_9':
+		path => '/etc/munin/plugins/snmp_openstack3_if_9',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_10':
+		path => '/etc/munin/plugins/snmp_openstack3_if_10',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_11':
+		path => '/etc/munin/plugins/snmp_openstack3_if_11',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_12':
+		path => '/etc/munin/plugins/snmp_openstack3_if_12',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_13':
+		path => '/etc/munin/plugins/snmp_openstack3_if_13',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_14':
+		path => '/etc/munin/plugins/snmp_openstack3_if_14',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_15':
+		path => '/etc/munin/plugins/snmp_openstack3_if_15',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_16':
+		path => '/etc/munin/plugins/snmp_openstack3_if_16',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_17':
+		path => '/etc/munin/plugins/snmp_openstack3_if_17',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_18':
+		path => '/etc/munin/plugins/snmp_openstack3_if_18',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_19':
+		path => '/etc/munin/plugins/snmp_openstack3_if_19',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_20':
+		path => '/etc/munin/plugins/snmp_openstack3_if_20',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_1':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_1',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_2':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_2',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_3':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_3',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_4':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_4',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_5':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_5',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_6':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_6',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_7':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_7',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_8':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_8',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_9':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_9',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_10':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_10',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_11':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_11',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_12':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_12',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_13':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_13',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_14':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_14',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_15':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_15',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_16':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_16',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_17':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_17',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_18':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_18',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_19':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_19',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_err_20':
+		path => '/etc/munin/plugins/snmp_openstack3_if_err_20',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_err_',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_if_multi':
+		path => '/etc/munin/plugins/snmp_openstack3_if_multi',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__if_multi',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_load':
+		path => '/etc/munin/plugins/snmp_openstack3_load',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__load',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_memory':
+		path => '/etc/munin/plugins/snmp_openstack3_memory',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__memory',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_netstat':
+		path => '/etc/munin/plugins/snmp_openstack3_netstat',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__netstat',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_processes':
+		path => '/etc/munin/plugins/snmp_openstack3_processes',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__processes',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_swap':
+		path => '/etc/munin/plugins/snmp_openstack3_swap',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__swap',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_uptime':
+		path => '/etc/munin/plugins/snmp_openstack3_uptime',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__uptime',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_users':
+		path => '/etc/munin/plugins/snmp_openstack3_users',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__users',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_winload':
+		path => '/etc/munin/plugins/snmp_openstack3_winload',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__winload',
+		require => Package['munin'],
+	}
+
+	file { '/etc/munin/plugins/snmp_openstack3_winmem':
+		path => '/etc/munin/plugins/snmp_openstack3_winmem',
+		ensure => link,
+		target => '/usr/share/munin/plugins/snmp__winmem',
+		require => Package['munin'],
+	}
+
 	file { '/etc/munin/plugins/snmp_roteador_cpuload':
 		path => '/etc/munin/plugins/snmp_roteador_cpuload',
 		ensure => link,

@@ -17,8 +17,17 @@
 -    permissions = ('openstack.roles.admin',)
 +    permissions = ('openstack.roles.horizon_dashboard','openstack.roles.admin',)
  
- 
  horizon.register(Admin)
+--- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/identity/dashboard.py-original	2015-02-09 15:48:37.563512805 -0200
++++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/identity/dashboard.py	2015-02-09 23:43:30.646936177 -0200
+@@ -23,6 +23,6 @@
+     slug = "identity"
+     default_panel = 'projects'
+     panels = ('domains', 'projects', 'users', 'groups', 'roles',)
+-
++    permissions = ('openstack.roles.horizon_dashboard','openstack.roles.admin',)
+ 
+ horizon.register(Identity)
 --- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/project/dashboard.py-original	2014-08-07 16:53:02.000000000 -0300
 +++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/project/dashboard.py	2014-09-01 20:42:41.397505840 -0300
 @@ -70,6 +70,7 @@
@@ -50,36 +59,3 @@
  
      def nav(self, context):
          dash = context['request'].horizon.get('dashboard', None)
---- /usr/local/lib/python2.7/dist-packages/novadocker/virt/docker/driver.py-original	2014-09-23 11:25:55.847514747 -0300
-+++ /usr/local/lib/python2.7/dist-packages/novadocker/virt/docker/driver.py	2014-09-23 11:26:00.739633976 -0300
-@@ -28,7 +28,7 @@
- from nova.compute import power_state
- from nova.compute import task_states
- from nova import exception
--from nova.i18n import _
-+from nova.openstack.common.gettextutils import _
- from nova.image import glance
- from nova.openstack.common import fileutils
- from nova.openstack.common import importutils
---- /usr/local/lib/python2.7/dist-packages/novadocker/virt/docker/network.py-original	2014-09-23 11:26:42.756658029 -0300
-+++ /usr/local/lib/python2.7/dist-packages/novadocker/virt/docker/network.py	2014-09-23 11:26:34.284451539 -0300
-@@ -14,7 +14,7 @@
- #    under the License.
- 
- from nova import exception
--from nova.i18n import _
-+from nova.openstack.common.gettextutils import _
- from nova.openstack.common import log
- from nova.openstack.common import processutils
- from nova import utils
---- /usr/local/lib/python2.7/dist-packages/novadocker/virt/docker/vifs.py-original	2014-09-23 11:26:59.749072185 -0300
-+++ /usr/local/lib/python2.7/dist-packages/novadocker/virt/docker/vifs.py	2014-09-23 11:27:03.129154569 -0300
-@@ -16,7 +16,7 @@
- 
- 
- from nova import exception
--from nova.i18n import _
-+from nova.openstack.common.gettextutils import _
- from nova.network import linux_net
- from nova.network import manager
- from nova.network import model as network_model

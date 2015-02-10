@@ -52,7 +52,7 @@ node "openstack0" {
 	include openstack-neutron-agent::compute
 	include openstack-cinder-common
 	include openstack-cinder-controller
-	include openstack-trove
+	#include openstack-trove
 	include openstack-heat
 	include openstack-horizon
 	include openstack-ceilometer::controller

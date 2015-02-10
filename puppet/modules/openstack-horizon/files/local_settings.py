@@ -64,12 +64,21 @@ OPENSTACK_HYPERVISOR_FEATURES = {
     'can_set_password': False,
 }
 
+OPENSTACK_CINDER_FEATURES = {
+    'enable_backup': True,
+}
+
 OPENSTACK_NEUTRON_NETWORK = {
     'enable_lb': True,
-    'enable_firewall': False,
+    'enable_firewall': True,
     'enable_quotas': True,
+    'enable_router': True,
+    'enable_ipv6': True,
+    'enable_distributed_router': False,
+    'enable_ha_router': False,
     'enable_vpn': True,
     'profile_support': None,
+    'supported_provider_types': ['*'],
 }
 
 IMAGE_CUSTOM_PROPERTY_TITLES = {
@@ -181,24 +190,28 @@ LOGGING = {
             'handlers': ['null'],
             'propagate': False,
         },
+        'scss': {
+            'handlers': ['null'],
+            'propagate': False,
+        },
     }
 }
 
 SECURITY_GROUP_RULES = {
     'all_tcp': {
-        'name': 'ALL TCP',
+        'name': _('All TCP'),
         'ip_protocol': 'tcp',
         'from_port': '1',
         'to_port': '65535',
     },
     'all_udp': {
-        'name': 'ALL UDP',
+        'name': _('All UDP'),
         'ip_protocol': 'udp',
         'from_port': '1',
         'to_port': '65535',
     },
     'all_icmp': {
-        'name': 'ALL ICMP',
+        'name': _('All ICMP'),
         'ip_protocol': 'icmp',
         'from_port': '-1',
         'to_port': '-1',

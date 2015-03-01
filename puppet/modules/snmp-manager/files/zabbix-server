@@ -1,0 +1,2 @@
+START=yes
+CONFIG_FILE="/etc/zabbix/zabbix_server.conf"

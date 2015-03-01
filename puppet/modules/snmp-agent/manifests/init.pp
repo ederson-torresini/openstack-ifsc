@@ -1,26 +1,26 @@
+# Based on https://www.zabbix.com/documentation/2.2/manual/installation/install_from_packages
+
 class snmp-agent {
 
-	package { 'snmpd':
-        ensure => installed,
-        before => File['snmpd.conf'],
-    }
+	package { 'zabbix-agent':
+		ensure => installed,
+	}
 
-    service { 'snmpd':
-        name => 'snmpd',
-        ensure => running,
-        enable => true,
-        subscribe => File['snmpd.conf'],
-    }
+	file { 'zabbix_agentd.conf':
+		path => '/etc/zabbix/zabbix_agentd.conf',
+		source => 'puppet:///modules/snmp-agent/zabbix_agentd.conf',
+		owner => root,
+		group => zabbix,
+		mode => 0640,
+		require => Package['zabbix-agent'],
+	}
 
-    file { 'snmpd.conf':
-        path => '/etc/snmp/snmpd.conf',
-        ensure => file,
-        require => Package['snmpd'],
-        source => 'puppet:///modules/snmp-agent/snmpd.conf',
-        owner => root,
-        group => root,
-        mode => 0644,
-    }
+	service { 'zabbix-agent':
+		ensure => running,
+		enable => true,
+		require => Package['zabbix-agent'],
+		subscribe => File['zabbix_agentd.conf'],
+	}
 
 }
 

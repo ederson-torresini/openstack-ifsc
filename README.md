@@ -142,7 +142,7 @@ openstack0
 ```
 127.0.0.1 localhost openstack0.openstack.sj.ifsc.edu.br openstack0
 
-# For Munin
+# For SNMP manager
 10.45.0.200 openstack0
 10.45.0.201 openstack1
 10.45.0.202 openstack2

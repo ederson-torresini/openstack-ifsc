@@ -87,6 +87,10 @@ class openstack-horizon {
 			#
 			# Based on https://ceph.com/docs/master/radosgw/config/#create-a-gateway-configuration
 			Exec['a2ensite radosgw'],
+			#
+			# Check puppet/modules/snmp-manager/manifests/init.pp
+			File['zabbix:apache2.conf'],
+			Exec['a2ensite zabbix'],
 		],
 	}
 

@@ -116,4 +116,17 @@ class snmp-manager {
 		require => Package['zabbix-frontend-php'],
 	}
 
+	package { 'snmp':
+		ensure => installed,
+	}
+
+	file { 'snmp.conf':
+		path => '/etc/snmp/snmp.conf',
+		source => 'puppet:///modules/snmp-manager/snmp.conf',
+		owner => root,
+		group => root,
+		mode => 0644,
+		require => Package['snmp'],
+	}
+
 }

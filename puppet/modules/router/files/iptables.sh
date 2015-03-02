@@ -37,6 +37,6 @@ iptables -t filter -A FORWARD -o eth2 -j ACCEPT
 # De virtualizadores e VMs para externo.
 iptables -t filter -A FORWARD -o eth0 -j ACCEPT
 #
-# De virtualizadores para roteador: SNMP.
+# De virtualizadores para roteador: SNMP (161/UDP) e Zabbix (10050/TCP).
 iptables -t filter -A INPUT -i eth1 -p udp --dport 161 -j ACCEPT
-
+iptables -t filter -A INPUT -i eth1 -p tcp --dport 10050 -j ACCEPT

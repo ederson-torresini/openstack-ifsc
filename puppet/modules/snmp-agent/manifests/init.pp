@@ -22,5 +22,25 @@ class snmp-agent {
 		subscribe => File['zabbix_agentd.conf'],
 	}
 
+	package { 'snmpd':
+		ensure => installed,
+	}
+
+	file { 'snmpd.conf':
+		path => '/etc/snmp/snmpd.conf',
+		source => 'puppet:///modules/snmp-agent/snmpd.conf',
+		owner => root,
+		group => root,
+		mode => 0644,
+		require => Package['snmpd'],
+	}
+
+	service { 'snmpd':
+		ensure => running,
+		enable => true,
+		require => Package['snmpd'],
+		subscribe => FIle['snmpd.conf'],
+	}
+
 }
 

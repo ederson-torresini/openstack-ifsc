@@ -39,7 +39,7 @@ class snmp-agent {
 		ensure => running,
 		enable => true,
 		require => Package['snmpd'],
-		subscribe => FIle['snmpd.conf'],
+		subscribe => File['snmpd.conf'],
 	}
 
 }

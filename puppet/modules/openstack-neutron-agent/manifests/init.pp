@@ -54,7 +54,11 @@ class openstack-neutron-agent::compute inherits openstack-neutron-agent::common 
 	}
 
 	# http://openstack.redhat.com/Using_GRE_tenant_networks
-	exec { 'ethtool:p5p1':
+	exec { 'ethtool:em1-gre':
+		command => '/sbin/ethtool -K em1 tso off lro off gro off gso off',
+		onlyif => '/sbin/ip addr show em1',
+	}
+	exec { 'ethtool:p5p1-gre':
 		command => '/sbin/ethtool -K p5p1 tso off lro off gro off gso off',
 		onlyif => '/sbin/ip addr show p5p1',
 	}
@@ -254,8 +258,8 @@ class openstack-neutron-agent::network inherits openstack-neutron-agent::common 
 	}
 
 	exec { 'add-port':
-		command => '/usr/bin/ovs-vsctl add-port br-ex p5p1',
-		unless => '/usr/bin/ovs-vsctl list-ports br-ex | /bin/grep -q p5p1',
+		command => '/usr/bin/ovs-vsctl add-port br-ex vlan448',
+		unless => '/usr/bin/ovs-vsctl list-ports br-ex | /bin/grep -q vlan448',
 		require => [
 			Package['neutron-plugin-openvswitch-agent'],
 			Exec['br-ex'],

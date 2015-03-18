@@ -80,10 +80,14 @@ VLANs:
 Operating System:
 - Distribution: Ubuntu Server 14.04 LTS.
 - Partitioning:
-  - Primary: `/`, ext4, 10 GB.
-  - Primary: PV LVM, remaining disk space.
-    - VG `openstack`.
-      - LV `ceph`, xfs, 800 GB.
+  - `sda` (1 TB):
+    - Primary: `/`, ext4, 10 GB.
+    - Primary: PV LVM, remaining disk space.
+      - VG `openstack`.
+        - LV `ceph`, xfs, 800 GB.
+  - `sdb` (240 GB):
+    - Primary: PV LVM, all disk space.
+	  - VG `openstack-ssd`, which will be used for VMs' root disk.
 
 Network and remote access: as the machines will stay out of physical access, the SSH server was installed with the operating system - DNs server was also installed in `openstack0` to make things easier in the beginning. Some files were manually created to do so.
 

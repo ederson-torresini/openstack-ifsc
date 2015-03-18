@@ -51,18 +51,33 @@ class ceph-common {
 	}
 
 	exec { '/sbin/pvcreate /dev/sda3':
-		creates => '/dev/openstack/ceph',
+		creates => '/etc/lvm/backup/openstack',
 		require => Package['lvm2'],
 	}
 
 	exec { '/sbin/vgcreate openstack /dev/sda3':
-		creates => '/dev/openstack/ceph',
-		require => Exec['/sbin/pvcreate /dev/sda3'],
+		creates => '/etc/lvm/backup/openstack',
+		subscribe => Exec['/sbin/pvcreate /dev/sda3'],
+		refreshonly => true,
 	}
 
 	exec { '/sbin/lvcreate -n ceph -L 800G openstack':
 		creates => '/dev/openstack/ceph',
-		require => Exec['/sbin/vgcreate openstack /dev/sda3'],
+		subscribe => Exec['/sbin/vgcreate openstack /dev/sda3'],
+		refreshonly => true,
+	}
+
+	# Issue #9
+	exec { '/sbin/pvcreate /dev/sdb1':
+		creates => '/etc/lvm/backup/openstack-ssd',
+		require => Package['lvm2'],
+	}
+
+	# Issue #9
+	exec { '/sbin/vgcreate openstack-ssd /dev/sdb1':
+		creates => '/etc/lvm/backup/openstack-ssd',
+		subscribe => Exec['/sbin/pvcreate /dev/sdb1'],
+		refreshonly => true,
 	}
 
 	package { 'xfsprogs':

@@ -13,7 +13,7 @@ class openstack-cinder-node {
 
 	# Issue #1: Create space, to allow conversion between glance and cinder, for large files.
 	exec { 'lvcreate cinder':
-		command => '/sbin/lvcreate -L 100G -n cinder openstack',
+		command => '/sbin/lvcreate -L 50G -n cinder openstack',
 		unless => '/sbin/lvdisplay | /bin/grep -q cinder',
 		require => Exec['/sbin/vgcreate openstack /dev/sda3'],
 	}

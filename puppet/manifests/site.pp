@@ -47,11 +47,12 @@ node "openstack0" {
 	include openstack-keystone
 	include openstack-glance
 	include openstack-nova-controller
-	include openstack-nova-compute::docker
+	include openstack-nova-compute::kvm
 	include openstack-neutron-controller
 	include openstack-neutron-agent::compute
 	include openstack-cinder-common
 	include openstack-cinder-controller
+	include openstack-cinder-node
 	#include openstack-trove
 	include openstack-heat
 	include openstack-horizon

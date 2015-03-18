@@ -66,9 +66,6 @@ rbd_secret_uuid=2947f939-8703-419f-b6ba-9d6b1220b540
 inject_password=false
 inject_key=false
 inject_partition=-2
-#
-# http://docs.openstack.org/trunk/config-reference/content/configuring-openstack-compute-basics.html
-live_migration_flag=VIR_MIGRATE_UNDEFINE_SOURCE,VIR_MIGRATE_PEER2PEER,VIR_MIGRATE_LIVE
 
 [database]
 connection = mysql://nova:nova@mysql/nova

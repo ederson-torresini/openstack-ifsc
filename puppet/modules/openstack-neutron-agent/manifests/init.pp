@@ -121,11 +121,6 @@ class openstack-neutron-agent::network inherits openstack-neutron-agent::common 
 		require => Package['neutron-vpn-agent'],
 	}
 
-	service { 'neutron-l3-agent':
-		ensure => stopped,
-		enable => false,
-	}
-
 	service { 'ipsec':
 		ensure => running,
 		enable => true,
@@ -138,7 +133,6 @@ class openstack-neutron-agent::network inherits openstack-neutron-agent::common 
 	service { 'neutron-vpn-agent':
 		ensure => running,
 		enable => true,
-		require => Service['neutron-l3-agent'],
 		subscribe => [
 			File['neutron.conf'],
 			File['l3_agent.ini'],

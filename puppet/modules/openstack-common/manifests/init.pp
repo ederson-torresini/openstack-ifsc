@@ -1,5 +1,13 @@
 class openstack-common {
 
+	package { 'mysql-client':
+		ensure => installed,
+	}
+
+	package { 'python-mysqldb':
+		ensure => installed,
+	}
+
 	package { 'python-setuptools':
 		ensure => installed,
 	}

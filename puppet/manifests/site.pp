@@ -72,6 +72,7 @@ node "openstack1" {
 	include ceph-openstack1
 	include ceph-fs
 	include openstack-common
+	include openstack-keystone
 	include openstack-nova-compute::kvm
 	include openstack-neutron-agent::compute
 	include openstack-neutron-agent::network

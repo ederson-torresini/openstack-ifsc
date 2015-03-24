@@ -1,13 +1,5 @@
 class mysql {
 
-	package { 'mysql-client':
-		ensure => installed,
-	}
-
-	package { 'python-mysqldb':
-		ensure => installed,
-	}
-
 	package { 'mysql-server':
 		ensure => installed,
 		before => File['my.cnf'],
@@ -29,6 +21,26 @@ class mysql {
 		subscribe => File['my.cnf'],
 	}
 
+	file { 'root.sql':
+		path => '/etc/mysql/root.sql',
+		ensure => file,
+		source => 'puppet:///modules/mysql/root.sql',
+		owner => root,
+		group => mysql,
+		mode => 0640,
+		require => Package['mysql-server'],
+	}
+
+	exec { 'mysql -uroot < /etc/mysql/root.sql':
+		path => '/usr/bin',
+		require => [
+			Package['mysql-client'],
+			File['root.sql'],
+			Service['mysql'],
+		],
+		onlyif => 'mysql -uroot -e "show databases;"',
+	}
+
 	file { 'backup-mysql':
 		path => '/etc/cron.daily/backup-mysql',
 		ensure => file,
@@ -43,4 +55,3 @@ class mysql {
 	}
 
 }
-

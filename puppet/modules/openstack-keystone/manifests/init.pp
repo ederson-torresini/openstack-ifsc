@@ -6,23 +6,22 @@ class openstack-keystone {
 
 	package { 'keystone':
 		ensure => installed,
-		require => Class['mysql'],
+		require => Package['mysql-client'],
+	}
+
+	file { 'keystone.conf':
+		path => '/etc/keystone/keystone.conf',
+		source => 'puppet:///modules/openstack-keystone/keystone.conf',
+		owner => root,
+		group => keystone,
+		mode => 0640,
+		require => Package['keystone'],
 	}
 
 	service { 'keystone':
 		ensure => running,
 		enable => true,
 		subscribe => File['keystone.conf'],
-	}
-
-	file { 'keystone.conf':
-		path => '/etc/keystone/keystone.conf',
-		ensure => file,
-		require => Package['keystone'],
-		source => 'puppet:///modules/openstack-keystone/keystone.conf',
-		owner => root,
-		group => keystone,
-		mode => 0640,
 	}
 
 	file { '/var/lib/keystone/keystone.db':
@@ -47,32 +46,29 @@ class openstack-keystone {
 		mode => 0640,
 	}
 
-	exec { 'mysql -uroot < /etc/keystone/sql/keystone.sql':
+	exec { 'mysql -uroot -h mysql < /etc/keystone/sql/keystone.sql':
 		path => '/usr/bin',
-		creates => '/var/lib/mysql/keystone',
-		require => [
-			File['keystone.sql'],
-			Class['mysql'],
-		],
+		require => File['keystone.sql'],
+		unless => '/usr/bin/mysql -uroot -hmysql -e "show databases;"| /bin/grep -q keystone',
 	}
 
 	exec { '/usr/bin/keystone-manage db_sync':
-		creates => '/var/lib/mysql/keystone/user.frm',
 		user => 'keystone',
 		require => [
 			Package['keystone'],
-			Exec['mysql -uroot < /etc/keystone/sql/keystone.sql'],
+			Exec['mysql -uroot -h mysql < /etc/keystone/sql/keystone.sql'],
 		],
+		unless => '/usr/bin/mysql -uroot -hmysql -e "use keystone; show tables;"| /bin/grep -q user',
 	}
 
 	# Check http://docs.openstack.org/icehouse/install-guide/install/apt/content/keystone-users.html
 	file { 'keystone-init.sh':
 		path => '/usr/local/sbin/keystone-init.sh',
-		ensure => file,
 		source => 'puppet:///modules/openstack-keystone/keystone-init.sh',
 		owner => root,
 		group => keystone,
 		mode => 0750,
+		require => Package['keystone'],
 	}
 
 	file { 'keystone.sh:link':
@@ -87,4 +83,3 @@ class openstack-keystone {
 	}
 
 }
-

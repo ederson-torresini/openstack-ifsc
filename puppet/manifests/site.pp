@@ -12,6 +12,7 @@ include environment
 include ntp
 include smtp
 include ssh
+include haproxy
 include snmp-agent
 
 node "roteador" {

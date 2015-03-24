@@ -15,11 +15,23 @@ class snmp-agent {
 		require => Package['zabbix-agent'],
 	}
 
+	file { 'userparameter_mysql.conf':
+		path => '/etc/zabbix/zabbix_agentd.conf.d/userparameter_mysql.conf',
+		source => 'puppet:///modules/snmp-agent/userparameter_mysql.conf',
+		owner => root,
+		group => zabbix,
+		mode => 0640,
+		require => Package['zabbix-agent'],
+	}
+
 	service { 'zabbix-agent':
 		ensure => running,
 		enable => true,
 		require => Package['zabbix-agent'],
-		subscribe => File['zabbix_agentd.conf'],
+		subscribe => [
+			File['zabbix_agentd.conf'],
+			File['userparameter_mysql.conf'],
+		],
 	}
 
 	package { 'snmpd':

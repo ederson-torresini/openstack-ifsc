@@ -9,6 +9,7 @@ service { 'puppet':
 
 include users
 include environment
+include cron
 include ntp
 include smtp
 include ssh
@@ -35,6 +36,7 @@ node "openstack0" {
 	include nvidia
 	include dns
 	include syslog-server
+	include keepalived
 	include haproxy
 	include mysql
 	include ceph-common
@@ -68,6 +70,7 @@ node "openstack1" {
 
 	include nvidia
 	include syslog-client
+	include keepalived
 	include haproxy
 	include ceph-common
 	include ceph-openstack1
@@ -87,6 +90,7 @@ node "openstack2" {
 
 	include nvidia
 	include syslog-client
+	include keepalived
 	include haproxy
 	include ceph-common
 	include ceph-openstack2
@@ -105,6 +109,7 @@ node "openstack3" {
 
 	include nvidia
 	include syslog-client
+	include keepalived
 	include haproxy
 	include ceph-common
 	include ceph-openstack3

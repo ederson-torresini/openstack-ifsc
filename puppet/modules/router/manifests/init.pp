@@ -1,17 +1,16 @@
 class router {
 
-	file { 'sysctl.conf':
-		path => '/etc/sysctl.conf',
-		ensure => file,
+	file { 'sysctl-router.conf':
+		path => '/etc/sysctl-router.conf',
 		source => 'puppet:///modules/router/sysctl.conf',
 		owner => root,
 		group => root,
 		mode => 0644,
 	}
 
-	exec{ '/sbin/sysctl -p /etc/sysctl.conf':
-		subscribe => File['sysctl.conf'],
-		refreshonly => true,
+	exec{ 'sysctl:sysctl-router.conf':
+		command => '/sbin/sysctl -p /etc/sysctl-router.conf',
+		require => File['sysctl-router.conf'],
 	}
 
 	file { 'iptables.sh':

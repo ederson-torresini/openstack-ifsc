@@ -1,19 +1,5 @@
 class openstack-neutron-agent::common inherits openstack-neutron::common {
 
-	file { 'sysctl.conf':
-		path => '/etc/sysctl.conf',
-		ensure => file,
-		owner => root,
-		group => root,
-		mode => 0644,
-	}
-
-	exec { 'sysctl':
-		command => '/sbin/sysctl -p',
-		subscribe => File['sysctl.conf'],
-		refreshonly => true,
-	}
-
 	package { 'neutron-common':
 		ensure => installed,
 	}
@@ -41,8 +27,18 @@ class openstack-neutron-agent::common inherits openstack-neutron::common {
 
 class openstack-neutron-agent::compute inherits openstack-neutron-agent::common {
 
-	File <| title == 'sysctl.conf' |> {
+	file { 'sysctl-openstack-neutron-agent-compute.conf':
+		path => '/etc/sysctl-openstack-neutron-agent-compute.conf',
 		source => 'puppet:///modules/openstack-neutron-agent/sysctl-compute.conf',
+		ensure => file,
+		owner => root,
+		group => root,
+		mode => 0644,
+	}
+
+	exec { 'sysctl:sysctl-openstack-neutron-agent-compute.conf':
+		command => '/sbin/sysctl -p /etc/sysctl-openstack-neutron-agent-compute.conf',
+		require => File['sysctl-openstack-neutron-agent-compute.conf'],
 	}
 
 	File <| title == 'neutron.conf' |> {
@@ -67,8 +63,18 @@ class openstack-neutron-agent::compute inherits openstack-neutron-agent::common 
 
 class openstack-neutron-agent::network inherits openstack-neutron-agent::common {
 
-	File <| title == 'sysctl.conf' |> {
+	file { 'sysctl-openstack-neutron-agent-network.conf':
+		path => '/etc/sysctl-openstack-neutron-agent-network.conf',
 		source => 'puppet:///modules/openstack-neutron-agent/sysctl-network.conf',
+		ensure => file,
+		owner => root,
+		group => root,
+		mode => 0644,
+	}
+
+	exec { 'sysctl:sysctl-openstack-neutron-agent-network.conf':
+		command => '/sbin/sysctl -p /etc/sysctl-openstack-neutron-agent-network.conf',
+		require => File['sysctl-openstack-neutron-agent-network.conf'],
 	}
 
 	File <| title == 'neutron.conf' |> {

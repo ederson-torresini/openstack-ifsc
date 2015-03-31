@@ -34,10 +34,6 @@ class ceph-fs {
 		unless => '/bin/grep -q /var/lib/nova/instances /etc/fstab',
 	}
 
-	file { ['/var/lib/nova', '/var/lib/nova/instances']:
-		ensure => directory,
-	}
-
 	exec { 'mount /var/lib/nova/instances':
 		command => '/bin/mount /var/lib/nova/instances',
 		unless => '/bin/mount | /bin/grep -q instances',

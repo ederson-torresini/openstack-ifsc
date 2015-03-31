@@ -43,7 +43,6 @@ node "openstack0" {
 	include ceph-openstack0
 	include ceph-osd-init
 	include ceph-mds
-	include ceph-fs
 	include ceph-radosgw
 	include openstack-common
 	include openstack-rabbitmq
@@ -113,7 +112,6 @@ node "openstack3" {
 	include haproxy
 	include ceph-common
 	include ceph-openstack3
-	include ceph-fs
 	include openstack-common
 	include openstack-nova-compute::kvm
 	include openstack-neutron-agent::compute

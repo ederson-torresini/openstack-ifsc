@@ -51,10 +51,7 @@ instance_user = ""
 #
 # Based on https://coreos.com/docs/running-coreos/platforms/openstack/
 # and http://docs.openstack.org/user-guide/content/requirements.html
-force_config_drive=true
 config_drive_format=iso9660
-config_drive_cdrom=true
-config_drive_format=vfat
 #
 # Based on http://ceph.com/docs/master/rbd/rbd-openstack/#id2
 [libvirt]

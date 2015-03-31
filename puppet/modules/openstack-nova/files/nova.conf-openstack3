@@ -55,11 +55,8 @@ config_drive_format=iso9660
 #
 # Based on http://ceph.com/docs/master/rbd/rbd-openstack/#id2
 [libvirt]
-images_type=rbd
-images_rbd_pool=volumes
-images_rbd_ceph_conf=/etc/ceph/ceph.conf
-rbd_user=cinder
-rbd_secret_uuid=2947f939-8703-419f-b6ba-9d6b1220b540
+images_type=lvm
+images_volume_group=openstack-ssd
 inject_password=false
 inject_key=false
 inject_partition=-2

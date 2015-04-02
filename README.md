@@ -89,7 +89,7 @@ Operating System:
     - Primary: PV LVM, all disk space.
 	  - VG `openstack-ssd`, which will be used for VMs' root disk.
 
-Network and remote access: as the machines will stay out of physical access, the SSH server was installed with the operating system - DNs server was also installed in `openstack0` to make things easier in the beginning. Some files were manually created to do so.
+Network and remote access: as the machines will stay out of physical access, the SSH server was installed with the operating system - DNS server was also installed in `openstack0`, in the beginning, to make things easier in the beginning. Some files were manually created to do so.
 
 Initial files:
 - `roteador`, `/etc/hostname`:
@@ -127,8 +127,7 @@ iface eth0 inet static
 	netmask 255.255.255.252
 	gateway 200.135.233.254
 	dns-search openstack.sj.ifsc.edu.br
-	dns-nameservers 200.135.37.72
-	dns-nameservers 200.135.37.65
+	dns-nameservers 200.135.37.72 200.135.37.65
 
 # OpenStack-IFSC: real
 auto eth1
@@ -163,7 +162,7 @@ ff02::2 ip6-allrouters
 auto lo
 iface lo inet loopback
 	dns-search openstack.sj.ifsc.edu.br
-	dns-nameservers 127.0.0.1
+	dns-nameservers 10.45.0.201 10.45.0.202
 iface lo inet6 loopback
 
 # Onboard interface
@@ -304,7 +303,7 @@ iface vlan450 inet static
 	address 10.45.0.201
 	netmask 255.255.255.0
 	dns-search openstack.sj.ifsc.edu.br
-	dns-nameservers 10.45.0.200
+	dns-nameservers 10.45.0.201 10.45.0.202
 iface vlan450 inet6 static
 	address FC00:0450::201
 	netmask 64
@@ -402,7 +401,7 @@ iface vlan450 inet static
 	address 10.45.0.202
 	netmask 255.255.255.0
 	dns-search openstack.sj.ifsc.edu.br
-	dns-nameservers 10.45.0.200
+	dns-nameservers 10.45.0.201 10.45.0.202
 iface vlan450 inet6 static
 	address FC00:0450::202
 	netmask 64
@@ -500,7 +499,7 @@ iface vlan450 inet static
 	address 10.45.0.203
 	netmask 255.255.255.0
 	dns-search openstack.sj.ifsc.edu.br
-	dns-nameservers 10.45.0.200
+	dns-nameservers 10.45.0.201 10.45.0.202
 iface vlan450 inet6 static
 	address FC00:0450::203
 	netmask 64

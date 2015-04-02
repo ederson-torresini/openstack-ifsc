@@ -34,7 +34,6 @@ node "openstack0" {
 	}
 
 	include nvidia
-	include dns
 	include syslog-server
 	include keepalived
 	include haproxy
@@ -68,6 +67,7 @@ node "openstack0" {
 node "openstack1" {
 
 	include nvidia
+	include dns::master
 	include syslog-client
 	include keepalived
 	include haproxy
@@ -88,6 +88,7 @@ node "openstack1" {
 node "openstack2" {
 
 	include nvidia
+	include dns::slave
 	include syslog-client
 	include keepalived
 	include haproxy

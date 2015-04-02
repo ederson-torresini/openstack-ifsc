@@ -17,8 +17,9 @@ acl openstack {
 	FC00:450::/64;
 };
 
-acl slaves {
-	10.45.0.0/24;
+acl slave {
+	FC00:450::202;
+	10.45.0.202;
 };
 
 view "internal" {
@@ -53,7 +54,7 @@ view "internal" {
 	zone "openstack.sj.ifsc.edu.br" {
 		type master;
 		file "/etc/bind/openstack.sj.ifsc.edu.br-internal";
-		allow-transfer { slaves; };
+		allow-transfer { slave; };
 	};
 };
 
@@ -64,6 +65,6 @@ view "external" {
 	zone "openstack.sj.ifsc.edu.br" {
 		type master;
 		file "/etc/bind/openstack.sj.ifsc.edu.br-external";
-		allow-transfer { slaves; };
+		allow-transfer { slave; };
 	};
 };

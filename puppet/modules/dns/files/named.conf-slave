@@ -18,6 +18,7 @@ acl openstack {
 };
 
 masters master {
+	FC00:450::201;
 	10.45.0.201;
 };
 

@@ -1,12 +1,13 @@
 $TTL	86400
 @					IN	SOA		dns1.openstack.sj.ifsc.edu.br. dnsadmin.openstack.sj.ifsc.edu.br. (
-			2015040200
+			2015040203
 				 86400
 				  3600
 				604800
 				 86400
 )
-@					IN	NS		dns.openstack.sj.ifsc.edu.br.
+@					IN	NS		dns1.openstack.sj.ifsc.edu.br.
+@					IN	NS		dns2.openstack.sj.ifsc.edu.br.
 @					IN	AAAA	FC00:450::200
 @					IN	A		10.45.0.200
 

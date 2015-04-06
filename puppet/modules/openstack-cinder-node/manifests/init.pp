@@ -36,13 +36,16 @@ class openstack-cinder-node {
 		require => Exec['fstab cinder'],
 	}
 
-	file { [
-			'/var/lib/cinder',
-			'/var/lib/cinder/conversion',
-			'/var/lib/cinder/volumes',
-		]:
+	file { [ '/var/lib/cinder', '/var/lib/cinder/volumes' ]:
 		ensure => directory,
 		owner => cinder,
+		group => cinder,
+		mode => 0770,
+	}
+	
+	file { '/var/lib/cinder/conversion':
+		ensure => directory,
+		owner => nova,
 		group => cinder,
 		mode => 0770,
 	}

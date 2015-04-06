@@ -12,6 +12,7 @@ root_helper=sudo nova-rootwrap /etc/nova/rootwrap.conf
 ec2_private_dns_show_ip=True
 api_paste_config=/etc/nova/api-paste.ini
 volumes_path=/var/lib/nova/volumes
+image_cache_subdirectory_name=conversion
 enabled_apis=ec2,osapi_compute,metadata
 auth_strategy = keystone
 rpc_backend = rabbit

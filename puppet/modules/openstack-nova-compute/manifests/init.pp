@@ -71,6 +71,18 @@ class openstack-nova-compute::common inherits openstack-nova::common {
 		mode => 0775,
 		require => Package['nova-compute'],
 	}
+	
+	file { '/var/lib/nova/instances/conversion':
+		ensure => link,
+		target => '/var/lib/cinder/conversion',
+		owner => nova,
+		group => cinder,
+		mode => 0770,
+		require => [
+			File['/var/lib/nova/instances'],
+			File['/var/lib/cinder/conversion'],
+		],
+	}
 
 }
 

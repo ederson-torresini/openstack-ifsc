@@ -111,11 +111,11 @@ class openstack-cinder-controller {
 		require => Package['ceph'],
 	}
 
-    exec { 'size volumes':
+	exec { 'size volumes':
 		command => '/usr/bin/ceph osd pool set volumes size 2',
-        subscribe => Exec['pool volumes'],
-        refreshonly => true,
-    }
+		subscribe => Exec['pool volumes'],
+		refreshonly => true,
+	}
 
 	exec { 'pg_num volumes':
 		command => '/usr/bin/ceph osd pool set volumes pg_num 128',
@@ -136,11 +136,11 @@ class openstack-cinder-controller {
 		require => Package['ceph'],
 	}
 
-    exec { 'size backups':
+	exec { 'size backups':
 		command => '/usr/bin/ceph osd pool set backups size 3',
-        subscribe => Exec['pool backups'],
-        refreshonly => true,
-    }
+		subscribe => Exec['pool backups'],
+		refreshonly => true,
+	}
 
 	exec { 'pg_num backups':
 		command => '/usr/bin/ceph osd pool set backups pg_num 128',

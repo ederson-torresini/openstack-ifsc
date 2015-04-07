@@ -62,4 +62,3 @@ class openstack-cinder-node {
 
 
 }
-

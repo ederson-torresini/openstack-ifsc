@@ -64,6 +64,14 @@ class openstack-nova-compute::common inherits openstack-nova::common {
 		require => File['id_rsa.pub'],
 	}
 
+	file { [ '/var/lib/nova', '/var/lib/nova/instances' ]:
+		ensure => directory,
+		owner => nova,
+		group => nova,
+		mode => 0775,
+		require => Package['nova-compute'],
+	}
+	
 	file { '/var/lib/nova/instances/conversion':
 		ensure => link,
 		target => '/var/lib/cinder/conversion',

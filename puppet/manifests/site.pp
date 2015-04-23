@@ -73,7 +73,6 @@ node "openstack1" {
 	include haproxy
 	include ceph-common
 	include ceph-openstack1
-	include ceph-fs
 	include openstack-common
 	include openstack-keystone
 	include openstack-nova-compute::kvm

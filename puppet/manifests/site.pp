@@ -46,6 +46,7 @@ node "openstack0" {
 	include openstack-common
 	include openstack-rabbitmq
 	include openstack-keystone
+	include openstack-keystone::cleaning
 	include openstack-glance
 	include openstack-nova-controller
 	include openstack-nova-compute::kvm

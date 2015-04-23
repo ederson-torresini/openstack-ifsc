@@ -82,4 +82,31 @@ class openstack-keystone {
 		refreshonly => true,
 	}
 
+	file { 'logrotate:keystone':
+		path => '/etc/logrotate.d/keystone',
+		source => 'puppet:///modules/openstack-keystone/logrotate',
+		owner => root,
+		group => root,
+		mode => 0644,
+		require => Package['keystone'],
+	}
+
+}
+
+class openstack-keystone::cleaning {
+
+	schedule { 'daily':
+		period => daily,
+		repeat => 1,
+	}
+
+	exec { 'keystone-manage:token_flush':
+		command => '/usr/bin/keystone-manage token_flush',
+		schedule => daily,
+		require => [
+			Package['keystone'],
+			Package['mysql-client'],
+		],
+	}
+
 }

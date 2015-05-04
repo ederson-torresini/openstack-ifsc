@@ -94,7 +94,6 @@ node "openstack2" {
 	include haproxy
 	include ceph-common
 	include ceph-openstack2
-	include ceph-fs
 	include openstack-common
 	include openstack-nova-compute::kvm
 	include openstack-neutron-agent::compute

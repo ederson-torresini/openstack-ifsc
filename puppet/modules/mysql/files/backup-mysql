@@ -8,5 +8,4 @@ DAYS="7"
 
 mysqldump --defaults-extra-file=/etc/mysql/debian.cnf --all-databases --routines --events --add-drop-database --add-drop-table | gzip > ${FILE}
 chmod 0400 ${FILE}
-find ${DIR} -type f -name \*.${FILETYPE} -mtime +${DAYS} -exec rm -f {} \;
-
+find ${DIR} -type f -name \*.${FILETYPE} -mtime +${DAYS} -delete

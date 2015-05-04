@@ -84,6 +84,16 @@ class openstack-nova-compute::common inherits openstack-nova::common {
 		],
 	}
 
+	file { 'instances-conversion':
+		path => '/etc/cron.daily/instances-conversion',
+		ensure => file,
+		source => 'puppet:///modules/openstack-nova-compute/instances-conversion',
+		owner => root,
+		group => root,
+		mode => 0750,
+		require => File['/var/lib/nova/instances/conversion'],
+	}
+
 }
 
 class openstack-nova-compute::kvm inherits openstack-nova-compute::common {

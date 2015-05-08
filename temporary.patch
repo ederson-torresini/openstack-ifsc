@@ -1,46 +1,37 @@
---- /usr/share/openstack-dashboard/openstack_dashboard/api/swift.py-original	2014-07-16 00:10:58.605182849 -0300
-+++ /usr/share/openstack-dashboard/openstack_dashboard/api/swift.py	2014-07-16 00:07:05.963411805 -0300
-@@ -280,6 +280,7 @@
-     size = 0
-     if object_file:
-         headers['X-Object-Meta-Orig-Filename'] = object_file.name
-+        headers['Content-Length'] = object_file.size
-         size = object_file.size
- 
-     etag = swift_api(request).put_object(container_name,
---- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/admin/dashboard.py-original	2014-08-21 16:40:48.087791735 -0300
-+++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/admin/dashboard.py	2014-09-01 20:51:39.363474146 -0300
-@@ -38,7 +38,7 @@
+--- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/admin/dashboard.py-original	2015-02-05 15:06:50.000000000 -0200
++++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/admin/dashboard.py	2015-05-07 23:32:50.447398393 -0300
+@@ -30,7 +30,7 @@
      slug = "admin"
-     panels = (SystemPanels, IdentityPanels)
+     panels = (SystemPanels,)
      default_panel = 'overview'
 -    permissions = ('openstack.roles.admin',)
 +    permissions = ('openstack.roles.horizon_dashboard','openstack.roles.admin',)
  
+ 
  horizon.register(Admin)
---- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/identity/dashboard.py-original	2015-02-09 15:48:37.563512805 -0200
-+++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/identity/dashboard.py	2015-02-09 23:43:30.646936177 -0200
-@@ -23,6 +23,6 @@
+--- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/identity/dashboard.py-original	2015-02-05 15:06:44.000000000 -0200
++++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/identity/dashboard.py	2015-05-07 23:33:42.944700531 -0300
+@@ -23,6 +23,7 @@
      slug = "identity"
      default_panel = 'projects'
      panels = ('domains', 'projects', 'users', 'groups', 'roles',)
--
 +    permissions = ('openstack.roles.horizon_dashboard','openstack.roles.admin',)
  
+ 
  horizon.register(Identity)
---- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/project/dashboard.py-original	2014-08-07 16:53:02.000000000 -0300
-+++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/project/dashboard.py	2014-09-01 20:42:41.397505840 -0300
-@@ -70,6 +70,7 @@
-         DatabasePanels,)
+--- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/project/dashboard.py-original	2015-05-07 23:41:32.668352342 -0300
++++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/project/dashboard.py	2015-05-07 23:31:25.649295108 -0300
+@@ -83,6 +83,7 @@
+         DataProcessingPanels,)
      default_panel = 'overview'
      supports_tenants = True
 +    permissions = ('openstack.roles.horizon_dashboard',)
  
  
  horizon.register(Project)
---- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/router/dashboard.py-original	2014-08-07 16:53:02.000000000 -0300
-+++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/router/dashboard.py	2014-09-01 20:51:49.219730039 -0300
-@@ -26,7 +26,7 @@
+--- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/router/dashboard.py-original	2015-05-07 23:42:46.666188037 -0300
++++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/router/dashboard.py	2015-05-07 23:31:25.673295702 -0300
+@@ -22,7 +22,7 @@
      slug = "router"
      panels = ('nexus1000v',)
      default_panel = 'nexus1000v'
@@ -48,10 +39,10 @@
 +    permissions = ('openstack.roles.horizon_dashboard','openstack.roles.admin',)
  
  
- if neutron.is_port_profiles_supported():
---- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/settings/dashboard.py-original	2014-08-07 16:53:02.000000000 -0300
-+++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/settings/dashboard.py	2014-09-01 20:41:38.851881670 -0300
-@@ -25,6 +25,7 @@
+ horizon.register(Router)
+--- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/settings/dashboard.py-original	2015-05-07 23:43:30.615278314 -0300
++++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/settings/dashboard.py	2015-05-07 23:36:03.420184969 -0300
+@@ -23,6 +23,7 @@
      slug = "settings"
      panels = ('user', 'password', )
      default_panel = 'user'

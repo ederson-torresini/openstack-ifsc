@@ -46,19 +46,19 @@ class openstack-keystone {
 		mode => 0640,
 	}
 
-	exec { 'mysql -uroot -h mysql < /etc/keystone/sql/keystone.sql':
+	exec { 'mysql -u root -h mysql < /etc/keystone/sql/keystone.sql':
 		path => '/usr/bin',
 		require => File['keystone.sql'],
-		unless => '/usr/bin/mysql -uroot -hmysql -e "show databases;"| /bin/grep -q keystone',
+		unless => '/usr/bin/mysql -u root -h mysql -e "show databases;"| /bin/grep -q keystone',
 	}
 
 	exec { '/usr/bin/keystone-manage db_sync':
 		user => 'keystone',
 		require => [
 			Package['keystone'],
-			Exec['mysql -uroot -h mysql < /etc/keystone/sql/keystone.sql'],
+			Exec['mysql -u root -h mysql < /etc/keystone/sql/keystone.sql'],
 		],
-		unless => '/usr/bin/mysql -uroot -hmysql -e "use keystone; show tables;"| /bin/grep -q user',
+		unless => '/usr/bin/mysql -u root -hmysql -e "use keystone; show tables;"| /bin/grep -q user',
 	}
 
 	# Check http://docs.openstack.org/icehouse/install-guide/install/apt/content/keystone-users.html

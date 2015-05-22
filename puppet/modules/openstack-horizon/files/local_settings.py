@@ -46,7 +46,7 @@ LOGIN_REDIRECT_URL='https://dashboard.openstack.sj.ifsc.edu.br/horizon/'
 COMPRESS_OFFLINE = True
 ALLOWED_HOSTS = '*'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-OPENSTACK_HOST = "keystone"
+OPENSTACK_HOST = "keystone.sj.ifsc.edu.br"
 OPENSTACK_KEYSTONE_URL = "http://%s:5000/v2.0" % OPENSTACK_HOST
 OPENSTACK_KEYSTONE_DEFAULT_ROLE = "_member_"
 

@@ -1,10 +1,14 @@
 # Based on http://docs.openstack.org/icehouse/install-guide/install/apt/content/trove-install.html
 class openstack-trove {
 
+	package { 'python-trove':
+		ensure => installed,
+	}
+
 	package { 'trove-common':
 		ensure => installed,
 	}
-	
+
 	package { 'trove-api':
 		ensure => installed,
 	}
@@ -32,11 +36,11 @@ class openstack-trove {
 	}
 
 	exec { 'mysql trove.sql':
-		command => '/usr/bin/mysql -uroot < /etc/trove/sql/trove.sql',
+		command => '/usr/bin/mysql -u root -h mysql < /etc/trove/sql/trove.sql',
 		creates => '/var/lib/mysql/trove',
 		require => [
+			Package['mysql-client'],
 			File['trove.sql'],
-			Class['mysql'],
 		],
 	}
 
@@ -144,10 +148,10 @@ class openstack-trove {
 		subscribe => File['trove-taskmanager.conf'],
 	}
 	
-#	service { 'trove-conductor':
-#		ensure => running,
-#		enable => true,
-#		subscribe => File['trove-conductor.conf'],
-#	}
+	service { 'trove-conductor':
+		ensure => running,
+		enable => true,
+		subscribe => File['trove-conductor.conf'],
+	}
 
 }

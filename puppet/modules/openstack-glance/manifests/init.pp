@@ -68,7 +68,7 @@ class openstack-glance {
 		mode => 0640,
 	}
 
-	exec { '/usr/bin/mysql -uroot < /etc/glance/sql/glance.sql':
+	exec { '/usr/bin/mysql -u root -h mysql < /etc/glance/sql/glance.sql':
 		creates => '/var/lib/mysql/glance',
 		require => [
 			File['glance.sql'],
@@ -81,7 +81,7 @@ class openstack-glance {
 		user => 'glance',
 		require => [
 			Package['glance'],
-			Exec['/usr/bin/mysql -uroot < /etc/glance/sql/glance.sql'],
+			Exec['/usr/bin/mysql -u root -h mysql < /etc/glance/sql/glance.sql'],
 		],
 	}
 

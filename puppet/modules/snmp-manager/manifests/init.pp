@@ -33,7 +33,7 @@ class snmp-manager {
 	}
 
 	exec { 'mysql zabbix_server.sql':
-		command => '/usr/bin/mysql -uroot < /etc/zabbix/sql/zabbix_server.sql',
+		command => '/usr/bin/mysql -u root -h mysql < /etc/zabbix/sql/zabbix_server.sql',
 		creates => '/var/lib/mysql/zabbix',
 		require => [
 			File['zabbix_server.sql'],
@@ -42,19 +42,19 @@ class snmp-manager {
 	}
 
 	exec { 'mysql schema.sql':
-		command => '/bin/zcat /usr/share/zabbix-server-mysql/schema.sql.gz | /usr/bin/mysql -uroot zabbix',
+		command => '/bin/zcat /usr/share/zabbix-server-mysql/schema.sql.gz | /usr/bin/mysql -u root -h mysql zabbix',
 		subscribe => Exec['mysql zabbix_server.sql'],
 		refreshonly => true,
 	}
 
 	exec { 'mysql images.sql':
-		command => '/bin/zcat /usr/share/zabbix-server-mysql/images.sql.gz | /usr/bin/mysql -uroot zabbix',
+		command => '/bin/zcat /usr/share/zabbix-server-mysql/images.sql.gz | /usr/bin/mysql -u root -h mysql zabbix',
 		subscribe => Exec['mysql schema.sql'],
 		refreshonly => true,
 	}
 
 	exec { 'mysql data.sql':
-		command => '/bin/zcat /usr/share/zabbix-server-mysql/data.sql.gz | /usr/bin/mysql -uroot zabbix',
+		command => '/bin/zcat /usr/share/zabbix-server-mysql/data.sql.gz | /usr/bin/mysql -u root -h mysql zabbix',
 		subscribe => Exec['mysql images.sql'],
 		refreshonly => true,
 	}

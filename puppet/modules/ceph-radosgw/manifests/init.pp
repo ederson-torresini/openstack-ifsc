@@ -1,32 +1,9 @@
 class ceph-radosgw {
 
-	# Based on https://ceph.com/docs/master/install/install-ceph-gateway/
-	#exec { 'ceph:autobuild.asc':
-	#	command => '/usr/bin/curl https://raw.githubusercontent.com/ceph/ceph/master/keys/autobuild.asc | /usr/bin/apt-key add -',
-	#	creates => [
-	#		'/etc/apt/sources.list.d/ceph-apache.list',
-	#		'/etc/apt/sources.list.d/ceph-fastcgi.list'
-	#	],
-	#}
-
-	#exec { 'ceph-apache.list':
-	#	command => "/bin/echo deb http://gitbuilder.ceph.com/apache2-deb-$(lsb_release -sc)-x86_64-basic/ref/master $(lsb_release -sc) main > /etc/apt/sources.list.d/ceph-apache.list && aptitude update",
-	#	creates => '/etc/apt/sources.list.d/ceph-apache.list',
-	#	require => Exec['ceph:autobuild.asc'],
-	#}
-
-	#exec { 'ceph-fastcgi.list':
-	#	command => "/bin/echo deb http://gitbuilder.ceph.com/libapache-mod-fastcgi-deb-$(lsb_release -sc)-x86_64-basic/ref/master $(lsb_release -sc) main > /etc/apt/sources.list.d/ceph-fastcgi.list && aptitude update",
-	#	creates => '/etc/apt/sources.list.d/ceph-fastcgi.list',
-	#	require => Exec['ceph:autobuild.asc'],
-	#}
-
 	package { 'libapache2-mod-fastcgi':
 		ensure => installed,
 		require => [
 			Package['apache2'],
-	#		Exec['ceph-apache.list'],
-	#		Exec['ceph-fastcgi.list'],
 		],
 	}
 

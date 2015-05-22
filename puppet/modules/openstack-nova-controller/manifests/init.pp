@@ -105,7 +105,7 @@ class openstack-nova-controller inherits openstack-nova::common {
 		mode => 0640,
 	}
 
-	exec { '/usr/bin/mysql -uroot < /etc/nova/sql/nova.sql':
+	exec { '/usr/bin/mysql -u root -h mysql < /etc/nova/sql/nova.sql':
 		creates => '/var/lib/mysql/nova',
 		require => [
 			File['nova.sql'],
@@ -118,7 +118,7 @@ class openstack-nova-controller inherits openstack-nova::common {
 		user => 'nova',
 		require => [
 			Package['nova-common'],
-			Exec['/usr/bin/mysql -uroot < /etc/nova/sql/nova.sql'],
+			Exec['/usr/bin/mysql -u root -h mysql < /etc/nova/sql/nova.sql'],
 		],
 	}
 

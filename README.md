@@ -103,7 +103,7 @@ roteador
 200.135.233.253	roteador.openstack.sj.ifsc.edu.br	roteador
 
 # For nginx
-200.135.233.200	openstack0.openstack.sj.ifsc.edu.br openstack0 puppet dashboard rabbitmq nova-novncproxy swift radosgw snmp-manager
+200.135.233.200	openstack0.openstack.sj.ifsc.edu.br openstack0 puppet dashboard rabbitmq nova-novncproxy swift radosgw snmp-manager snmp-manager.openstack.sj.ifsc.edu.br
 200.135.233.201	openstack1.openstack.sj.ifsc.edu.br openstack1
 200.135.233.202	openstack2.openstack.sj.ifsc.edu.br openstack2
 200.135.233.203	openstack2.openstack.sj.ifsc.edu.br openstack3

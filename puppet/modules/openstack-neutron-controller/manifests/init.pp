@@ -44,7 +44,7 @@ class openstack-neutron-controller inherits openstack-neutron::common {
 		mode => 0640,
 	}
 
-	exec { '/usr/bin/mysql -uroot < /etc/neutron/sql/neutron.sql':
+	exec { '/usr/bin/mysql -u root -h mysql < /etc/neutron/sql/neutron.sql':
 		creates => '/var/lib/mysql/neutron',
 		require => [
 			File['neutron.sql'],
@@ -68,7 +68,7 @@ class openstack-neutron-controller inherits openstack-neutron::common {
 	}
 
 	exec { '/usr/local/sbin/neutron-init.sh':
-		subscribe => Exec['/usr/bin/mysql -uroot < /etc/neutron/sql/neutron.sql'],
+		subscribe => Exec['/usr/bin/mysql -u root -h mysql < /etc/neutron/sql/neutron.sql'],
 		refreshonly => true,
 	}
 

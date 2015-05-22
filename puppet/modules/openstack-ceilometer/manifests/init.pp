@@ -101,7 +101,7 @@ class openstack-ceilometer::controller inherits openstack-ceilometer::common {
 	}
 
 	exec { 'mysql ceilometer.sql':
-		command => '/usr/bin/mysql -uroot < /etc/ceilometer/sql/ceilometer.sql',
+		command => '/usr/bin/mysql -u root -h mysql < /etc/ceilometer/sql/ceilometer.sql',
 		creates => '/var/lib/mysql/ceilometer',
 		require => [
 			File['ceilometer.sql'],

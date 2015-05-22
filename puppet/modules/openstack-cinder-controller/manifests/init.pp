@@ -66,7 +66,7 @@ class openstack-cinder-controller {
 		mode => 0640,
 	}
 
-	exec { '/usr/bin/mysql -uroot < /etc/cinder/sql/cinder.sql':
+	exec { '/usr/bin/mysql -u root -h mysql < /etc/cinder/sql/cinder.sql':
 		creates => '/var/lib/mysql/cinder',
 		require => [
 			File['cinder.sql'],
@@ -80,7 +80,7 @@ class openstack-cinder-controller {
 		require => [
 			Package['cinder-api'],
 			Package['cinder-scheduler'],
-			Exec['/usr/bin/mysql -uroot < /etc/cinder/sql/cinder.sql'],
+			Exec['/usr/bin/mysql -u root -h mysql < /etc/cinder/sql/cinder.sql'],
 		],
 	}
 
@@ -100,7 +100,7 @@ class openstack-cinder-controller {
 	}
 
 	exec { '/usr/local/sbin/cinder-init.sh':
-		subscribe => Exec['/usr/bin/mysql -uroot < /etc/cinder/sql/cinder.sql'],
+		subscribe => Exec['/usr/bin/mysql -u root -h mysql < /etc/cinder/sql/cinder.sql'],
 		refreshonly => true,
 	}
 

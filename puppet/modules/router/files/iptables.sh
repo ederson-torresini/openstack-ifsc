@@ -28,7 +28,8 @@ iptables -t filter -A INPUT -i eth0 -p tcp --dport 443 -j ACCEPT
 iptables -t filter -A INPUT -i eth0 -p icmp --icmp-type echo-request -j ACCEPT
 #
 # De externo para virtualizadores: DNS (53/UDP), ping.
-iptables -t filter -A FORWARD -o eth1 -p udp --dport 53 -j ACCEPT
+iptables -t filter -A FORWARD -o eth1 -d 200.135.233.201/32 -p udp --dport 53 -j ACCEPT
+iptables -t filter -A FORWARD -o eth1 -d 200.135.233.202/32 -p udp --dport 53 -j ACCEPT
 iptables -t filter -A FORWARD -o eth1 -p icmp --icmp-type echo-request -j ACCEPT
 #
 # De externo para VMs.

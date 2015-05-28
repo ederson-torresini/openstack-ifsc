@@ -102,11 +102,17 @@ roteador
 127.0.0.1	localhost
 200.135.233.253	roteador.openstack.sj.ifsc.edu.br	roteador
 
+# For Puppet
+200.135.233.200 puppet
+
+# For RabbitMQ
+200.135.233.200 rabbitmq
+
 # For nginx
-200.135.233.200	openstack0.openstack.sj.ifsc.edu.br openstack0 puppet dashboard rabbitmq nova-novncproxy swift radosgw snmp-manager snmp-manager.openstack.sj.ifsc.edu.br
-200.135.233.201	openstack1.openstack.sj.ifsc.edu.br openstack1
-200.135.233.202	openstack2.openstack.sj.ifsc.edu.br openstack2
-200.135.233.203	openstack2.openstack.sj.ifsc.edu.br openstack3
+200.135.233.200 dashboard.openstack.sj.ifsc.edu.br dashboard horizon
+200.135.233.200 snmp-manager.openstack.sj.ifsc.edu.br snmp-manager zabbix
+200.135.233.200 nova-novncproxy.openstack.sj.ifsc.edu.br nova-novncproxy
+200.135.233.200 radosgw.openstack.sj.ifsc.edu.br radosgw swift.openstack.sj.ifsc.edu.br swift
 
 ::1     localhost ip6-localhost ip6-loopback
 ff02::1 ip6-allnodes

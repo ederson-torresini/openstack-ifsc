@@ -36,7 +36,7 @@ class openstack-trove {
 	}
 
 	exec { 'mysql trove.sql':
-		command => '/usr/bin/mysql -u root -h mysql < /etc/trove/sql/trove.sql',
+		command => '/usr/bin/mysql -u root -h mysql.openstack.sj.ifsc.edu.br < /etc/trove/sql/trove.sql',
 		creates => '/var/lib/mysql/trove',
 		require => [
 			Package['mysql-client'],

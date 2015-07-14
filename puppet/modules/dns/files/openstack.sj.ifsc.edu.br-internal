@@ -16,7 +16,8 @@ dns1				IN	A		10.45.0.201
 dns2				IN	AAAA	FC00:450::202
 dns2				IN	A		10.45.0.202
 
-keystone			IN	AAAA	FC00:450::199
+; Lack of IPv6 support
+;keystone			IN	AAAA	FC00:450::199
 keystone			IN	A		10.45.0.199
 
 openstack0			IN	AAAA	FC00:450::200

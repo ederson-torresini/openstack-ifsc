@@ -26,7 +26,7 @@ vncserver_listen = 0.0.0.0
 vncserver_proxyclient_address = 10.45.0.203
 #
 # See modules/nginx/nginx.conf
-novncproxy_base_url = https://dashboard.openstack.sj.ifsc.edu.br/vnc/vnc_auto.html
+novncproxy_base_url = https://openstack.sj.ifsc.edu.br/vnc/vnc_auto.html
 #
 # http://docs.openstack.org/icehouse/install-guide/install/apt/content/neutron-ml2-controller-node.html
 # and http://docs.openstack.org/icehouse/install-guide/install/apt/content/neutron-ml2-compute-node.html
@@ -62,7 +62,7 @@ inject_key=false
 inject_partition=-2
 
 [database]
-connection = mysql://nova:nova@mysql/nova
+connection = mysql://nova:nova@mysql.openstack.sj.ifsc.edu.br/nova
 
 [keystone_authtoken]
 auth_uri = http://keystone:5000
@@ -75,16 +75,16 @@ admin_password = nova
 
 # Based on http://docs.openstack.org/juno/config-reference/content/nova-conf-changes-juno.html
 [glance]
-host = glance
+host = glance.openstack.sj.ifsc.edu.br
 
 # Based on http://docs.openstack.org/juno/config-reference/content/nova-conf-changes-juno.html
 [neutron]
-url = http://neutron-controller:9696
+url = http://neutron-controller.openstack.sj.ifsc.edu.br:9696
+admin_auth_url = http://keystone.openstack.sj.ifsc.edu.br:35357/v2.0
 auth_strategy = keystone
 admin_tenant_name = service
 admin_username = neutron
 admin_password = neutron
-admin_auth_url = http://keystone:35357/v2.0
 metadata_proxy_shared_secret = metadata
 #
 # http://docs.openstack.org/icehouse/install-guide/install/apt/content/neutron-ml2-network-node.html

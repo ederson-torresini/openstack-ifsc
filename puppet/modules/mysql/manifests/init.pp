@@ -31,14 +31,14 @@ class mysql {
 		require => Package['mysql-server'],
 	}
 
-	exec { 'mysql -u root -h mysql < /etc/mysql/root.sql':
+	exec { 'mysql -u root -h mysql.openstack.sj.ifsc.edu.br < /etc/mysql/root.sql':
 		path => '/usr/bin',
 		require => [
 			Package['mysql-client'],
 			File['root.sql'],
 			Service['mysql'],
 		],
-		onlyif => 'mysql -u root -h mysql -e "show databases;"',
+		onlyif => 'mysql -u root -h mysql.openstack.sj.ifsc.edu.br -e "show databases;"',
 	}
 
 	file { 'backup-mysql':

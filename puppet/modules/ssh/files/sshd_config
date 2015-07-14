@@ -23,7 +23,7 @@ LogLevel INFO
 
 LoginGraceTime 120
 PermitRootLogin no
-Allowusers nova rturnes etorresini humbertos
+Allowusers nova etorresini humbertos
 RSAAuthentication yes
 PubkeyAuthentication yes
 AuthorizedKeysFile   %h/.ssh/authorized_keys

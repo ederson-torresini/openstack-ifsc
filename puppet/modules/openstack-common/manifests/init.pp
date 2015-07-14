@@ -1,5 +1,9 @@
 class openstack-common {
 
+	package{ 'git':
+		ensure => installed,
+	}
+
 	package { 'mysql-client':
 		ensure => installed,
 	}

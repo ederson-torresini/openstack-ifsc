@@ -68,7 +68,7 @@ class openstack-glance {
 		mode => 0640,
 	}
 
-	exec { '/usr/bin/mysql -u root -h mysql < /etc/glance/sql/glance.sql':
+	exec { '/usr/bin/mysql -u root -h mysql.openstack.sj.ifsc.edu.br < /etc/glance/sql/glance.sql':
 		creates => '/var/lib/mysql/glance',
 		require => [
 			File['glance.sql'],
@@ -81,7 +81,7 @@ class openstack-glance {
 		user => 'glance',
 		require => [
 			Package['glance'],
-			Exec['/usr/bin/mysql -u root -h mysql < /etc/glance/sql/glance.sql'],
+			Exec['/usr/bin/mysql -u root -h mysql.openstack.sj.ifsc.edu.br < /etc/glance/sql/glance.sql'],
 		],
 	}
 
@@ -126,7 +126,7 @@ class openstack-glance {
 
 	# Based on http://ceph.com/docs/next/rados/operations/pools/
 	exec { 'pool images':
-		command => '/usr/bin/ceph osd pool create images 128',
+		command => '/usr/bin/ceph osd pool create images 256',
 		unless => '/usr/bin/rados lspools | /bin/grep -q images',
 		require => Package['ceph'],
 	}
@@ -138,13 +138,13 @@ class openstack-glance {
 	}
 
 	exec { 'pg_num images':
-		command => '/usr/bin/ceph osd pool set images pg_num 128',
+		command => '/usr/bin/ceph osd pool set images pg_num 256',
 		subscribe => Exec['pool images'],
 		refreshonly => true,
 	}
 
 	exec { 'pgp_num images':
-		command => '/usr/bin/ceph osd pool set images pgp_num 128',
+		command => '/usr/bin/ceph osd pool set images pgp_num 256',
 		subscribe => Exec['pool images'],
 		refreshonly => true,
 	}

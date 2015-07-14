@@ -60,7 +60,7 @@ class openstack-heat {
 	}
 
 	exec { 'mysql heat.sql':
-		command => '/usr/bin/mysql -u root -h mysql < /etc/heat/sql/heat.sql',
+		command => '/usr/bin/mysql -u root -h mysql.openstack.sj.ifsc.edu.br < /etc/heat/sql/heat.sql',
 		creates => '/var/lib/mysql/heat',
 		require => [
 			File['heat.sql'],

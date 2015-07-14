@@ -8,6 +8,7 @@ class smtp {
 		ensure => installed,
 	}
 
+	# Made with: openssl req -new -days 365 -nodes -x509 -out postfix.pem -keyout postfix.pem
 	file { 'postfix.pem':
 		path => '/etc/ssl/certs/postfix.pem',
 		ensure => file,

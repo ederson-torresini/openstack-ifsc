@@ -30,8 +30,8 @@ SECRET_KEY = secret_key.generate_or_read_from_file('/var/lib/openstack-dashboard
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 CACHES = {
    'default': {
-       'BACKEND' : 'django.core.cache.backends.memcached.MemcachedCache',
-       'LOCATION' : 'memcached:11211',
+	   'BACKEND' : 'django.core.cache.backends.memcached.MemcachedCache',
+	   'LOCATION' : 'memcached.openstack.sj.ifsc.edu.br:11211',
    }
 }
 
@@ -42,12 +42,11 @@ except ImportError:
 
 LOGIN_URL='/horizon/auth/login/'
 LOGOUT_URL='/horizon/auth/logout/'
-LOGIN_REDIRECT_URL='https://dashboard.openstack.sj.ifsc.edu.br/horizon/'
+LOGIN_REDIRECT_URL='https://openstack.sj.ifsc.edu.br/horizon/'
 COMPRESS_OFFLINE = True
 ALLOWED_HOSTS = '*'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-OPENSTACK_HOST = "keystone.sj.ifsc.edu.br"
-OPENSTACK_KEYSTONE_URL = "http://%s:5000/v2.0" % OPENSTACK_HOST
+OPENSTACK_HOST = "keystone.openstack.sj.ifsc.edu.br"
 OPENSTACK_KEYSTONE_DEFAULT_ROLE = "_member_"
 
 OPENSTACK_KEYSTONE_BACKEND = {
@@ -312,4 +311,3 @@ FLAVOR_EXTRA_KEYS = {
         ('quota:outbound_average', _('Quota: Outbound average')),
     ]
 }
-

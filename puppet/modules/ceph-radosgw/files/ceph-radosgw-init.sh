@@ -3,7 +3,7 @@
 # Based on https://ceph.com/docs/master/radosgw/keystone/
 
 export OS_SERVICE_TOKEN=keystone
-export OS_SERVICE_ENDPOINT=http://keystone:35357/v2.0
+export OS_SERVICE_ENDPOINT=http://keystone.openstack.sj.ifsc.edu.br:35357/v2.0
 
 keystone user-create --name swift --pass swift --email swift@openstack.sj.ifsc.edu.br
 keystone user-role-add --user swift --tenant service --role admin

@@ -3,7 +3,7 @@
 # Based on http://docs.openstack.org/icehouse/install-guide/install/apt/content/trove-install.html
 
 export OS_SERVICE_TOKEN=keystone
-export OS_SERVICE_ENDPOINT=http://keystone:35357/v2.0
+export OS_SERVICE_ENDPOINT=http://keystone.openstack.sj.ifsc.edu.br:35357/v2.0
 
 keystone user-create --name=trove --pass=trove --email=trove@openstack.sj.ifsc.edu.br
 keystone user-role-add --user=trove --tenant=service --role=admin

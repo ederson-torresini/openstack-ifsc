@@ -1,0 +1,7 @@
+#!/bin/sh
+
+PATH="/sbin:/bin:/usr/sbin:/usr/bin"
+DIR="/var/lib/cinder/conversion"
+DAYS="1"
+
+find ${DIR} -type f -mtime +${DAYS} -delete

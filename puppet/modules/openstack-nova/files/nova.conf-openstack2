@@ -16,10 +16,6 @@ image_cache_subdirectory_name=conversion
 enabled_apis=ec2,osapi_compute,metadata
 auth_strategy = keystone
 rpc_backend = rabbit
-rabbit_host = rabbitmq
-rabbit_userid = rabbitmq
-rabbit_password = rabbitmq
-rabbit_virtual_host = openstack-ifsc
 my_ip = 10.45.0.202
 vnc_enabled = True
 vncserver_listen = 0.0.0.0
@@ -54,6 +50,13 @@ instance_user = ""
 # and http://docs.openstack.org/user-guide/content/requirements.html
 config_drive_format=iso9660
 
+# Based on http://docs.openstack.org/kilo/config-reference/content/nova-conf-changes-kilo.html
+[oslo_messaging_rabbit]
+rabbit_host = rabbitmq.openstack.sj.ifsc.edu.br
+rabbit_userid = rabbitmq
+rabbit_password = rabbitmq
+rabbit_virtual_host = openstack-ifsc
+
 [libvirt]
 images_type=lvm
 images_volume_group=openstack-ssd
@@ -65,19 +68,22 @@ inject_partition=-2
 connection = mysql://nova:nova@mysql.openstack.sj.ifsc.edu.br/nova
 
 [keystone_authtoken]
-auth_uri = http://keystone:5000
-auth_host = keystone
-auth_port = 35357
-auth_protocol = http
+identity_uri = http://keystone.openstack.sj.ifsc.edu.br:35357
+auth_url = http://keystone.openstack.sj.ifsc.edu.br:35357
 admin_tenant_name = service
 admin_user = nova
 admin_password = nova
+auth_uri = http://keystone.openstack.sj.ifsc.edu.br:5000
+#auth_plugin = password
+project_domain_id = default
+user_domain_id = default
+project_name = service
 
 # Based on http://docs.openstack.org/juno/config-reference/content/nova-conf-changes-juno.html
 [glance]
 host = glance.openstack.sj.ifsc.edu.br
 
-# Based on http://docs.openstack.org/juno/config-reference/content/nova-conf-changes-juno.html
+# Based on http://docs.openstack.org/kilo/install-guide/install/apt/content/neutron-network-node.html
 [neutron]
 url = http://neutron-controller.openstack.sj.ifsc.edu.br:9696
 admin_auth_url = http://keystone.openstack.sj.ifsc.edu.br:35357/v2.0

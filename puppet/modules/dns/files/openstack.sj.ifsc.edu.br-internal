@@ -1,6 +1,6 @@
 $TTL	86400
 @					IN	SOA		dns1.openstack.sj.ifsc.edu.br. dnsadmin.openstack.sj.ifsc.edu.br. (
-			2015040203
+			2015071400
 				 86400
 				  3600
 				604800
@@ -36,9 +36,6 @@ nova-novncproxy		IN	CNAME	openstack0
 nova-scheduler		IN	CNAME	openstack0
 neutron-controller	IN	CNAME	openstack0
 cinder-controller	IN	CNAME	openstack0
-horizon				IN	CNAME	openstack0
-dashboard			IN	CNAME	openstack0
-memcached			IN	CNAME	openstack0
 heat				IN	CNAME	openstack0
 orchestration		IN	CNAME	openstack0
 ceilometer			IN	CNAME	openstack0
@@ -47,6 +44,9 @@ snmp-manager		IN	CNAME	openstack0
 zabbix				IN	CNAME	openstack0
 syslog				IN	CNAME	openstack0
 ntp					IN	CNAME	openstack0
+; https://ceph.com/docs/master/install/install-ceph-gateway/
+radosgw				IN	CNAME	openstack0
+swift				IN	CNAME	openstack0
 
 openstack1			IN	AAAA	FC00:450::201
 openstack1			IN	A		10.45.0.201
@@ -56,11 +56,5 @@ openstack2			IN	A		10.45.0.202
 
 openstack3			IN	AAAA	FC00:450::203
 openstack3			IN	A		10.45.0.203
-
-roteador			IN	A		200.135.233.206
-
-; https://ceph.com/docs/master/install/install-ceph-gateway/
-*					IN	CNAME	@
-radosgw				IN	CNAME	openstack0
-gateway				IN	CNAME	openstack0
-swift				IN	CNAME	openstack0
+horizon				IN	CNAME	openstack3
+dashboard			IN	CNAME	openstack3

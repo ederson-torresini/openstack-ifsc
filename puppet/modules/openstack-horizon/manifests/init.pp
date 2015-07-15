@@ -77,16 +77,51 @@ class openstack-horizon::common {
 		require => Package['apache2'],
 	}
 
-	exec { 'a2ensite horizon':
+	exec { 'a2ensite:horizon':
 		command => '/usr/sbin/a2ensite horizon',
 		creates => '/etc/apache2/sites-enabled/horizon.conf',
 		require => File['apache2.conf'],
 	}
 
-	exec { 'a2dissite 000-default':
+	exec { 'a2dissite:000-default':
 		command => '/usr/sbin/a2dissite 000-default',
-		subscribe => Exec['a2ensite horizon'],
+		subscribe => Exec['a2ensite:horizon'],
 		refreshonly => true,
+	}
+
+	# Based on https://ceph.com/docs/master/radosgw/config/#create-a-gateway-configuration
+	exec { 'a2enmod:rewrite':
+		command => '/usr/sbin/a2enmod rewrite',
+		creates => '/etc/apache2/mods-enabled/rewrite.conf',
+		require => Package['apache2'],
+	}
+
+	exec { 'a2enmod:proxy_fcgi':
+		command => '/usr/sbin/a2enmod proxy_fcgi',
+		creates => '/etc/apache2/mods-enabled/rewrite.conf',
+		require => Package['apache2'],
+	}
+
+	file { 'site:radosgw':
+		path => '/etc/apache2/sites-available/radosgw.conf',
+		ensure => file,
+		source => 'puppet:///modules/openstack-horizon/radosgw.conf',
+		owner => root,
+		group => www-data,
+		mode => 0640,
+		require => [
+			Package['apache2'],
+		],
+	}
+
+	exec { 'a2ensite:radosgw':
+		command => '/usr/sbin/a2ensite radosgw',
+		subscribe => [
+			Exec['a2enmod:rewrite'],
+			Exec['a2enmod:proxy_fcgi'],
+			File['site:radosgw'],
+		],
+		creates => '/etc/apache2/sites-enabled/radosgw.conf',
 	}
 
 }
@@ -110,10 +145,20 @@ class openstack-horizon::package inherits openstack-horizon::common {
 		],
 	}
 
-	exec { 'a2enmod:rewrite':
-		command => '/usr/sbin/a2enmod rewrite',
-		creates => '/etc/apache2/mods-enabled/rewrite.conf',
+	exec { 'a2enmod:wsgi':
+		command => '/usr/sbin/a2enmod wsgi',
+		creates => '/etc/apache2/mods-enabled/wsgi.conf',
 		require => Package['apache2'],
+	}
+
+	exec { 'a2enconf:openstack-dashboard':
+		command => '/usr/sbin/a2enconf openstack-dashboard',
+		creates => '/etc/apache2/conf-enabled/openstack-dashboard.conf',
+		require => [
+			Package['apache2'],
+			Package['openstack-dashboard'],
+			Exec['a2enmod:wsgi'],
+		],
 	}
 
 	service { 'apache2':
@@ -123,9 +168,10 @@ class openstack-horizon::package inherits openstack-horizon::common {
 			File['secret_key'],
 			File['local_settings.py'],
 			File['apache2.conf'],
-			Exec['a2ensite horizon'],
-			Exec['a2dissite 000-default'],
+			Exec['a2ensite:horizon'],
+			Exec['a2dissite:000-default'],
 			Exec['a2enmod:rewrite'],
+			Exec['a2ensite:radosgw'],
 		],
 	}
 

@@ -1,17 +1,9 @@
 class ceph-radosgw {
 
-	package { 'libapache2-mod-fastcgi':
-		ensure => installed,
-		require => [
-			Package['apache2'],
-		],
-	}
-
 	package { 'radosgw':
 		ensure => installed,
 		require => [
 			Package['ceph'],
-			Package['apache2'],
 		],
 	}
 
@@ -70,6 +62,7 @@ class ceph-radosgw {
 		ensure => running,
 		enable => true,
 		require => [
+			File['ceph.conf'],
 			File['ceph.client.radosgw.keyring'],
 			File['ceph.client.radosgw.keyring link'],
 			File['radosgw done'],
@@ -143,49 +136,6 @@ class ceph-radosgw {
 			File['ifsc-sj-0.json'],
 		],
 		refreshonly => true,
-	}
-
-	# Based on https://ceph.com/docs/master/radosgw/config/#add-a-ceph-object-gateway-script
-	file { 'radosgw.fcgi':
-		path => '/var/www/html/radosgw.fcgi',
-		ensure => file,
-		source => 'puppet:///modules/ceph-radosgw/radosgw.fcgi',
-		owner => www-data,
-		group => www-data,
-		mode => 0550,
-		require => [
-			Package['libapache2-mod-fastcgi'],
-			Package['radosgw'],
-		],
-	}
-
-	# Based on https://ceph.com/docs/master/radosgw/config/#create-a-gateway-configuration
-	file { 'site radosgw':
-		path => '/etc/apache2/sites-available/radosgw.conf',
-		ensure => file,
-		source => 'puppet:///modules/ceph-radosgw/apache2.conf',
-		owner => root,
-		group => www-data,
-		mode => 0640,
-		require => [
-			Package['apache2'],
-			File['radosgw.fcgi'],
-		],
-	}
-
-	exec { 'a2enmod rewrite':
-		command => '/usr/sbin/a2enmod rewrite',
-		subscribe => File['site radosgw'],
-		refreshonly => true,
-	}
-
-	exec { 'a2ensite radosgw':
-		command => '/usr/sbin/a2ensite radosgw',
-		subscribe => [
-			File['site radosgw'],
-			Exec['a2enmod rewrite'],
-		],
-		creates => '/etc/apache2/sites-enabled/radosgw.conf',
 	}
 
 	# Based on https://ceph.com/docs/master/radosgw/keystone/

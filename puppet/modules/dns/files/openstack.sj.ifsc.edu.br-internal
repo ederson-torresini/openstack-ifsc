@@ -1,6 +1,6 @@
 $TTL	86400
 @					IN	SOA		dns1.openstack.sj.ifsc.edu.br. dnsadmin.openstack.sj.ifsc.edu.br. (
-			2015071400
+			2015071402
 				 86400
 				  3600
 				604800
@@ -46,7 +46,6 @@ syslog				IN	CNAME	openstack0
 ntp					IN	CNAME	openstack0
 ; https://ceph.com/docs/master/install/install-ceph-gateway/
 radosgw				IN	CNAME	openstack0
-swift				IN	CNAME	openstack0
 
 openstack1			IN	AAAA	FC00:450::201
 openstack1			IN	A		10.45.0.201
@@ -58,3 +57,5 @@ openstack3			IN	AAAA	FC00:450::203
 openstack3			IN	A		10.45.0.203
 horizon				IN	CNAME	openstack3
 dashboard			IN	CNAME	openstack3
+memcached			IN	CNAME	openstack3
+swift				IN	CNAME	openstack3

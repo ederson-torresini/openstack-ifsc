@@ -109,11 +109,10 @@ roteador
 200.135.233.200 rabbitmq
 
 # For nginx
-200.135.233.200 dashboard.openstack.sj.ifsc.edu.br dashboard horizon horizon.openstack.sj.ifsc.edu.br openstack.sj.ifsc.edu.br
-200.135.233.200 snmp-manager.openstack.sj.ifsc.edu.br snmp-manager zabbix
-200.135.233.200 nova-novncproxy.openstack.sj.ifsc.edu.br nova-novncproxy
-200.135.233.200 radosgw.openstack.sj.ifsc.edu.br radosgw swift.openstack.sj.ifsc.edu.br swift
-
+200.135.233.200 radosgw.openstack.sj.ifsc.edu.br radosgw 
+200.135.233.203 dashboard.openstack.sj.ifsc.edu.br dashboard horizon horizon.openstack.sj.ifsc.edu.br openstack.sj.ifsc.edu.br
+200.135.233.203 swift.openstack.sj.ifsc.edu.br swift
+200.135.233.203 snmp-manager.openstack.sj.ifsc.edu.br snmp-manager zabbix
 ::1     localhost ip6-localhost ip6-loopback
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters

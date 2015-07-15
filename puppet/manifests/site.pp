@@ -59,7 +59,7 @@ node "openstack0" {
 	include openstack-heat
 	include openstack-ceilometer::controller
 	include openstack-ceilometer::compute	
-	include snmp::manager
+	include snmp::manager::backend
 
 }
 
@@ -117,5 +117,6 @@ node "openstack3" {
 	#include openstack-trove
 	include openstack-ceilometer::compute
 	include openstack-horizon::package
+	include snmp::manager::frontend
 
 }

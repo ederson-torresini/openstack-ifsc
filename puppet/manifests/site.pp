@@ -17,6 +17,7 @@ include snmp::agent
 
 node "roteador" {
 
+	include syslog::client
 	include router
 	include nginx
 

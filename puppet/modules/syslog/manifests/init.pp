@@ -24,7 +24,7 @@ class syslog::server inherits syslog {
 	file { 'server.conf':
 		path => '/etc/rsyslog.d/99-openstack.conf',
 		ensure => file,
-		source => 'puppet:///modules/syslog-server/server.conf',
+		source => 'puppet:///modules/syslog/server.conf',
 		owner => 'root',
 		group => 'syslog',
 		mode => 0640,
@@ -41,7 +41,7 @@ class syslog::server inherits syslog {
 	file { 'logrotate.conf':
 		path => '/etc/logrotate.d/openstack',
 		ensure => file,
-		source => 'puppet:///modules/syslog-server/logrotate.conf',
+		source => 'puppet:///modules/syslog/logrotate.conf',
 		owner => root,
 		group => root,
 		mode => 0644,
@@ -54,7 +54,7 @@ class syslog::client inherits syslog {
 	file { 'client.conf':
 		path => '/etc/rsyslog.d/99-openstack.conf',
 		ensure => file,
-		source => 'puppet:///modules/syslog-client/client.conf',
+		source => 'puppet:///modules/syslog/client.conf',
 		owner => 'root',
 		group => 'syslog',
 		mode => 0640,

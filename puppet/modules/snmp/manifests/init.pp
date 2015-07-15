@@ -8,7 +8,7 @@ class snmp {
 
 	file { 'snmp.conf':
 		path => '/etc/snmp/snmp.conf',
-		source => 'puppet:///modules/snmp-manager/snmp.conf',
+		source => 'puppet:///modules/snmp/snmp.conf',
 		owner => root,
 		group => root,
 		mode => 0644,
@@ -19,16 +19,23 @@ class snmp {
 
 class snmp::manager inherits snmp {
 
+	file { 'zabbix_server.conf':
+		path => '/etc/zabbix/zabbix_server.conf',
+		source => 'puppet:///modules/snmp/zabbix_server.conf',
+		owner => root,
+		group => zabbix,
+		mode => 0640,
+	}
+
+}
+
+class snmp::manager::backend inherits snmp::manager {
+
 	package { 'zabbix-server-mysql':
 		ensure => installed,
 	}
 
-	file { 'zabbix_server.conf':
-		path => '/etc/zabbix/zabbix_server.conf',
-		source => 'puppet:///modules/snmp-manager/zabbix_server.conf',
-		owner => root,
-		group => zabbix,
-		mode => 0640,
+	File <| title == 'zabbix_server.conf' |> {
 		require => Package['zabbix-server-mysql'],
 	}
 
@@ -42,7 +49,7 @@ class snmp::manager inherits snmp {
 
 	file { 'zabbix_server.sql':
 		path => '/etc/zabbix/sql/zabbix_server.sql',
-		source => 'puppet:///modules/snmp-manager/zabbix_server.sql',
+		source => 'puppet:///modules/snmp/zabbix_server.sql',
 		owner => root,
 		group => zabbix,
 		mode => 0640,
@@ -78,7 +85,7 @@ class snmp::manager inherits snmp {
 
 	file { 'zabbix-server':
 		path => '/etc/default/zabbix-server',
-		source => 'puppet:///modules/snmp-manager/zabbix-server',
+		source => 'puppet:///modules/snmp/zabbix-server',
 		owner => root,
 		group => root,
 		mode => 0644,
@@ -96,6 +103,10 @@ class snmp::manager inherits snmp {
 		],
 	}
 
+}
+
+class snmp::manager::frontend inherits snmp::manager {
+
 	package { 'php5-mysql':
 		ensure => installed,
 	}
@@ -108,10 +119,14 @@ class snmp::manager inherits snmp {
 		],
 	}
 
+	File <| title == 'zabbix_server.conf' |> {
+		require => Package['zabbix-frontend-php'],
+	}
+
 	file { 'zabbix:apache2.conf':
 		path => '/etc/apache2/sites-available/zabbix.conf',
 		ensure => file,
-		source => 'puppet:///modules/snmp-manager/apache2.conf',
+		source => 'puppet:///modules/snmp/apache2.conf',
 		owner => root,
 		group => www-data,
 		mode => 0640,
@@ -126,7 +141,7 @@ class snmp::manager inherits snmp {
 
 	file { 'zabbix.conf.php':
 		path => '/etc/zabbix/zabbix.conf.php',
-		source => 'puppet:///modules/snmp-manager/zabbix.conf.php',
+		source => 'puppet:///modules/snmp/zabbix.conf.php',
 		owner => www-data,
 		group => zabbix,
 		mode => 0440,
@@ -143,7 +158,7 @@ class snmp::agent inherits snmp {
 
 	file { 'zabbix_agentd.conf':
 		path => '/etc/zabbix/zabbix_agentd.conf',
-		source => 'puppet:///modules/snmp-agent/zabbix_agentd.conf',
+		source => 'puppet:///modules/snmp/zabbix_agentd.conf',
 		owner => root,
 		group => zabbix,
 		mode => 0640,
@@ -152,7 +167,7 @@ class snmp::agent inherits snmp {
 
 	file { 'userparameter_mysql.conf':
 		path => '/etc/zabbix/zabbix_agentd.conf.d/userparameter_mysql.conf',
-		source => 'puppet:///modules/snmp-agent/userparameter_mysql.conf',
+		source => 'puppet:///modules/snmp/userparameter_mysql.conf',
 		owner => root,
 		group => zabbix,
 		mode => 0640,
@@ -175,7 +190,7 @@ class snmp::agent inherits snmp {
 
 	file { 'snmpd.conf':
 		path => '/etc/snmp/snmpd.conf',
-		source => 'puppet:///modules/snmp-agent/snmpd.conf',
+		source => 'puppet:///modules/snmp/snmpd.conf',
 		owner => root,
 		group => root,
 		mode => 0644,

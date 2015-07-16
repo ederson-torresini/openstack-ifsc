@@ -142,13 +142,19 @@ class openstack-trove {
 	service { 'trove-taskmanager':
 		ensure => running,
 		enable => true,
-		subscribe => File['trove-taskmanager.conf'],
+		subscribe => [
+			File['trove.conf'],
+			File['trove-taskmanager.conf'],
+		],
 	}
 	
 	service { 'trove-conductor':
 		ensure => running,
 		enable => true,
-		subscribe => File['trove-conductor.conf'],
+		subscribe => [
+			File['trove.conf'],
+			File['trove-conductor.conf'],
+		],
 	}
 
 }

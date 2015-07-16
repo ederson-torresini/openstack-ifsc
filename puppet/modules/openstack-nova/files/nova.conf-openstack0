@@ -21,7 +21,7 @@ vnc_enabled = True
 vncserver_listen = 0.0.0.0
 vncserver_proxyclient_address = 10.45.0.200
 #
-# See modules/nginx/nginx.conf
+# See puppet/modules/nginx/nginx.conf: proxy_set_header
 novncproxy_base_url = https://openstack.sj.ifsc.edu.br/vnc/vnc_auto.html
 #
 # http://docs.openstack.org/icehouse/install-guide/install/apt/content/neutron-ml2-controller-node.html

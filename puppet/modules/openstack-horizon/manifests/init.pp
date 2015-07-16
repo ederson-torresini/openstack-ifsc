@@ -92,13 +92,13 @@ class openstack-horizon::common {
 	# Based on https://ceph.com/docs/master/radosgw/config/#create-a-gateway-configuration
 	exec { 'a2enmod:rewrite':
 		command => '/usr/sbin/a2enmod rewrite',
-		creates => '/etc/apache2/mods-enabled/rewrite.conf',
+		creates => '/etc/apache2/mods-enabled/rewrite.load',
 		require => Package['apache2'],
 	}
 
 	exec { 'a2enmod:proxy_fcgi':
 		command => '/usr/sbin/a2enmod proxy_fcgi',
-		creates => '/etc/apache2/mods-enabled/rewrite.conf',
+		creates => '/etc/apache2/mods-enabled/proxy_fcgi.load',
 		require => Package['apache2'],
 	}
 

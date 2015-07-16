@@ -1,6 +1,6 @@
 $TTL	86400
 @					IN	SOA		dns1.openstack.sj.ifsc.edu.br. dnsadmin.openstack.sj.ifsc.edu.br. (
-			2015071402
+			2015071600
 				 86400
 				  3600
 				604800
@@ -38,8 +38,6 @@ neutron-controller	IN	CNAME	openstack0
 cinder-controller	IN	CNAME	openstack0
 heat				IN	CNAME	openstack0
 orchestration		IN	CNAME	openstack0
-ceilometer			IN	CNAME	openstack0
-telemetry			IN	CNAME	openstack0
 snmp-manager		IN	CNAME	openstack0
 zabbix				IN	CNAME	openstack0
 syslog				IN	CNAME	openstack0
@@ -52,6 +50,8 @@ openstack1			IN	A		10.45.0.201
 
 openstack2			IN	AAAA	FC00:450::202
 openstack2			IN	A		10.45.0.202
+ceilometer			IN	CNAME	openstack2
+telemetry			IN	CNAME	openstack2
 
 openstack3			IN	AAAA	FC00:450::203
 openstack3			IN	A		10.45.0.203

@@ -29,6 +29,7 @@ class openstack-ceilometer::controller inherits openstack-ceilometer::common {
 	service { 'ceilometer-api':
 		ensure => running,
 		enable => true,
+		require => Package['ceilometer-api'],
 		subscribe => File['ceilometer.conf'],
 	}
 
@@ -39,6 +40,7 @@ class openstack-ceilometer::controller inherits openstack-ceilometer::common {
 	service { 'ceilometer-collector':
 		ensure => running,
 		enable => true,
+		require => Package['ceilometer-collector'],
 		subscribe => File['ceilometer.conf'],
 	}
 
@@ -49,6 +51,7 @@ class openstack-ceilometer::controller inherits openstack-ceilometer::common {
 	service { 'ceilometer-agent-central':
 		ensure => running,
 		enable => true,
+		require => Package['ceilometer-agent-central'],
 		subscribe => File['ceilometer.conf'],
 	}
 
@@ -59,6 +62,7 @@ class openstack-ceilometer::controller inherits openstack-ceilometer::common {
 	service { 'ceilometer-agent-notification':
 		ensure => running,
 		enable => true,
+		require => Package['ceilometer-agent-notification'],
 		subscribe => File['ceilometer.conf'],
 	}
 
@@ -69,6 +73,7 @@ class openstack-ceilometer::controller inherits openstack-ceilometer::common {
 	service { 'ceilometer-alarm-evaluator':
 		ensure => running,
 		enable => true,
+		require => Package['ceilometer-alarm-evaluator'],
 		subscribe => File['ceilometer.conf'],
 	}
 
@@ -79,6 +84,7 @@ class openstack-ceilometer::controller inherits openstack-ceilometer::common {
 	service { 'ceilometer-alarm-notifier':
 		ensure => running,
 		enable => true,
+		require => Package['ceilometer-alarm-notifier'],
 		subscribe => File['ceilometer.conf'],
 	}
 
@@ -105,19 +111,19 @@ class openstack-ceilometer::controller inherits openstack-ceilometer::common {
 		creates => '/var/lib/mysql/ceilometer',
 		require => [
 			File['ceilometer.sql'],
-			Class['mysql'],
 		],
 	}
 
 	# http://docs.openstack.org/developer/ceilometer/install/manual.html
 	exec { 'ceilometer-dbsync':
 		command => '/usr/bin/ceilometer-dbsync',
-		creates => '/var/lib/mysql/ceilometer/meter.frm',
 		user => 'ceilometer',
 		require => [
 			Package['ceilometer-common'],
 			Exec['mysql ceilometer.sql'],
 		],
+		subscribe => File['ceilometer.sql'],
+		refreshonly => true,
 	}
 
 	file { 'ceilometer-init.sh':
@@ -137,7 +143,7 @@ class openstack-ceilometer::controller inherits openstack-ceilometer::common {
 
 	exec { 'ceilometer-init.sh':
 		command => '/usr/local/sbin/ceilometer-init.sh',
-		require => Exec['/usr/local/sbin/keystone-init.sh'],
+		require => Package['python-keystoneclient'],
 		subscribe => File['ceilometer-init.sh'],
 		refreshonly => true,
 	}

@@ -36,12 +36,11 @@ verbose=True
 use_syslog=True
 syslog_log_facility=LOG_LOCAL2
 #
-# Based on http://docs.openstack.org/icehouse/install-guide/install/apt/content/ceilometer-install-nova.html
+# Based on http://docs.openstack.org/kilo/install-guide/install/apt/content/ceilometer-nova.html
 instance_usage_audit = True
 instance_usage_audit_period = hour
 notify_on_state_change = vm_and_task_state
-notification_driver = nova.openstack.common.notifier.rpc_notifier
-notification_driver = ceilometer.compute.nova_notifier
+notification_driver = messagingv2
 #
 # Based on http://docs.openstack.org/trunk/config-reference/content/ch_configuring-openstack-orchestration.html
 instance_user = ""

@@ -1,6 +1,6 @@
 $TTL	86400
 @					IN	SOA		dns1.openstack.sj.ifsc.edu.br. dnsadmin.openstack.sj.ifsc.edu.br. (
-			2015071600
+			2015071601
 				 86400
 				  3600
 				604800
@@ -47,6 +47,8 @@ radosgw				IN	CNAME	openstack0
 
 openstack1			IN	AAAA	FC00:450::201
 openstack1			IN	A		10.45.0.201
+trove				IN	CNAME	openstack1
+database			IN	CNAME	openstack1
 
 openstack2			IN	AAAA	FC00:450::202
 openstack2			IN	A		10.45.0.202

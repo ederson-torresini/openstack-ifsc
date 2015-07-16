@@ -77,7 +77,7 @@ node "openstack1" {
 	include openstack-neutron::agent::compute
 	include openstack-neutron::agent::network
 	include openstack-cinder::node
-	#include openstack-trove
+	include openstack-trove
 	include openstack-ceilometer::compute
 
 }
@@ -114,7 +114,6 @@ node "openstack3" {
 	include openstack-neutron::agent::compute
 	include openstack-neutron::agent::network
 	include openstack-cinder::node
-	#include openstack-trove
 	include openstack-ceilometer::compute
 	include openstack-horizon::package
 	include snmp::manager::frontend

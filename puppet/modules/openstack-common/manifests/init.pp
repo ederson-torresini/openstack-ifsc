@@ -60,6 +60,10 @@ class openstack-common {
 		ensure => installed,
 	}
 
+	package { 'python-openstackclient':
+		ensure => installed,
+	}
+
 	exec { 'ethtool:em1-common':
 		command => '/sbin/ethtool -K em1 rx on tx on txvlan on rxvlan on',
 		onlyif => '/sbin/ip addr show em1',

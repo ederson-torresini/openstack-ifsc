@@ -5,14 +5,14 @@ class openstack-trove {
 		ensure => installed,
 	}
 
-	package { 'trove-common':
-		ensure => installed,
-	}
-
 	package { 'trove-api':
 		ensure => installed,
 	}
 	
+	package { 'trove-conductor':
+		ensure => installed,
+	}
+
 	package { 'trove-taskmanager':
 		ensure => installed,
 	}
@@ -22,7 +22,7 @@ class openstack-trove {
 		owner => root,
 		group => trove,
 		mode => 0750,
-		require => Package['trove-common'],
+		require => Package['trove-api'],
 	}
 
 	file { 'trove.sql':
@@ -32,26 +32,23 @@ class openstack-trove {
 		owner => root,
 		group => trove,
 		mode => 0640,
-		require => File['/etc/trove/sql'],
+		require => [
+			File['/etc/trove/sql'],
+			Package['mysql-client'],
+		],
 	}
 
 	exec { 'mysql trove.sql':
 		command => '/usr/bin/mysql -u root -h mysql.openstack.sj.ifsc.edu.br < /etc/trove/sql/trove.sql',
-		creates => '/var/lib/mysql/trove',
-		require => [
-			Package['mysql-client'],
-			File['trove.sql'],
-		],
+		subscribe => File['trove.sql'],
+		refreshonly => true,
 	}
 
 	exec { 'trove-manage db_sync':
 		command => '/usr/bin/trove-manage db_sync',
-		creates => '/var/lib/mysql/trove/datastores.frm',
 		user => 'trove',
-		require => [
-			Package['trove-common'],
-			Exec['mysql trove.sql'],
-		],
+		subscribe => Exec['mysql trove.sql'],
+		refreshonly => true,
 	}
 
 	exec { 'trove-manage datastore_update mysql':
@@ -79,7 +76,7 @@ class openstack-trove {
 	exec { 'trove-init.sh':
 		command => '/usr/local/sbin/trove-init.sh',
 		require => Exec['/usr/local/sbin/keystone-init.sh'],
-		subscribe => Exec['trove-manage db_sync'],
+		subscribe => File['trove-init.sh'],
 		refreshonly => true,
 	}
 
@@ -112,7 +109,7 @@ class openstack-trove {
 		mode => 0640,
 		require => Package['trove-api'],
 	}
-	
+
 	file { 'trove-taskmanager.conf':
 		path => '/etc/trove/trove-taskmanager.conf',
 		ensure => file,
@@ -122,7 +119,7 @@ class openstack-trove {
 		mode => 0640,
 		require => Package['trove-taskmanager'],
 	}
-	
+
 	file { 'trove-conductor.conf':
 		path => '/etc/trove/trove-conductor.conf',
 		ensure => file,
@@ -132,7 +129,7 @@ class openstack-trove {
 		mode => 0640,
 		require => Package['trove-api'],
 	}
-	
+
 	service { 'trove-api':
 		ensure => running,
 		enable => true,

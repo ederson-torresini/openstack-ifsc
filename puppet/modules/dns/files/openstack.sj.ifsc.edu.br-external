@@ -1,6 +1,6 @@
 $TTL	3600
 @					IN	SOA		dns1.openstack.sj.ifsc.edu.br. dnsadmin.openstack.sj.ifsc.edu.br. (
-			2015070600
+			2015081200
 				  3600
 				   600
 				 14400
@@ -12,3 +12,6 @@ $TTL	3600
 
 dns1				IN	A		200.135.233.201
 dns2				IN	A		200.135.233.202
+
+; for Trove
+rabbitmq			IN	A		200.135.233.200

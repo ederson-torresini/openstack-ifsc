@@ -54,11 +54,12 @@ iptables -t filter -A FORWARD -o ${EXT} -j ACCEPT
 #
 # From: hypervisors;
 # To: router;
-# Services: SNMP (161/UDP) e Zabbix (10050/TCP).
+# Services: SNMP (161/UDP), Zabbix (10050/TCP).
 iptables -t filter -A INPUT -i ${HVS} -p udp --dport 161 -j ACCEPT
 iptables -t filter -A INPUT -i ${HVS} -p tcp --dport 10050 -j ACCEPT
 #
 # From: VMs;
 # To: hypervisors;
-# Services: RabbitMQ (5672).
+# Services: RabbitMQ (5672/TCP), Swift (80/TCP).
 iptables -t filter -A FORWARD -i ${VMS} -s ${VMS_NET} -d 200.135.233.200/32 -p tcp --dport 5672 -j ACCEPT
+iptables -t filter -A FORWARD -i ${VMS} -s ${VMS_NET} -d 200.135.233.203/32 -p tcp --dport 80 -j ACCEPT

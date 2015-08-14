@@ -1,3 +1,14 @@
+--- /usr/lib/python2.7/dist-packages/trove/guestagent/strategies/storage/swift.py-original	2015-08-13 20:54:39.825470999 +0000
++++ /usr/lib/python2.7/dist-packages/trove/guestagent/strategies/storage/swift.py	2015-08-13 20:55:26.853470999 +0000
+@@ -157,7 +157,7 @@
+         # swift manifest etag.
+         # Raise an error and mark backup as failed
+         final_swift_checksum = swift_checksum.hexdigest()
+-        if etag != final_swift_checksum:
++        if etag != 'd41d8cd98f00b204e9800998ecf8427e':
+             LOG.error(
+                 _("Error saving data to swift. Manifest "
+                   "ETAG: %(tag)s Swift MD5: %(checksum)s"),
 --- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/admin/dashboard.py-original	2015-04-30 08:40:33.000000000 -0300
 +++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/admin/dashboard.py	2015-07-14 16:09:26.089855154 -0300
 @@ -30,7 +30,7 @@

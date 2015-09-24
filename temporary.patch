@@ -40,6 +40,8 @@
  
  
  horizon.register(Project)
+--- /usr/share/openstack-dashboard/openstack_dashboard/dashboards/router/dashboard.py-original	2015-04-30 08:40:33.000000000 -0300
++++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/router/dashboard.py	2015-09-23 23:48:29.281619957 -0300
 @@ -20,7 +20,7 @@
      slug = "router"
      panels = ('nexus1000v',)

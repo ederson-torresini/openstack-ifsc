@@ -50,7 +50,7 @@ node "openstack0" {
 	include openstack-keystone::cleaning
 	include openstack-glance
 	include openstack-nova::controller
-	include openstack-nova::compute::kvm
+	include openstack-nova::compute::docker
 	include openstack-neutron::controller
 	include openstack-neutron::agent::compute
 	include openstack-neutron::agent::network

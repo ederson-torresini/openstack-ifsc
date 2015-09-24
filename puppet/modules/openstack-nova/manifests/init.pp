@@ -390,7 +390,7 @@ class openstack-nova::compute::docker inherits openstack-nova::compute::common {
 
 	# Issue #8: More space to Docker runtime files.
 	exec { 'lvcreate docker':
-		command => '/sbin/lvcreate -L 20G -n docker openstack-ssd',
+		command => '/sbin/lvcreate -l 100%VG -n docker openstack-ssd',
 		unless => '/sbin/lvdisplay | /bin/grep -q docker',
 		require => Exec['/sbin/vgcreate openstack-ssd /dev/sdb1'],
 	}

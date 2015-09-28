@@ -1,16 +1,17 @@
 FILE="/tmp/debian.img"
+NAME="openstack-ifsc/debian:latest"
 
 all: compile clean-pre install clean-post
 
 compile:
-	docker build -t debian:minimal .
-	docker save -o ${FILE} debian:minimal
+	docker build -t ${NAME} .
+	docker save -o ${FILE} ${NAME}
 
 clean-pre:
-	glance image-delete debian:minimal
+	glance image-delete ${NAME}
 
 install:
-	glance image-create --name "debian:minimal" --disk-format raw --container-format docker --owner admin --min-disk 1 --min-ram 512 --file ${FILE} --is-public True --progress
+	glance image-create --name ${NAME} --disk-format raw --container-format docker --owner admin --min-disk 1 --min-ram 512 --file ${FILE} --is-public True --progress
 
 clean-post:
 	rm -f ${FILE}

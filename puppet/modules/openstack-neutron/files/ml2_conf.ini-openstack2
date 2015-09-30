@@ -2,7 +2,7 @@
 [ml2]
 type_drivers = gre
 tenant_network_types = gre
-mechanism_drivers = openvswitch
+mechanism_drivers = openvswitch,l2population
 
 [ml2_type_flat]
 
@@ -26,3 +26,8 @@ enable_ipset = True
 
 [agent]
 tunnel_types = gre
+l2_population = True
+arp_responder = True
+#
+# Based on http://docs.openstack.org/networking-guide/scenario_dvr_ovs.html
+#enable_distributed_routing = True

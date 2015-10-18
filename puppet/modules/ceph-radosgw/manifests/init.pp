@@ -22,7 +22,7 @@ class ceph-radosgw {
 		require => Package['ceph'],
 	}
 
-	# Altough there is a keyring file location in main configuration (ceph.conf), it's for compatibility with Ubuntu 14.04. 
+	# Altough there is a keyring file location in main configuration (ceph.conf), it's for compatibility with Ubuntu 14.04.
 	file { 'ceph.client.radosgw.keyring link':
 		path => '/var/lib/ceph/radosgw/ceph-radosgw.gateway/keyring',
 		ensure => link,
@@ -204,4 +204,3 @@ class ceph-radosgw {
 	}
 
 }
-

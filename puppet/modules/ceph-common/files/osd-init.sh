@@ -41,4 +41,3 @@ ceph osd crush add osd.${OSD_ID} 1.0 host=${HOSTNAME}
 touch /var/lib/ceph/osd/ceph-${OSD_ID}/done
 touch /var/lib/ceph/osd/ceph-${OSD_ID}/upstart
 grep -q /dev/openstack/ceph /etc/fstab || echo "/dev/openstack/ceph /var/lib/ceph/osd/ceph-${OSD_ID} xfs defaults,nofail 0 2" >> /etc/fstab
-

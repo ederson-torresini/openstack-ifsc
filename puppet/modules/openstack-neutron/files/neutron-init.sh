@@ -14,4 +14,3 @@ keystone endpoint-create --region ifsc-sj --service-id $(keystone service-list |
 # Based on http://docs.openstack.org/icehouse/install-guide/install/apt/content/neutron_initial-external-network.html to create initial networks
 neutron net-create ext-net --shared --router:external=True
 neutron subnet-create ext-net --name ext-subnet --allocation-pool start=200.135.233.1,end=200.135.233.99 --disable-dhcp --gateway 200.135.233.126 200.135.233.0/25
-

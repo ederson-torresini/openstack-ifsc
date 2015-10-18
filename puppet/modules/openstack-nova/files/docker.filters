@@ -6,6 +6,6 @@
 ln: CommandFilter, /bin/ln, root
 #
 # Docker and KVM will run on separate machines, which means some configuration files won't be installed.
-# The next lines fix the problem. 
+# The next lines fix the problem.
 ip: IpFilter, ip, root
 ip_exec: IpNetnsExecFilter, ip, root

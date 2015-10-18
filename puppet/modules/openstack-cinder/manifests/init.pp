@@ -257,7 +257,7 @@ class openstack-cinder::node inherits openstack-cinder::common {
 		group => cinder,
 		mode => 0775,
 		require => Package['cinder-volume'],
-	}   
+	}
 
 	file { '/var/lib/cinder/volumes':
 		ensure => directory,
@@ -265,15 +265,14 @@ class openstack-cinder::node inherits openstack-cinder::common {
 		group => cinder,
 		mode => 0770,
 		require => File['/var/lib/cinder'],
-	}   
-	
+	}
+
 	file { '/var/lib/cinder/conversion':
 		ensure => directory,
 		owner => nova,
 		group => cinder,
 		mode => 0770,
 		require => File['/var/lib/cinder'],
-	}   
-
+	}
 
 }

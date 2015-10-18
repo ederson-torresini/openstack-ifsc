@@ -38,4 +38,3 @@ UsePAM yes
 
 Subsystem sftp /usr/lib/openssh/sftp-server
 X11Forwarding yes
-

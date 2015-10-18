@@ -8,7 +8,7 @@ class openstack-trove {
 	package { 'trove-api':
 		ensure => installed,
 	}
-	
+
 	package { 'trove-conductor':
 		ensure => installed,
 	}
@@ -138,7 +138,7 @@ class openstack-trove {
 			File['trove.conf'],
 		],
 	}
-	
+
 	service { 'trove-taskmanager':
 		ensure => running,
 		enable => true,
@@ -147,7 +147,7 @@ class openstack-trove {
 			File['trove-taskmanager.conf'],
 		],
 	}
-	
+
 	service { 'trove-conductor':
 		ensure => running,
 		enable => true,

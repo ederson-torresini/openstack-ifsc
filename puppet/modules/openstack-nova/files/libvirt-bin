@@ -1,4 +1,3 @@
 # Based on http://www.mirantis.com/blog/tutorial-openstack-live-migration-with-kvm-hypervisor-and-nfs-shared-storage/
 start_libvirtd="yes"
 libvirtd_opts="-d -l"
-

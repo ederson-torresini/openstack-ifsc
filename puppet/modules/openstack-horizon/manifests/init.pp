@@ -217,7 +217,7 @@ class openstack-horizon::avos inherits openstack-horizon::common {
 			Exec['git:avos'],
 		],
 	}
-	
+
 	package { [
 		'libpython-dev',
 		'libffi-dev',
@@ -247,8 +247,8 @@ class openstack-horizon::avos inherits openstack-horizon::common {
 			XStatic-JQuery.quicksearch \
 			XStatic-JQuery.TableSorter \
 			XStatic-JSEncrypt \
-			XStatic-QUnit \ 
-			XStatic-Rickshaw \ 
+			XStatic-QUnit \
+			XStatic-Rickshaw \
 			XStatic-Spin',
 		subscribe => Package['python-django'],
 		refreshonly => yes,
@@ -256,7 +256,7 @@ class openstack-horizon::avos inherits openstack-horizon::common {
 
 	file { 'avos.conf':
 		path => '/etc/init/avos.conf',
-		
+
 	}
 
 	service { 'apache2':

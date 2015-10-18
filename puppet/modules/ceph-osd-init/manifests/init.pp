@@ -30,4 +30,3 @@ class ceph-osd-init {
 	}
 
 }
-

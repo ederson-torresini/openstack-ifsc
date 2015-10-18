@@ -162,5 +162,5 @@ class openstack-ceilometer::compute inherits openstack-ceilometer::common {
 		enable => true,
 		require => Package['ceilometer-agent-compute'],
 	}
-	
+
 }

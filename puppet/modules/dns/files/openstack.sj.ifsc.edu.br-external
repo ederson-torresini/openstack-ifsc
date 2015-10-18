@@ -1,18 +1,18 @@
-$TTL	3600
-@					IN	SOA		dns1.openstack.sj.ifsc.edu.br. dnsadmin.openstack.sj.ifsc.edu.br. (
-			2015081302
-				  3600
-				   600
-				 14400
-				  3600
+$TTL  3600
+@  IN  SOA  dns1.openstack.sj.ifsc.edu.br. dnsadmin.openstack.sj.ifsc.edu.br. (
+  2015081302
+    3600
+     600
+   14400
+    3600
 )
-@					IN	NS		dns1.openstack.sj.ifsc.edu.br.
-@					IN	NS		dns2.openstack.sj.ifsc.edu.br.
-@					IN	A		200.135.233.253
+@  IN  NS  dns1.openstack.sj.ifsc.edu.br.
+@  IN  NS  dns2.openstack.sj.ifsc.edu.br.
+@  IN  A  200.135.233.253
 
-dns1				IN	A		200.135.233.201
-dns2				IN	A		200.135.233.202
+dns1  IN  A  200.135.233.201
+dns2  IN  A  200.135.233.202
 
 ; for Trove
-rabbitmq			IN	A		200.135.233.200
-swift				IN	A		200.135.233.203
+rabbitmq  IN  A  200.135.233.200
+swift  IN  A  200.135.233.203

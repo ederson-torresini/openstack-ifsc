@@ -14,4 +14,3 @@ keystone user-role-add --user=admin --role=_member_ --tenant=admin
 keystone tenant-create --name=service --description="Service Tenant"
 keystone service-create --name=keystone --type=identity --description="OpenStack Identity"
 keystone endpoint-create --region=ifsc-sj --service-id=$(keystone service-list | awk '/ identity / {print $2}') --publicurl=http://keystone.openstack.sj.ifsc.edu.br:5000/v2.0 --internalurl=http://keystone.openstack.sj.ifsc.edu.br:5000/v2.0 --adminurl=http://keystone.openstack.sj.ifsc.edu.br:35357/v2.0
-

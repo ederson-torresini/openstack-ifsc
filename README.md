@@ -174,7 +174,7 @@ iface lo inet loopback
 iface lo inet6 loopback
 
 # Onboard interface
-auto em1 
+auto em1
 iface em1 inet manual
 	bond-master bond0
 	bond-primary em1 p5p1
@@ -270,7 +270,7 @@ iface lo inet loopback
 iface lo inet6 loopback
 
 # Onboard interface
-auto em1 
+auto em1
 iface em1 inet manual
 	bond-master bond0
 	bond-primary em1 p5p1
@@ -368,7 +368,7 @@ iface lo inet loopback
 iface lo inet6 loopback
 
 # Onboard interface
-auto em1 
+auto em1
 iface em1 inet manual
 	bond-master bond0
 	bond-primary em1 p5p1
@@ -466,7 +466,7 @@ iface lo inet loopback
 iface lo inet6 loopback
 
 # Onboard interface
-auto em1 
+auto em1
 iface em1 inet manual
 	bond-master bond0
 	bond-primary em1 p5p1

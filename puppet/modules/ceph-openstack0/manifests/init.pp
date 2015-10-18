@@ -43,4 +43,3 @@ class ceph-openstack0 {
 	}
 
 }
-

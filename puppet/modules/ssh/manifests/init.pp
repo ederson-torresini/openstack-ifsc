@@ -34,6 +34,4 @@ class ssh {
 		subscribe => File['sshd_config'],
 	}
 
-
 }
-

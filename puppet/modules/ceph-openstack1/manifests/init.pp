@@ -49,4 +49,3 @@ class ceph-openstack1 {
 	}
 
 }
-

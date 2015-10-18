@@ -13,4 +13,3 @@ keystone endpoint-create --region ifsc-sj --service-id=$(keystone service-list |
 
 keystone service-create --name=cinderv2 --type=volumev2 --description="OpenStack Block Storage v2"
 keystone endpoint-create --region ifsc-sj --service-id=$(keystone service-list | awk '/ volumev2 / {print $2}')  --publicurl=http://cinder-controller.openstack.sj.ifsc.edu.br:8776/v2/%\(tenant_id\)s  --internalurl=http://cinder-controller.openstack.sj.ifsc.edu.br:8776/v2/%\(tenant_id\)s  --adminurl=http://cinder-controller.openstack.sj.ifsc.edu.br:8776/v2/%\(tenant_id\)s
-

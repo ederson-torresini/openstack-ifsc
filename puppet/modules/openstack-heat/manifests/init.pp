@@ -4,11 +4,11 @@ class openstack-heat {
 	package { 'heat-api':
 		ensure => installed,
 	}
-	
+
 	package { 'heat-api-cfn':
 		ensure => installed,
 	}
-	
+
 	package { 'heat-engine':
 		ensure => installed,
 	}

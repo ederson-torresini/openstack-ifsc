@@ -8,10 +8,10 @@ compile:
 	docker save -o ${FILE} ${NAME}
 
 clean-pre:
-	glance image-delete ${NAME}
+	openstack image delete ${NAME}
 
 install:
-	glance image-create --name ${NAME} --disk-format raw --container-format docker --owner admin --min-disk 1 --min-ram 512 --file ${FILE} --is-public True --progress
+	openstack image create --disk-format raw --container-format docker --owner admin --min-disk 1 --min-ram 512 --file ${FILE} --public ${NAME}
 
 clean-post:
 	rm -f ${FILE}

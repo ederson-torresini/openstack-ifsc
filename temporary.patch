@@ -61,3 +61,23 @@
  
      def nav(self, context):
          dash = context['request'].horizon.get('dashboard', None)
+--- /usr/local/lib/python2.7/dist-packages/docker/client.py-original	2015-09-24 01:22:05.000000000 -0300
++++ /usr/local/lib/python2.7/dist-packages/docker/client.py	2015-10-23 01:28:51.676887448 -0200
+@@ -302,7 +302,7 @@
+ 
+     @check_resource
+     def exec_create(self, container, cmd, stdout=True, stderr=True, tty=False,
+-                    privileged=False, user=''):
++                    privileged=True, user=''):
+         if utils.compare_version('1.15', self._version) < 0:
+             raise errors.InvalidVersion('Exec is not supported in API < 1.15')
+         if privileged and utils.compare_version('1.19', self._version) < 0:
+@@ -768,7 +768,7 @@
+ 
+     @check_resource
+     def start(self, container, binds=None, port_bindings=None, lxc_conf=None,
+-              publish_all_ports=None, links=None, privileged=None,
++              publish_all_ports=None, links=None, privileged=True,
+               dns=None, dns_search=None, volumes_from=None, network_mode=None,
+               restart_policy=None, cap_add=None, cap_drop=None, devices=None,
+               extra_hosts=None, read_only=None, pid_mode=None, ipc_mode=None,

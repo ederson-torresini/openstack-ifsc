@@ -367,7 +367,7 @@ class openstack-nova::compute::docker inherits openstack-nova::compute::common {
 	package { 'nova-docker':
 		provider => pip,
 		ensure => installed,
-		source => 'git+https://github.com/stackforge/nova-docker@stable/kilo',
+		source => 'git+https://github.com/openstack/nova-docker@stable/kilo',
 		require => Package['lxc-docker'],
 	}
 

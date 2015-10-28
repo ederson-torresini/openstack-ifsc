@@ -4,7 +4,7 @@ PATH="/sbin:/bin:/usr/sbin:/usr/bin"
 DIR="/var/backups/"
 FILETYPE="sql.gz"
 FILE="${DIR}/$(date +%F).${FILETYPE}"
-DAYS="7"
+DAYS="3"
 
 mysqldump --defaults-extra-file=/etc/mysql/debian.cnf --all-databases --routines --events --add-drop-database --add-drop-table | gzip > ${FILE}
 chmod 0400 ${FILE}

@@ -6,7 +6,7 @@ RUN export LANG=C && \
     export LC_ALL=C && \
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
-    apt-get install -y sudo bash openssh-server curl supervisor && \
+    apt-get install -y sudo openssh-server curl supervisor && \
     groupadd debian && \
     useradd -g debian -G sudo -d /home/debian -m -s /bin/bash debian && \
     install -o debian -m 0700 -d /home/debian/.ssh && \

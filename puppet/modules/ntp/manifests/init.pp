@@ -1,7 +1,7 @@
 class ntp {
 
 	package { 'ntp':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	file { 'ntp.conf':

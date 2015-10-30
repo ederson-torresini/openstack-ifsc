@@ -14,7 +14,7 @@ class keepalived {
 	}
 
 	package { 'keepalived':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	$source = $hostname ? {

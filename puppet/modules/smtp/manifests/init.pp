@@ -1,11 +1,11 @@
 class smtp {
 
 	package { 'mailutils':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	package { 'postfix':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	# Made with: openssl req -new -days 365 -nodes -x509 -out postfix.pem -keyout postfix.pem

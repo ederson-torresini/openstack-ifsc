@@ -1,14 +1,14 @@
 class ceph-radosgw {
 
 	package { 'radosgw':
-		ensure => installed,
+		ensure => latest,
 		require => [
 			Package['ceph'],
 		],
 	}
 
 	package { 'libnss3-tools':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	# Based on https://ceph.com/docs/master/radosgw/config/#add-a-ceph-object-gateway-script: it will be used by Apache2 user (www-data).

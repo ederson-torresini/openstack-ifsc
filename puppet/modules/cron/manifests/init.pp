@@ -1,7 +1,7 @@
 class cron {
 
 	package { 'cron':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	file { 'crontab':

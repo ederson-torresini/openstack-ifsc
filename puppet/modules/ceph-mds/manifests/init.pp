@@ -3,7 +3,7 @@
 class ceph-mds {
 
 	package { 'ceph-mds':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	file { 'ceph.mds.keyring':

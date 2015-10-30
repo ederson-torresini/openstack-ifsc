@@ -1,5 +1,5 @@
 package { 'puppet':
-	ensure => installed,
+	ensure => latest,
 }
 
 service { 'puppet':
@@ -26,7 +26,7 @@ node "roteador" {
 node "openstack0" {
 
 	package { 'puppetmaster':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	service { 'puppetmaster':

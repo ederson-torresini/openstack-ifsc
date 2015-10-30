@@ -1,7 +1,7 @@
 class mysql {
 
 	package { 'mysql-server':
-		ensure => installed,
+		ensure => latest,
 		before => File['my.cnf'],
 	}
 

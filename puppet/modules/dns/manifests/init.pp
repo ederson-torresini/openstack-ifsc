@@ -1,7 +1,7 @@
 class dns {
 
 	package { 'bind9':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	file { 'named.conf':

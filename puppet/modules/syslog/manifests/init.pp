@@ -1,7 +1,7 @@
 class syslog {
 
 	package { 'rsyslog':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	service { 'rsyslog':

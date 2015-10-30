@@ -1,11 +1,11 @@
 class ceph-common {
 
 	package { 'ceph-fs-common':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	package { 'ceph':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	file { 'ceph.conf':
@@ -47,7 +47,7 @@ class ceph-common {
 	}
 
 	package { 'lvm2':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	exec { '/sbin/pvcreate /dev/sda3':
@@ -81,7 +81,7 @@ class ceph-common {
 	}
 
 	package { 'xfsprogs':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	# Check modules/ceph-{node}...

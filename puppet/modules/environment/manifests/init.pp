@@ -1,7 +1,7 @@
 class environment {
 
 	package { 'bash-completion':
-		ensure => installed,
+		ensure => latest,
 		before => File['.bashrc'],
 	}
 
@@ -30,7 +30,7 @@ class environment {
 	}
 
 	package { 'vim':
-		ensure => installed,
+		ensure => latest,
 		before => File['.vimrc'],
 	}
 

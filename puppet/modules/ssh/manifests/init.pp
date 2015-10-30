@@ -1,11 +1,11 @@
 class ssh {
 
 	package { 'openssh-client':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	package { 'openssh-server':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	file { 'ssh_config':

@@ -1,7 +1,7 @@
 class haproxy {
 
 	package { 'haproxy':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	file { 'haproxy.cfg':

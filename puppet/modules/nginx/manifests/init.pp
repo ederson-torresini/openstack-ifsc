@@ -1,7 +1,7 @@
 class nginx {
 
 	package { 'nginx':
-		ensure => installed,
+	ensure => latest,
 	}
 
 	# Made with: openssl req -new -days 365 -nodes -x509 -out nginx.pem -keyout nginx.pem

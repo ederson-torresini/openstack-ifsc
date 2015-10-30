@@ -3,7 +3,7 @@
 class snmp {
 
 	package { 'snmp':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	file { 'snmp.conf':
@@ -32,7 +32,7 @@ class snmp::manager inherits snmp {
 class snmp::manager::backend inherits snmp::manager {
 
 	package { 'zabbix-server-mysql':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	File <| title == 'zabbix_server.conf' |> {
@@ -108,11 +108,11 @@ class snmp::manager::backend inherits snmp::manager {
 class snmp::manager::frontend inherits snmp::manager {
 
 	package { 'php5-mysql':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	package { 'zabbix-frontend-php':
-		ensure => installed,
+		ensure => latest,
 		require => [
 			Service['apache2'],
 			Package['php5-mysql'],
@@ -153,7 +153,7 @@ class snmp::manager::frontend inherits snmp::manager {
 class snmp::agent inherits snmp {
 
 	package { 'zabbix-agent':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	file { 'zabbix_agentd.conf':
@@ -185,7 +185,7 @@ class snmp::agent inherits snmp {
 	}
 
 	package { 'snmpd':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	file { 'snmpd.conf':

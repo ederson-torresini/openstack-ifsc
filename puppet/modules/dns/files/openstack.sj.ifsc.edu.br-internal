@@ -1,4 +1,4 @@
-$TTL  86400
+$TTL 86400
 @ IN SOA dns1.openstack.sj.ifsc.edu.br. dnsadmin.openstack.sj.ifsc.edu.br. (
 2015071601
 86400
@@ -6,58 +6,58 @@ $TTL  86400
 604800
 86400
 )
-@ IN  NS  dns1.openstack.sj.ifsc.edu.br.
-@  IN  NS  dns2.openstack.sj.ifsc.edu.br.
-@  IN  AAAA  FC00:450::200
-@  IN  A  10.45.0.200
+@ IN NS dns1.openstack.sj.ifsc.edu.br.
+@ IN NS dns2.openstack.sj.ifsc.edu.br.
+@ IN AAAA FC00:450::200
+@ IN A 10.45.0.200
 
-dns1  IN  AAAA  FC00:450::201
-dns1  IN  A  10.45.0.201
-dns2  IN  AAAA  FC00:450::202
-dns2  IN  A  10.45.0.202
+dns1 IN AAAA FC00:450::201
+dns1 IN A 10.45.0.201
+dns2 IN AAAA FC00:450::202
+dns2 IN A 10.45.0.202
 
 ; Lack of IPv6 support
-;keystone  IN  AAAA  FC00:450::199
-keystone  IN  A  10.45.0.199
+;keystone IN AAAA FC00:450::199
+keystone IN A 10.45.0.199
 
-openstack0  IN  AAAA  FC00:450::200
-openstack0  IN  A  10.45.0.200
-puppet  IN  CNAME  openstack0
-controller  IN  CNAME  openstack0
-mysql  IN  CNAME  openstack0
-rabbitmq  IN  CNAME  openstack0
-glance  IN  CNAME  openstack0
-nova-controller  IN  CNAME  openstack0
-nova-api  IN  CNAME  openstack0
-nova-cert  IN  CNAME  openstack0
-nova-conductor  IN  CNAME  openstack0
-nova-consoleauth  IN  CNAME  openstack0
-nova-novncproxy  IN  CNAME  openstack0
-nova-scheduler  IN  CNAME  openstack0
-neutron-controller  IN  CNAME  openstack0
-cinder-controller  IN  CNAME  openstack0
-heat  IN  CNAME  openstack0
-orchestration  IN  CNAME  openstack0
-snmp-manager  IN  CNAME  openstack0
-zabbix  IN  CNAME  openstack0
-syslog  IN  CNAME  openstack0
-ntp  IN  CNAME  openstack0
+openstack0 IN AAAA FC00:450::200
+openstack0 IN A 10.45.0.200
+puppet IN CNAME openstack0
+controller IN CNAME openstack0
+mysql IN CNAME openstack0
+rabbitmq IN CNAME openstack0
+glance IN CNAME openstack0
+nova-controller IN CNAME openstack0
+nova-api IN CNAME openstack0
+nova-cert IN CNAME openstack0
+nova-conductor IN CNAME openstack0
+nova-consoleauth IN CNAME openstack0
+nova-novncproxy IN CNAME openstack0
+nova-scheduler IN CNAME openstack0
+neutron-controller IN CNAME openstack0
+cinder-controller IN CNAME openstack0
+heat IN CNAME openstack0
+orchestration IN CNAME openstack0
+snmp-manager IN CNAME openstack0
+zabbix IN CNAME openstack0
+syslog IN CNAME openstack0
+ntp IN CNAME openstack0
 ; https://ceph.com/docs/master/install/install-ceph-gateway/
-radosgw  IN  CNAME  openstack0
+radosgw IN CNAME openstack0
 
-openstack1  IN  AAAA  FC00:450::201
-openstack1  IN  A  10.45.0.201
-trove  IN  CNAME  openstack1
-database  IN  CNAME  openstack1
+openstack1 IN AAAA FC00:450::201
+openstack1 IN A 10.45.0.201
+trove IN CNAME openstack1
+database IN CNAME openstack1
 
-openstack2  IN  AAAA  FC00:450::202
-openstack2  IN  A  10.45.0.202
-ceilometer  IN  CNAME  openstack2
-telemetry  IN  CNAME  openstack2
+openstack2 IN AAAA FC00:450::202
+openstack2 IN A 10.45.0.202
+ceilometer IN CNAME openstack2
+telemetry IN CNAME openstack2
 
-openstack3  IN  AAAA  FC00:450::203
-openstack3  IN  A  10.45.0.203
-horizon  IN  CNAME  openstack3
-dashboard  IN  CNAME  openstack3
-memcached  IN  CNAME  openstack3
-swift  IN  CNAME  openstack3
+openstack3 IN AAAA FC00:450::203
+openstack3 IN A 10.45.0.203
+horizon IN CNAME openstack3
+dashboard IN CNAME openstack3
+memcached IN CNAME openstack3
+swift IN CNAME openstack3

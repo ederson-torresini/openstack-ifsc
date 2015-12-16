@@ -1,7 +1,7 @@
 openstack-ifsc
 ==============
 
-The problem to solve: buid a self-service IaaS for IFSC teachers (class activities) and students (remote labs), including template machines running open-source or proprietary software (with networked key).
+The problem to solve: buid a self-service IaaS for IFSC teachers (class activities) and students (remote labs), including template machines running open-source or proprietary software.
 
 What we have:
 - 4 x HP Z220: 1 x Intel Xeon E3-1225v2, 4 x 4 GB DDR3-1600 nECC, 1 x SATA 1 TB @ 7.2K RPM (`sda`), 1 x SSD 240 GB (`sdb`), 2 x Gigabit Ethernet (Intel 82579LM, `em1`, and Realtek RTL8169, `p5p1`).

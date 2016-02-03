@@ -159,16 +159,6 @@ class openstack-neutron::agent::compute inherits openstack-neutron::agent::commo
 		],
 	}
 
-	# http://openstack.redhat.com/Using_GRE_tenant_networks
-	exec { 'ethtool:em1-gre':
-		command => '/sbin/ethtool -K em1 tso off lro off gro off gso off',
-		onlyif => '/sbin/ip addr show em1',
-	}
-	exec { 'ethtool:p5p1-gre':
-		command => '/sbin/ethtool -K p5p1 tso off lro off gro off gso off',
-		onlyif => '/sbin/ip addr show p5p1',
-	}
-
 }
 
 class openstack-neutron::agent::network inherits openstack-neutron::agent::common {

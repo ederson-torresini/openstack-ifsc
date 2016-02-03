@@ -1,3 +1,8 @@
+schedule { 'daily':
+	period => daily,
+	repeat => 1,
+}
+
 package { 'puppet':
 	ensure => latest,
 }

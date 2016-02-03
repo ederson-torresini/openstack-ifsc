@@ -95,11 +95,6 @@ class openstack-keystone {
 
 class openstack-keystone::cleaning {
 
-	schedule { 'daily':
-		period => daily,
-		repeat => 1,
-	}
-
 	exec { 'keystone-manage:token_flush':
 		command => '/usr/bin/keystone-manage token_flush',
 		schedule => daily,

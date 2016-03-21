@@ -1,11 +1,11 @@
 class openstack-horizon::common {
 
 	package { 'memcached':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	package { 'python-memcache':
-		ensure => installed,
+		ensure => latest,
 		require => Package['memcached'],
 	}
 
@@ -26,11 +26,11 @@ class openstack-horizon::common {
 	}
 
 	package { 'apache2':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	package { 'libapache2-mod-wsgi':
-		ensure => installed,
+		ensure => latest,
 		require => Package['apache2'],
 	}
 

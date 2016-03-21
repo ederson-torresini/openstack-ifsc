@@ -1,23 +1,23 @@
 class openstack-common {
 
 	package{ 'git':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	package { 'mysql-client':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	package { 'python-mysqldb':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	package { 'python-setuptools':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	package { 'python-pip':
-		ensure => installed,
+		ensure => latest,
 	}
 
 	package { 'python-keystoneclient':

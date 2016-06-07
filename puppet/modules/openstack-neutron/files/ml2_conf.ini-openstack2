@@ -30,4 +30,4 @@ l2_population = True
 arp_responder = True
 #
 # Based on http://docs.openstack.org/networking-guide/scenario_dvr_ovs.html
-#enable_distributed_routing = True
+enable_distributed_routing = True

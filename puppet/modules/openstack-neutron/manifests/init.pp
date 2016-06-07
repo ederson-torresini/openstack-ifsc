@@ -1,5 +1,9 @@
 class openstack-neutron::common {
 
+	package { 'neutron-common':
+		ensure => installed,
+	}
+
 	package { 'neutron-plugin-ml2':
 		ensure => installed,
 	}
@@ -13,8 +17,16 @@ class openstack-neutron::common {
 
 	file  { 'ml2_conf.ini':
 		path => '/etc/neutron/plugins/ml2/ml2_conf.ini',
-		ensure => file,
 		source => $source,
+		owner => root,
+		group => neutron,
+		mode => 0640,
+		require => Package['neutron-plugin-ml2'],
+	}
+
+	file { 'ovs_neutron_plugin.ini':
+		path => '/etc/neutron/plugins/openvswitch/ovs_neutron_plugin.ini',
+		source => 'puppet:///modules/openstack-neutron/ovs_neutron_plugin.ini',
 		owner => root,
 		group => neutron,
 		mode => 0640,
@@ -53,6 +65,7 @@ class openstack-neutron::controller inherits openstack-neutron::common {
 		subscribe => [
 			File['neutron.conf'],
 			File['ml2_conf.ini'],
+			File['ovs_neutron_plugin.ini'],
 		],
 	}
 
@@ -110,10 +123,6 @@ class openstack-neutron::controller inherits openstack-neutron::common {
 
 class openstack-neutron::agent::common inherits openstack-neutron::common {
 
-	package { 'neutron-common':
-		ensure => installed,
-	}
-
 	package { 'neutron-plugin-openvswitch-agent':
 		ensure => installed,
 	}
@@ -124,6 +133,7 @@ class openstack-neutron::agent::common inherits openstack-neutron::common {
 		subscribe => [
 			File['neutron.conf'],
 			File['ml2_conf.ini'],
+			File['ovs_neutron_plugin.ini'],
 		],
 	}
 
